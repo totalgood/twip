@@ -18,4 +18,6 @@ Don't install the latest version from PyPi if you are working through the tutori
 Credits
 =======
 
-This project was set up using [PyScaffold](http://pyscaffold.readthedocs.org/) an awesome tool for gettings started your python modules with a best-practices skeleton.
+* PyScaffold_ -- an awesome tool that does package setup the right way
+
+.. _PyScaffold: http://pyscaffold.readthedocs.org/

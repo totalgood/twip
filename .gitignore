@@ -39,3 +39,6 @@ docs/api/*
 docs/_build/*
 cover/*
 MANIFEST
+
+# Secrets (Passwowords and Keys)
+settings_secret.py

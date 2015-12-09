@@ -95,6 +95,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+TWITTER_API_KEY = 'tmAkMKOUXZYU7VPWXW1DxQix3'
+TWITTER_API_SECRET = 'HQDU06ZII6fOu2HlH0crch4ACozwZk53F2Fkktwv0xPuQS2NlS'
+TWITTER_API_OWNER = 'hobsonlane'
+TWITTER_API_OWNER_ID = 59275999
+# twyth = Twython(TWITTER_API_KEY, TWITTER_API_SECRET)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

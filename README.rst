@@ -22,6 +22,7 @@ If you don't already have one, sign up to get a twitter user account (@username)
 
 Once you have a user account, set up a twitter App with an API KEY: apps.twitter.com/app/new_
 
+Copy and paste the Consumer API Key and Consumer API Secret into a file called
 
 Credits
 =======

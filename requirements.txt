@@ -16,3 +16,4 @@ ipykernel>=4.2.0
 ipyparallel>=4.1.0
 nbconvert>=4.1.0
 nbformat>=4.0.1
+twython>=3.3.0

@@ -73,11 +73,11 @@ def get_twitter(app_key=None, app_secret=None, search='python', location='', **k
 
 
 #TODO: inherit the Twython class and add methods to find keys in files by default
-def get_cursor(twitter=None, search='python', location='', **kwargs):
+def get_cursor(twitter=None, search='python', location=''):
     if not twitter:
         twitter = get_twitter()
     location = geocode(location)
-    return twitter.cursor(twitter.search, q=search, geocode=location, **kwargs)
+    return twitter.cursor(twitter.search, q=search)
 
 
 def limitted_dump(cursor=None, twitter=None, path='tweets.json', limit=450, rate=TWITTER_SEARCH_RATE_LIMIT, indent=-1):
@@ -107,4 +107,4 @@ def limitted_dump(cursor=None, twitter=None, path='tweets.json', limit=450, rate
                 sleep(1. / rate)
             else:
                 sleep(15 * 60)
-        f.write(']\n')
+        f.write('\n]\n')

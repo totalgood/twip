@@ -40,5 +40,8 @@ docs/_build/*
 cover/*
 MANIFEST
 
+# Data
+data/*.json
+
 # Secrets (Passwowords and Keys)
 settings_secret.py

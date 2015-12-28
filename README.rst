@@ -12,11 +12,11 @@ Language Processing tutorial and workshop. For more information see the
 `tutorial
 repository <https://github.com/totalgood/pycon-2016-nlp-tutorial>`__.
 
-Don't install the latest version from PyPi if you are working through
-the tutorial yourself! Tagged version numbers will correspond to
-sections of the tutorial and handout material so you can maintain pace
-even if you miss a step along the way. Plus it'll be easier to set up
-your API keys if you clone the repository.
+Don't install the latest version from PyPi if you're working through the
+tutorial yourself! Tagged version numbers will correspond to sections of
+the tutorial and handout material so you can maintain pace even if you
+miss a step along the way. Plus it'll be easier to set up your API keys
+if you clone the repository.
 
 GETTING STARTED
 ---------------

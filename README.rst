@@ -63,8 +63,11 @@ Credits
 
 -  `Hobson Lane <http://hobsonlane.com/>`__ -- Data Scientist for
    `Talentpair <http://talentpair.com/>`__
--  `Rob Ludwick <https://www.linkedin.com/in/rludwick>`__ -- Came up
-   with the tweet impact prediction application idea
+-  `Rob Ludwick <https://www.linkedin.com/in/rludwick>`__ --
+   Co-Instructor, helped craft the proposal and suggested the tweet
+   optimization application
+-  `Jeremy Robin <https://www.linkedin.com/in/jeremyrobin>`__ --
+   Co-Instructor, helped develop the material
 -  `PyScaffold <http://pyscaffold.readthedocs.org/>`__ -- Python package
    setup done right (the one obvious way)
 

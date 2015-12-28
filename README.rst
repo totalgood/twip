@@ -18,7 +18,7 @@ Don't install the latest version from PyPi if you are working through the tutori
 GETTING STARTED
 ===============
 
-If you don't already have one, sign up to get a twitter user account (@username): twitter.com/signup_
+If you don't already have one, sign up to get a twitter user account (an @username): twitter.com/signup_
 
 Once you have a user account, set up a twitter App with an API KEY: apps.twitter.com/app/new_
 

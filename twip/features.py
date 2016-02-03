@@ -158,7 +158,8 @@ def load_tweets(filename='tweets.zip'):
             "lang": "en",
             "utc_offset": -18000,
             "statuses_count": 157,
-            "description": "Follow this account for geo-targeted Software Dev. - General/IT job tweets in Sacramento, CA. Need help? Tweet us at @CareerArc!",
+            "description": "Follow this account for geo-targeted Software Dev.
+                - General/IT job tweets in Sacramento, CA. Need help? Tweet us at @CareerArc!",
             "friends_count": 326,
             "profile_link_color": "4A913C",
             "profile_image_url": "http://pbs.twimg.com/profile_images/670049883869458435/J_Klv-BV_normal.jpg",
@@ -245,6 +246,8 @@ def load_tweets(filename='tweets.zip'):
 
 
 def features(filename='tweets.zip'):
+    """NotImplemented"""
+    raise NotImplemented("Need to implement feature extraction.")
     js = load_tweets(filename)
     index = []
     table = []
@@ -253,16 +256,16 @@ def features(filename='tweets.zip'):
                u'favorited', u'favorite_count',  u'retweeted', u'retweet_count',
                u'source', u'coordinates',
                (u'user', u'id'), (u'user', u'followers_count'), (u'user', u'location'),
-               (u'metadata', u'iso_language_code')
- u'user',
- u'geo',
- u'in_reply_to_user_id_str',
- u'possibly_sensitive',
- u'lang',
- u'created_at',
- u'in_reply_to_status_id_str',
- u'place',
- ]
+               (u'metadata', u'iso_language_code'),
+               u'user',
+               u'geo',
+               u'in_reply_to_user_id_str',
+               u'possibly_sensitive',
+               u'lang',
+               u'created_at',
+               u'in_reply_to_status_id_str',
+               u'place',
+               ]
 
     for tweet in js:
         index += [int(tweet['id'])]

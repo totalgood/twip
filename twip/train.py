@@ -211,7 +211,7 @@ def lsi(tokenize=None, iter_dics=None, ram=0.4, num_docs=5000, num_topics=200, n
       power_iters (int):   See gensim.models.LsiModel, default: None
       extra_samples (int): See gensim.models.LsiModel, default: None
 
-    My pass through the document generator 3 times (internal tees maintained to "reset" the generator):
+    My process the document generator 3 times (internal tees maintained to "reset" the generator):
 
     1. "train" Dictionary (Vocab): find set of unique tokens and assigned int IDs)
     2. "train" TfidfModel transform: need global frequencies (by tokenizing docs from document generator) for DF (document freuency) part

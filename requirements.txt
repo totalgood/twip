@@ -1,12 +1,11 @@
-# Add your requirements here like:
-django>=1.9
-django-extensions>=1.5.9
+twython>=3.3.0
+
 editdistance>=0.2
 nltk>=3.1
-scipy>=0.16.1
-numpy>=1.10.1
-pandas>=0.17.1
-pug-nlp>=0.0.21
+pandas>=0.18.0
+pug-nlp>=0.1.1
+
+# ipython[all]
 ipython>=4.0.1
 ipython-genutils>=0.1.0
 matplotlib>=1.5.0
@@ -16,4 +15,17 @@ ipykernel>=4.2.0
 ipyparallel>=4.1.0
 nbconvert>=4.1.0
 nbformat>=4.0.1
-twython>=3.3.0
+
+#$ sudo apt-get install libpng12-dev libfreetype6-dev
+matplotlib>=1.5.1
+# these come with matplotlib
+# pytz>=2016.4
+# python-dateutil>=2.5.3
+
+seaborn>=0.7.0
+# comes with seaborn
+# scipy>=0.17.0
+
+# for a webapp
+django>=1.9
+django-extensions>=1.5.9

@@ -45,3 +45,7 @@ data/*.json
 
 # Secrets (Passwowords and Keys)
 settings_secret.py
+
+# other
+tweetget/raw/
+tweetget/data.json

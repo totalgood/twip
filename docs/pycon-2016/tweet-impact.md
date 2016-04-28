@@ -1,5 +1,27 @@
 # Tweet Impact
 
+## Twitter Analytics
+
+Twitter may have more analytics than their sharing through their API, but here some things to think about:
+
+### Engagement Rate?
+
+Replies? Favorites? Mouseover?
+
+### Link Clicks
+
+Obviously want to count this, if you can, but don't forget to normalize for the existence of links (Twitter Analytics doesn't normalize, because they want to encourage link sharing). My "Top Tweets" were only those with links.
+
+### Retweets
+
+Another obvious thing to track, available in the API, which leads us to the concept of "Reach" or "Impressions."
+
+<img src="twitter-analytics-dashboard.png">
+
+### Likes
+
+### Replies
+
 ## Reach
 
 An industry standard metric for marketing impact is "reach" which is the people who might have viewed your tweet. It counts the total followers of those that retrweet or fave your tweet. In most cases marketers aren't interested in measuring this accurately, but let's be scientific about it. We actually do care about the impact/reach of our tweets.

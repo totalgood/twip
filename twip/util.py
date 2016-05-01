@@ -52,10 +52,12 @@ from traceback import print_exc
 import pickle
 import json
 import re
-from collections import OrderedDict
+from itertools import islice, izip, tee
+import logging
 
-from gensim.corpora import Dictionary as Vocab
-from gensim.models import LsiModel, TfidfModel
+from boto.s3.connection import S3ResponseError
+
+from gensim.corpora import TextCorpus, Dictionary
 
 # from django.db.models.query import QuerySet, ValuesQuerySet
 from clayton.util import exponential_verbosity, safe_mod
@@ -64,64 +66,8 @@ from clayton.regex import CRE_TOKEN, RE_NONWORD
 from clayton.util import stringify, to_ascii, gen_qs_docs_name, str_strip, str_lower
 from clayton.nlp import list_ngrams, make_named_stemmer
 
-EXAMPLE_TEXT_FILE = os.path.join('..','data','corpora','Sir Patick Spens.txt')
-
-
-def get_tfidf(name='clayton', local_path=TMP_PATH):
-    """Retrieve a cached (AWS S3) TFIDF (gensim.models.TfidfModel) which includes a id2word vocab/Dictionary"""
-    s3_pull(name + '_tfidf.pickle', local_path=local_path)
-    with open(os.path.join(local_path, name), 'r') as fin:
-        tfidf = pickle.load(fin)
-    return tfidf
-
-
-# def get_tfidf(name='clayton', local_path=TMP_PATH):
-#     """Retrieve a cached (AWS S3) TFIDF (gensim.models.TfidfModel) and its associated vocabulary (gensim.corpus.Dictionary)"""
-#     tfidf = TfidfModel.load(s3_uri(name + '.tfidf.pickle'))
-#     vocab = Vocab.load(s3_uri(name + '.vocab.pickle'))
-#     return tfidf, vocab
-
-
-def get_lsi(name='clayton', local_path=TMP_PATH):
-    """Retrieve a cached (AWS S3) LsiModel (gensim.models.LsiModel) which includes a id2word vocab/Dictionary"""
-    s3_pull(name, local_path=local_path)
-    with open(os.path.join(local_path, name), 'r') as fin:
-        lsi = pickle.load(fin)
-    return lsi
-
-
-def get_topic(lsi, topic=0, min_weight=0.01, num_words=10000, **kwargs):
-    """gensim.LsiModel.show_topics() sucks. Here's a better API"""
-    topn = kwargs.pop('topn', num_words)
-    return OrderedDict(((tok, w) for (tok, w) in lsi.show_topic(topic, topn=topn) if w > min_weight))
-
-
-def get_topics(lsi, min_weight=0.01, num_words=10000, **kwargs):
-    """Get list topic vectors, dicts of token weights above a min_weight specified"""
-    num_topics = kwargs.pop('num_topics', float('inf'))
-    return [get_topic(lsi, topic=i, min_weight=min_weight, num_words=num_words, **kwargs) for i in range(lsi.num_topics) if i < num_topics]
-
-
-def save_topics(lsi, filename='lsi_topics', min_weight=0.01, num_words=10000, indent=2, **kwargs):
-    """Save list of topics to json file on S3"""
-    topics = get_topics(lsi, min_weight=min_weight, num_words=num_words, **kwargs)
-    if not filename.endswith('.json'):
-        filename += '.json'
-    with open(os.path.join(TMP_PATH, filename), 'w') as fout:
-        json.dump(topics, fout, indent=indent)
-    s3_push(filename, local_path=TMP_PATH)
-    return fout.name
-
-
-def get_tfidf_vocab(name='clayton', local_path=TMP_PATH):
-    """Retrieve a cached (AWS S3) TFIDF (gensim.models.TfidfModel) and its associated vocabulary (gensim.corpus.Dictionary)"""
-    tfidf_vocab = []
-    for s in ['tfidf', 'vocab']:
-        filename = '{}_{}.pickle'.format(name, s)
-        s3_pull(filename)
-        with open(os.path.join(local_path, filename), 'r') as fin:
-            tfidf_vocab += [pickle.load(fin)]
-    return tuple(tfidf_vocab)
+log = logging.getLogger('loggly')
+passthrough = passthrough  # for flake8 and so nonstemming Tokenizer that uses passthrough can be unpickled
 
 
 class Tokenizer(object):
@@ -136,6 +82,8 @@ class Tokenizer(object):
 
     >>> abc = (chr(ord('a') + (i % 26)) for i in xrange(1000))
     >>> tokenize = Tokenizer(ngrams=5)
+    >>> list(tokenize(None))
+    []
     >>> ans = list(tokenize(' '.join(abc)))
     >>> ans[:7]
     ['a', 'b', 'c', 'd', 'e', 'f', 'g']
@@ -148,13 +96,14 @@ class Tokenizer(object):
     >>> sorted(set(tokenize(doc)) - set(Tokenizer(doc, stem='Lancaster')))
     [u"Here'r", u'pleasur', u'some', u'stemmabl', u'your']
     >>> sorted(set(Tokenizer(doc, stem='WordNet')) - set(Tokenizer(doc, stem='Lancaster')))
-    ["Here're", 'pleasure', 'provided', 'some', 'stemmable', 'stemming', 'your']
+    ["Here're", 'pleasure', u'provide', 'some', 'stemmable', 'your']
     """
     __safe_for_unpickling__ = True
 
     def __init__(self, doc=None, regex=CRE_TOKEN, strip=True, nonwords=False, nonwords_set=None, nonwords_regex=RE_NONWORD,
-                 lower=None, stem=None, ngrams=1):
+                 lower=None, stem=None, ngram_delim=' ', ngrams=1):
         # specific set of characters to strip
+        self.ngram_delim = ngram_delim
         self.strip_chars = None
         if isinstance(strip, basestring):
             self.strip_chars = strip
@@ -165,7 +114,7 @@ class Tokenizer(object):
         strip = strip or None
         # strip whitespace, overrides strip() method
         self.strip = strip if callable(strip) else (str_strip if strip else None)
-        self.doc = to_ascii(doc)
+        self.doc = stringify(doc)
         self.regex = regex
         if isinstance(self.regex, basestring):
             self.regex = re.compile(self.regex)
@@ -174,7 +123,7 @@ class Tokenizer(object):
         self.nonwords_regex = nonwords_regex
         self.lower = lower if callable(lower) else (str_lower if lower else None)
         self.stemmer_name, self.stem = make_named_stemmer(stem)  # stem can be a callable Stemmer instance or just a function
-        self.ngrams = ngrams or 1  # ngram degree, numger of ngrams per token
+        self.ngrams = ngrams or 1  # ngram degree, number of ngrams per token
         if isinstance(self.nonwords_regex, basestring):
             self.nonwords_regex = re.compile(self.nonwords_regex)
         elif self.nonwords:
@@ -192,7 +141,7 @@ class Tokenizer(object):
         ['new', 'string', 'to', 'parse']
         """
         # tokenization doesn't happen until you try to iterate through the Tokenizer instance or class
-        self.doc = to_ascii(doc)
+        self.doc = stringify(doc)
         # need to return self so that this will work: Tokenizer()('doc (str) to parse even though default doc is None')
         return self
     # to conform to this part of the nltk.tokenize.TokenizerI interface
@@ -230,6 +179,7 @@ class Tokenizer(object):
             return iter((self.span_tokenize(s) for s in strings))
         :rtype: iter(list(tuple(int, int)))
         """
+        raise NotImplementedError("span_tokenizer and span_tokenzie_sents not yet implemented. ;)")
         for s in strings:
             yield list(self.span_tokenize(s))
 
@@ -268,12 +218,10 @@ class Tokenizer(object):
         ngrams = ngrams or self.ngrams
         # FIXME: Improve memory efficiency by making this ngram tokenizer an actual generator
         if ngrams > 1:
-            original_tokens = list(self.__iter__(ngrams=1))
-            for tok in original_tokens:
-                yield tok
-            for i in range(2, ngrams + 1):
-                for tok in list_ngrams(original_tokens, n=i, join=' '):
-                    yield tok
+            for i in range(ngrams):
+                igrams = [islice(self.__iter__(ngrams=1), j, None) for j in range(i + 1)]
+                for tok_tuple in izip(*igrams):
+                    yield self.ngram_delim.join(tok_tuple)
         else:
             for w in self.regex.finditer(self.doc):
                 if w:
@@ -283,9 +231,9 @@ class Tokenizer(object):
                     w = w if not self.stem else self.stem(w)
                     w = w if not self.lemmatize else self.lemmatize(w)
                     w = w if not self.lower else self.lower(w)
-                    # FIXME: nonword check before and after preprossing? (lower, lemmatize, strip, stem)
+
                     # 1. check if the default nonwords REGEX filter is requested, if so, use it.
-                    # 2. check if a customized nonwords REGES filter is provided, if so, use it.
+                    # 2. check if a customized nonwords REGEX filter is provided, if so, use it.
                     # 3. make sure the word isn't in the provided (or empty) set of nonwords
                     if w and (not self.nonwords or not re.match(r'^' + RE_NONWORD + '$', w)) and (
                             not self.nonwords_regex or not self.nonwords_regex.match(w)) and (
@@ -314,6 +262,15 @@ class Tokenizer(object):
 
 def make_tokenizer(tokenizer=Tokenizer, stem=False, strip=None, nonwords=None, lower=None):
     # always return a tokenizer, even if you request a None tokenizer
+    if isinstance(tokenizer, basestring):
+        for ext in ('', '_tokenizer.pickle', '_tokenizer', '.pickle'):
+            try:
+                obj = depreserve(filename=tokenizer.rstrip('._') + ext, ext='', multifile=False)
+                log.info("Successfully depreserved {}{} as {}".format(tokenizer, ext, obj))
+                return obj
+            except (S3ResponseError, IOError):
+                log.info('Unable to find file named {}{}'.format(tokenizer, ext))
+        log.error('Unable to find a tokenzer by the name {}'.format(repr(tokenizer)))
     tokenizer = tokenizer or Tokenizer
     if isinstance(tokenizer, type) and tokenizer.__name__ == 'Tokenizer':
         tokenizer = tokenizer(stem=stem, strip=strip, nonwords=nonwords, lower=lower)
@@ -339,7 +296,7 @@ def compile_vocab(docs, limit=1e6, verbose=0, tokenizer=Tokenizer(stem=None, low
     [u'AAA', u'BBB', u'CCC', u'label']
     """
     tokenizer = make_tokenizer(tokenizer)
-    d = Vocab()
+    d = Dictionary()
 
     verbose_factor = exponential_verbosity(verbose)
     try:
@@ -362,7 +319,7 @@ def compile_vocab(docs, limit=1e6, verbose=0, tokenizer=Tokenizer(stem=None, low
             break
         d.add_documents([list(tokenizer(doc))])
         if verbose and (verbose_factor < 1e-3 or not safe_mod(i, int(limit * verbose_factor))):
-            print('{}: {}'.format(i, d))
+            log.info('{}: {}'.format(i, repr(d)[:120]))
     return d
 
 
@@ -468,6 +425,26 @@ class FileBOWGen(object):
             self.num_lines = (self.num_lines or 0) + 1
             # assume there's one document per line, tokens separated by whitespace
             yield self.vocab.doc2bow(line.lower().split())
+
+
+def interleave_skip(iterables, limit=None):
+    """Like `chain.from_iterable(izip(*iterables))` but doesn't stop at the end of shortest iterable
+
+    TODO: equivalent to chain.from_iterable(izip_longest(*iterables)) if obj is not None)
+
+    >>> tuple(interleave_skip(s for s in ('ABCD', 'vwxyz', '12')))
+    ('A', 'v', '1', 'B', 'w', '2', 'C', 'x', 'D', 'y', 'z')
+    >>> list(interleave_skip((g for g in [xrange(10), xrange(20,25,1)])))
+    [0, 20, 1, 21, 2, 22, 3, 23, 4, 24, 5, 6, 7, 8, 9]
+    """
+
+    iterators = map(iter, iterables)
+    while iterators:
+        for i, it in enumerate(iterators):
+            try:
+                yield next(it)
+            except StopIteration:
+                del iterators[i]
 
 
 class BOWGen(object):

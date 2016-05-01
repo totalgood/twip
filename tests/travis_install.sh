@@ -29,7 +29,8 @@ if [[ "$DISTRIB" == "conda" ]]; then
     source activate testenv
 
 elif [[ "$DISTRIB" == "ubuntu" ]]; then
-    # Use standard ubuntu packages in their default version
+    apt-get install libpng12-dev libfreetype6-dev
+    apt-get install tcl-dev tk-dev python-tk python3-tk
 fi
 
 if [[ "$COVERAGE" == "true" ]]; then

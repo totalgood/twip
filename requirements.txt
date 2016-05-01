@@ -16,7 +16,10 @@ nbconvert>=4.1.0
 nbformat>=4.0.1
 
 #$ sudo apt-get install libpng12-dev libfreetype6-dev
+#$ sudo apt-get install tcl-dev tk-dev python-tk python3-tk
+#$ nano 
 matplotlib>=1.5.1
+#$ sed s/\:\ agg/tkagg/g '/home/hobs/.virtualenvs/twip/lib/python3.4/site-packages/matplotlib/mpl-data/matplotlibrc'
 # these come with matplotlib
 # pytz>=2016.4
 # python-dateutil>=2.5.3
@@ -28,3 +31,4 @@ seaborn>=0.7.0
 # for a webapp
 django>=1.9
 django-extensions>=1.5.9
+.

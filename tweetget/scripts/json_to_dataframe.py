@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-Find json files (recursively) within the curent path
-Load those that look like tweets dumped by tweetget
-Expand columns that contain arrays, e.g. geo.coordinates -> geo.coordinates.lat and .lon
-Combine each DataFrame into a single Pandas DataFrame
+"""Combine and normalize tweet.json files into a DataFrame dumped to csv
+
+- Find json files (recursively) within the curent path
+- Load those that look like tweets dumped by tweetget
+- Expand columns that contain arrays, e.g. geo.coordinates -> geo.coordinates.lat and .lon
+- Combine each DataFrame into a single Pandas DataFrame
+- Save utf-8 encoded csv file of the normalized/combined DataFrame
 """
 from __future__ import division, print_function, absolute_import
 

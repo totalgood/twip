@@ -1,9 +1,12 @@
 twython>=3.3.0
-
 editdistance>=0.2
 nltk>=3.1
 pandas>=0.18.0
+<<<<<<< HEAD
 pug-nlp>=0.1.5
+=======
+pug-nlp>=0.1.4
+>>>>>>> a1344164e657f54b822f0e50ed2057256714c3b3
 
 # ipython[all]
 ipython>=4.0.1
@@ -19,6 +22,7 @@ nbformat>=4.0.1
 #$ sudo apt-get install tcl-dev tk-dev python-tk python3-tk
 #$ nano 
 matplotlib>=1.5.1
+
 #$ sed s/\:\ agg/tkagg/g '/home/hobs/.virtualenvs/twip/lib/python3.4/site-packages/matplotlib/mpl-data/matplotlibrc'
 # these come with matplotlib
 # pytz>=2016.4
@@ -28,7 +32,7 @@ seaborn>=0.7.0
 # comes with seaborn
 # scipy>=0.17.0
 
-# for a webapp
-django>=1.9
-django-extensions>=1.5.9
-.
+# # for a webapp
+# django>=1.9
+# django-extensions>=1.5.9
+

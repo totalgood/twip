@@ -1,18 +1,19 @@
-twython>=3.3.0
-editdistance>=0.2
-nltk>=3.1
-pandas>=0.18.0
-pug-nlp>=0.1.5
+twython==3.4.0
+editdistance==0.3.1
+nltk==3.2.1
+pandas==0.18.1
+pug-nlp==0.1.5
+future==0.15.2
 
 # ipython[all]
-ipython>=4.0.1
-ipython-genutils>=0.1.0
-jupyter-client>=4.1.1
-jupyter-core>=4.0.6
-ipykernel>=4.2.0
-ipyparallel>=4.1.0
-nbconvert>=4.1.0
-nbformat>=4.0.1
+ipython==4.2.0
+ipython-genutils==0.1.0
+jupyter-client==4.2.2
+jupyter-core==4.1.0
+ipykernel==4.3.1
+ipyparallel==5.0.1
+nbconvert==4.2.0
+nbformat==4.0.1
 
 #$ sudo apt-get install libpng12-dev libfreetype6-dev
 #$ sudo apt-get install tcl-dev tk-dev python-tk python3-tk
@@ -21,14 +22,14 @@ matplotlib==1.5.0
 
 #$ sed s/\:\ agg/tkagg/g '/home/hobs/.virtualenvs/twip/lib/python3.4/site-packages/matplotlib/mpl-data/matplotlibrc'
 # these come with matplotlib
-# pytz>=2016.4
-# python-dateutil>=2.5.3
+# pytz==2016.4
+# python-dateutil==2.5.3
 
-seaborn>=0.7.0
+seaborn==0.7.0
 # comes with seaborn
-# scipy>=0.17.0
+# scipy==0.17.0
 
 # # for a webapp
-# django>=1.9
-# django-extensions>=1.5.9
+# django==1.9
+# django-extensions==1.5.9
 

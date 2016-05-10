@@ -11,4 +11,4 @@ requests==2.9.1
 requests-oauthlib==0.6.1
 simplegeneric==0.8.1
 traitlets==4.2.1
-twython==3.3.0
+twython==3.4.0

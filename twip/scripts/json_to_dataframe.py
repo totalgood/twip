@@ -37,8 +37,6 @@ __license__ = "mit"
 np = pd.np
 log = logging.getLogger(__name__)
 LOG_FORMAT = '%(levelname)-5s %(module)s.%(funcName)s:%(lineno)d %(message)s'
-logging.basicConfig(format=LOG_FORMAT)
-log = logging.getLogger(__file__)
 
 
 def parse_args(args):
@@ -64,20 +62,29 @@ def parse_args(args):
         default=DATA_PATH)
     parser.add_argument(
         '-t',
-        '--tweetfile')
+        '--tweetfile',
+        default='all_tweets.csv')
     parser.add_argument(
         '-g',
-        '--geofile')
+        '--geofile',
+        default='geo_tweets.csv')
     return parser.parse_args(args)
 
 
 def main(args):
+    global logging, log
+
     args = parse_args(args)
-    logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO, stream=sys.stdout)
-    df = cat_tweets(path=args.path, verbosity=args.verbose)
-    df = drop_nan_columns(df, inplace=True)
+    logging.basicConfig(format=LOG_FORMAT,
+                        level=logging.DEBUG if args.verbose else logging.INFO,
+                        stream=sys.stdout)
+    df = cat_tweets(path=args.path, verbosity=args.verbose + 1)
+    log.info('Combined {} tweets'.format(len(df)))
+    df = drop_nan_columns(df)
     save_tweets(df, path=args.path, filename=args.tweetfile)
     geo = get_geo(df, path=args.path, filename=args.geofile)
+    log.info("Combined {} tweets into a single file {} and set asside {} geo tweets in {}".format(
+        len(df), args.tweetfile, len(geo), args.geofile))
     return df, geo
 
 
@@ -134,18 +141,17 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1):
     return df_all
 
 
-def drop_nan_columns(df, thresh=325, inplace=True):
+def drop_nan_columns(df, thresh=325):
     """Drop columns that are mostly NaNs
 
     Excel files can only have 256 columns, so you may have to drop a lot in order to get down to this
     """
     if thresh < 1:
         thresh = int(thresh * df)
-    df.dropna(axis=1, thresh=thresh, inplace=inplace)
-    return df
+    return df.dropna(axis=1, thresh=thresh, inplace=False)
 
 
-def drop_columns(df, columns='common_columns.json'):
+def drop_columns(df, columns=u'common_columns.json'):
     # df_all = drop_columns(df_all)
     # common_columns = json.dump(list(df_all.columns), open(os.path.join(DATA_PATH, 'common_columns.json'), 'w'), indent=0)
     if isinstance(columns, base.str):
@@ -154,15 +160,17 @@ def drop_columns(df, columns='common_columns.json'):
     df.dropna(how='all', inplace=True)
 
 
-def get_geo(df, path=DATA_PATH, filename='geo_tweets.csv'):
-    geo = df[~df.lat.isnull() & ~df.lon.isnull()]
-    if filename:
+def get_geo(df, path=DATA_PATH, filename=u'geo_tweets.csv'):
+    path = path.encode()
+    geo = df[~df.lat.isnull() & ~df.lon.isnull()].copy()
+    if isinstance(filename, base.str):
         geo.to_csv(os.path.join(path, filename), encoding='utf8',  # compression='gzip',
                    escapechar=None, quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     return geo
 
 
-def save_tweets(df, path=DATA_PATH, filename='all_tweets.csv'):
+def save_tweets(df, path=DATA_PATH, filename=u'all_tweets.csv'):
+    path = path.encode
     filename = os.path.join(path, filename)
     df_size = len(df) * 2402.9691 / 1e6
 

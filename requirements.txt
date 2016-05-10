@@ -2,7 +2,7 @@ twython>=3.3.0
 editdistance>=0.2
 nltk>=3.1
 pandas>=0.18.0
-pug-nlp>=0.1.4
+pug-nlp>=0.1.5
 
 # ipython[all]
 ipython>=4.0.1
@@ -17,7 +17,7 @@ nbformat>=4.0.1
 #$ sudo apt-get install libpng12-dev libfreetype6-dev
 #$ sudo apt-get install tcl-dev tk-dev python-tk python3-tk
 #$ nano 
-matplotlib>=1.5.1
+matplotlib==1.5.0
 
 #$ sed s/\:\ agg/tkagg/g '/home/hobs/.virtualenvs/twip/lib/python3.4/site-packages/matplotlib/mpl-data/matplotlibrc'
 # these come with matplotlib

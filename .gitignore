@@ -41,8 +41,13 @@ cover/*
 MANIFEST
 
 # Data
+<<<<<<< HEAD
+data/
+data/*.json
+=======
 *.json
 *.csv
+>>>>>>> a1344164e657f54b822f0e50ed2057256714c3b3
 
 # Secrets (Passwowords and Keys)
 settings_secret.py

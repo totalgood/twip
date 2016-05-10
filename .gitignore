@@ -41,6 +41,7 @@ cover/*
 MANIFEST
 
 # Data
+data/
 data/*.json
 
 # Secrets (Passwowords and Keys)

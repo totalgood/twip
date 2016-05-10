@@ -3,7 +3,7 @@ twython>=3.3.0
 editdistance>=0.2
 nltk>=3.1
 pandas>=0.18.0
-pug-nlp>=0.1.1
+pug-nlp>=0.1.5
 
 # ipython[all]
 ipython>=4.0.1

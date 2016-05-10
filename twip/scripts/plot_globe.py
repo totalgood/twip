@@ -13,7 +13,7 @@ from twip.constant import DATA_PATH
 # df = pd.io.json.json_normalize(pd.json.load(open('data.json')))
 # df.to_csv('data.csv')
 
-df = pd.DataFrame.from_csv(os.path.join(DATA_PATH, 'all_tweets.csv'))
+df = pd.DataFrame.from_csv(os.path.join(DATA_PATH, 'geo_tweets.csv'), encoding='utf-8', index_col='id', engine='python')
 plt.plot(df.lon, df.lat, '.')
 plt.xlabel('Longitude (deg)')
 plt.ylabel('Latitude (deg)')

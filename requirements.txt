@@ -3,7 +3,7 @@ editdistance==0.3.1
 nltk==3.2.1
 pandas==0.18.1
 gensim==0.12.4
-pug-nlp==0.1.5
+pug-nlp>=0.1.6
 future==0.15.2
 
 # ipython[all]

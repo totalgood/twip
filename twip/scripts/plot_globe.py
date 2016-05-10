@@ -13,8 +13,8 @@ from twip.constant import DATA_PATH
 # df = pd.io.json.json_normalize(pd.json.load(open('data.json')))
 # df.to_csv('data.csv')
 
-df = pd.DataFrame.from_csv(os.path.join(DATA_PATH, 'all_tweets.csv'))
-plt.plot(df.lon, df.lat, '.')
+geo = pd.read_csv(os.path.join(DATA_PATH, 'geo_tweets.csv'), encoding='utf8', engine='python')
+plt.plot(geo.lon, geo.lat, '.')
 plt.xlabel('Longitude (deg)')
 plt.ylabel('Latitude (deg)')
 plt.show()
@@ -27,12 +27,12 @@ import numpy as np
 # perspective of satellite looking down at 50N, 100W.
 # use low resolution coastlines.
 # don't plot features that are smaller than 1000 square km.
-globe = Basemap(projection='ortho', lat_0 = 50, lon_0 = -100,
-              resolution = 'l', area_thresh = 1000.)
+globe = Basemap(projection='ortho', lat_0=50, lon_0=-100,
+                resolution='l', area_thresh=1000.)
 # draw coastlines, country boundaries, fill continents.
 globe.drawcoastlines()
 globe.drawcountries()
-globe.fillcontinents(color = 'coral')
+globe.fillcontinents(color='coral')
 # draw the edge of the globe projection region (the projection limb)
 globe.drawmapboundary()
 # draw lat/lon grid lines every 30 degrees.

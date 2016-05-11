@@ -47,6 +47,10 @@ u'this'
 u'wha'
 
 """
+from __future__ import division, print_function, absolute_import
+# `pip install future` for universal python2/3
+from past.builtins import basestring
+
 import os
 from traceback import print_exc
 import pickle
@@ -105,7 +109,7 @@ class Tokenizer(object):
         # specific set of characters to strip
         self.ngram_delim = ngram_delim
         self.strip_chars = None
-        if isinstance(strip, basestring):
+        if isinstance(strip, str):
             self.strip_chars = strip
             # strip_chars takes care of the stripping config, so no need for strip function anymore
             self.strip = None
@@ -116,7 +120,7 @@ class Tokenizer(object):
         self.strip = strip if callable(strip) else (str_strip if strip else None)
         self.doc = stringify(doc)
         self.regex = regex
-        if isinstance(self.regex, basestring):
+        if isinstance(self.regex, str):
             self.regex = re.compile(self.regex)
         self.nonwords = nonwords  # whether to use the default REGEX for nonwords
         self.nonwords_set = nonwords_set or set()
@@ -124,7 +128,7 @@ class Tokenizer(object):
         self.lower = lower if callable(lower) else (str_lower if lower else None)
         self.stemmer_name, self.stem = make_named_stemmer(stem)  # stem can be a callable Stemmer instance or just a function
         self.ngrams = ngrams or 1  # ngram degree, number of ngrams per token
-        if isinstance(self.nonwords_regex, basestring):
+        if isinstance(self.nonwords_regex, str):
             self.nonwords_regex = re.compile(self.nonwords_regex)
         elif self.nonwords:
             try:
@@ -262,7 +266,7 @@ class Tokenizer(object):
 
 def make_tokenizer(tokenizer=Tokenizer, stem=False, strip=None, nonwords=None, lower=None):
     # always return a tokenizer, even if you request a None tokenizer
-    if isinstance(tokenizer, basestring):
+    if isinstance(tokenizer, str):
         for ext in ('', '_tokenizer.pickle', '_tokenizer', '.pickle'):
             try:
                 obj = depreserve(filename=tokenizer.rstrip('._') + ext, ext='', multifile=False)
@@ -311,7 +315,7 @@ def compile_vocab(docs, limit=1e6, verbose=0, tokenizer=Tokenizer(stem=None, low
             # in case docs is a values() queryset (dicts of records in a DB table)
             doc = doc.values()
         except AttributeError:  # doc already is a values_list
-            if not isinstance(doc, basestring):
+            if not isinstance(doc, str):
                 doc = ' '.join([stringify(v) for v in doc])
             else:
                 doc = stringify(doc)
@@ -341,7 +345,7 @@ def model_dict(docs=None, limit=1e6, verbose=1,
     [u'AAA', u'BBB', u'CCC', u'label']
     """
     docs = docs or filter_kwargs.pop('qs', None)
-    if isinstance(docs, basestring):
+    if isinstance(docs, str):
         docs = gen_qs_docs_name(docs, score__gte=0.9, verbose=verbose)
 
     d = compile_vocab(docs, limit=limit, verbose=verbose, tokenizer=Tokenizer)
@@ -382,7 +386,7 @@ def gen_file_lines(path=EXAMPLE_TEXT_FILE, mode='rUb', strip_eol=True, ascii=Tru
     TODO:
       Use `eol` to split lines (currently ignored because use `file.readline` doesn't have EOL arg)
     """
-    if isinstance(path, basestring):
+    if isinstance(path, str):
         path = open(path, mode)
     with path:
         # TODO: read one char at a time looking for the eol char and yielding the interveening chars
@@ -401,7 +405,7 @@ class FileLineGen(object):
     def __init__(self, path=None, mode='rUb', eol='\n'):
         self.path = path or EXAMPLE_TEXT_FILE
         # open the file so exception raised if does not exist
-        if isinstance(self.path, basestring):
+        if isinstance(self.path, str):
             self.file_obj = open(self.path, mode)
         self.path = self.file_obj.name
         self.eol = eol  # TODO: unused
@@ -518,7 +522,7 @@ class BOWGen(object):
             #     self._num_docs = min(self.docs.count(), self.limit)
             # except:
             #     pass
-            # if not isinstance(self.docs, basestring):
+            # if not isinstance(self.docs, str):
             #     try:
             #         self._num_docs = min(len(self.docs), self.limit)
             #     except:
@@ -643,7 +647,7 @@ class BOWGen(object):
     def _gen_docs(self, docs=None, with_score=False, verbose=None):
         """Generate a sequence of documents (strings) from the provided docs name, path, or queryset"""
         self.docs = docs or self.docs
-        if isinstance(self.docs, basestring):
+        if isinstance(self.docs, str):
             try:
                 if with_score:
                     return ((doc, 0) for doc in FileLineGen(self.docs))
@@ -712,7 +716,7 @@ class Matcher(BOWGen):
     def project(self, doc):
         self.lsi = self.lsi or LsiModel(self, num_topics=self.num_dim)
         self.last = doc or ''
-        if isinstance(self.last, basestring):
+        if isinstance(self.last, str):
             self.last = self.vectorize(doc)
         self.last_tfidf = self.tfidf[doc]
         return self.lsi[self.last_tfidf]
@@ -720,7 +724,7 @@ class Matcher(BOWGen):
     def add_document(self, doc):
         self.lsi = self.lsi or LsiModel(self, num_topics=self.num_dim)
         self.last = doc or ''
-        if isinstance(self.last, basestring):
+        if isinstance(self.last, str):
             self.last = self.vectorize(doc)
         self.last_tfidf = self.tfidf[doc]
         return self.lsi[self.last_tfidf]

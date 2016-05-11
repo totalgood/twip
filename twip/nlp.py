@@ -1,4 +1,7 @@
 """Tokenization and string processing to support NLP"""
+from __future__ import division, print_function, absolute_import
+# `pip install future` for universal python2/3
+from past.builtins import basestring
 
 import re
 from itertools import chain
@@ -14,7 +17,6 @@ from twip.constant import NULL_VALUES, NULL_REPR_VALUES, MAX_NULL_REPR_LEN
 from twip.regex import RE_NONWORD, CRE_TOKEN, CRE_BAD_FILENAME, CRE_WHITESPACE
 from twip.serial import PrettyDict, stringify, passthrough
 from twip.numeric import safe_log
-
 
 STEMMER_DATASETS = {'snowball': 'udhr', 'wordnet': 'wordnet'}
 STEMMER_TYPES = {

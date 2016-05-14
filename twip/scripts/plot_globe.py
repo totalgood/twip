@@ -13,8 +13,13 @@ from twip.constant import DATA_PATH
 # df = pd.io.json.json_normalize(pd.json.load(open('data.json')))
 # df.to_csv('data.csv')
 
+<<<<<<< HEAD
 geo = pd.read_csv(os.path.join(DATA_PATH, 'geo_tweets.csv'), encoding='utf8', engine='python')
 plt.plot(geo.lon, geo.lat, '.')
+=======
+df = pd.DataFrame.from_csv(os.path.join(DATA_PATH, 'geo_tweets.csv'), encoding='utf-8', index_col='id', engine='python')
+plt.plot(df.lon, df.lat, '.')
+>>>>>>> 5074735286de4e6a641c8cd289af9939d68e78e6
 plt.xlabel('Longitude (deg)')
 plt.ylabel('Latitude (deg)')
 plt.show()

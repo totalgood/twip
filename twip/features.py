@@ -1,3 +1,7 @@
+from __future__ import division, print_function, absolute_import
+# `pip install future` for universal python2/3
+from past.builtins import basestring
+
 import os
 import json
 from zipfile import ZipFile

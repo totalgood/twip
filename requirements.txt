@@ -1,25 +1,23 @@
+# core requirements
 twython==3.4.0
 editdistance==0.3.1
 nltk==3.2.1
 pandas==0.18.1
+pandas_profiling
 gensim==0.12.4
-pug-nlp>=0.1.6
+pug-nlp==0.1.6
 future==0.15.2
+ipython[all]==4.2.0
 
-# ipython[all]
-ipython==4.2.0
-ipython-genutils==0.1.0
-jupyter-client==4.2.2
-jupyter-core==4.1.0
-ipykernel==4.3.1
-ipyparallel==5.0.1
-nbconvert==4.2.0
-nbformat==4.0.1
+# pandas comes with
+# scipy==0.16.1
+# numpy==1.10.1
 
-#$ sudo apt-get install libpng12-dev libfreetype6-dev
-#$ sudo apt-get install tcl-dev tk-dev python-tk python3-tk
+# for plotting, but requires binary package installation for some OSes 
+#$ sudo apt-get install libpng12-dev libfreetype6-dev tk-dev python-tk python3-tk
+#$ sudo pip install --no-cache-dir --no-binary :all: --upgrade -r requirements.txt
 #$ nano 
-matplotlib==1.5.0
+matplotlib==1.5.1
 
 #$ sed s/\:\ agg/tkagg/g '/home/hobs/.virtualenvs/twip/lib/python3.4/site-packages/matplotlib/mpl-data/matplotlibrc'
 # these come with matplotlib

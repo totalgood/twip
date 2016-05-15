@@ -177,8 +177,8 @@ def save_tweets(df, path=DATA_PATH, filename=u'all_tweets.csv'):
     T0 = time.time()
     log.info('Saving tweets in {} which should take around {:.1f} MB and {:.1f} min (utf-8 encoding in Pandas .to_csv is VERY slow)...'.format(
              filename, df_size, 2.0 * df_size / 60.))
-    df.to_csv('data/all_tweets.csv.gz', encoding='utf8',  # compression='gzip',
-              escapechar=None, quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
+    # additional to_csv options to consider: compression='gzip', escapechar=None, 
+    df.to_csv(os.path.join(path, filename), encoding='utf8', quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     T1 = time.time()
     log.info('Saved {} tweets in {:.1f} min'.format(len(df), (T1 - T0) / 60.))
 

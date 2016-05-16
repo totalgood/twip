@@ -160,5 +160,6 @@ def run():
     # the round-trip to disk cleans up encoding issues so encotding no longer needs to be specified on load
     df = pd.read_csv(os.path.join(DATA_PATH, 'cleaned_tweets.csv.gz'), index_col='id', compression='gzip',
                      quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC, low_memory=False)
-    df.to_csv(os.path.join(DATA_PATH, 'cleaned_tweets.csv.gz'), compression='gzip', quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
+    df.to_csv(os.path.join(DATA_PATH, 'cleaned_tweets.csv.gz'), compression='gzip',
+              quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     return df

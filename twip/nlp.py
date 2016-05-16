@@ -160,49 +160,6 @@ def nonnull_fields(obj, pretty=True):
                     not is_invalid_date(v)))
 
 
-def list_ngrams(token_list, n=1, join=' '):
-    """Return a list of n-tuples, one for each possible sequence of n items in the token_list
-
-    Arguments:
-      join (bool or str): if str, then join ngrom tuples on it before returning
-         True is equivalent to join=' '
-         default = True
-
-    See: http://stackoverflow.com/a/30609050/623735
-
-    >>> list_ngrams('goodbye cruel world'.split(), join=False)
-    [('goodbye',), ('cruel',), ('world',)]
-    >>> list_ngrams('goodbye cruel world'.split(), 2, join=False)
-    [('goodbye', 'cruel'), ('cruel', 'world')]
-    """
-    join = ' ' if join is True else join
-    if isinstance(join, basestring):
-        return [join.join(ng) for ng in list_ngrams(token_list, n=n, join=False)]
-    return zip(*[token_list[i:] for i in range(n)])
-
-
-def list_ngram_range(token_list, *args, **kwargs):
-    """Return a list of n-tuples, one for each possible sequence of n items in the token_list
-
-    Arguments:
-      join (bool or str): if str, then join ngrom tuples on it before returning
-         True is equivalent to join=' '
-         default = True
-
-    >>> list_ngram_range('goodbye cruel world'.split(), 0, 2, join=False)
-    [('goodbye',), ('cruel',), ('world',), ('goodbye', 'cruel'), ('cruel', 'world')]
-    >>> list_ngram_range('goodbye cruel world'.split(), 2, join=False)
-    [('goodbye',), ('cruel',), ('world',), ('goodbye', 'cruel'), ('cruel', 'world')]
-    >>> list_ngram_range('goodbye cruel world'.split(), 0, 2, join='|')
-    ['goodbye', 'cruel', 'world', 'goodbye|cruel', 'cruel|world']
-    >>> list_ngram_range('goodbye cruel world'.split(), 0, 2, join=True)
-    ['goodbye', 'cruel', 'world', 'goodbye cruel', 'cruel world']
-    """
-    m, n = (args if len(args) > 1 else ((0, args[0]) if args else (0, 1)))
-    join = args[2] if len(args) > 2 else kwargs.pop('join', True)
-    return list(chain(*(list_ngrams(token_list, i + 1, join=join) for i in range(0, n))))
-
-
 def nltk_download(name, ignore_errors=True):
     r"""Like nltk.download, but be quiet about it, and get a room (separate python process)
 

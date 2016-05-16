@@ -5,7 +5,7 @@ nltk==3.2.1
 pandas==0.18.1
 pandas-profiling==1.0.0a2
 gensim==0.12.4
-pug-nlp==0.1.7a
+pug-nlp==0.1.7a1
 future==0.15.2
 ipython[all]==4.2.0
 

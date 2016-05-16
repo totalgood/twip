@@ -7,7 +7,75 @@
 - drop rows with mostly null values
 - use DataFrame.describe to get basic stats on each column
 - use pandas_profiler.ProfileReport to produce histograms, etc in HTML
+
+Even after cleaning some rows have a lot of NaNs:
+
+>>> df = run()
+>>> df.iloc[31119]  # df.loc[722208743060951040]
+coordinates_coordinates                                                                  NaN
+coordinates_type                                                                         NaN
+created_at                                                    Mon Apr 18 23:42:36 +0000 2016
+entities_hashtags                                                                         []
+entities_media                                                                           NaN
+entities_symbols                                                                          []
+entities_urls                                                                             []
+entities_user_mentions                     [{u'indices': [3, 18], u'id': 315792938, u'id_...
+favorite_count                                                                             0
+favorited                                                                              False
+geo_coordinates                                                                          NaN
+geo_type                                                                                 NaN
+id_str                                                                    722208743060951040
+in_reply_to_screen_name                                                                  NaN
+in_reply_to_status_id                                                                    NaN
+in_reply_to_status_id_str                                                                NaN
+in_reply_to_user_id                                                                      NaN
+in_reply_to_user_id_str                                                                  NaN
+is_quote_status                                                                        False
+lang                                                                                      en
+lat                                                                                      NaN
+lon                                                                                      NaN
+metadata_iso_language_code                                                                en
+metadata_result_type                                                                  recent
+place_bounding_box_coordinates                                                           NaN
+place_bounding_box_type                                                                  NaN
+place_contained_within                                                                   NaN
+place_country                                                                            NaN
+place_country_code                                                                       NaN
+place_full_name                                                                          NaN
+                                                                 ...                        
+user_id_str                                                                              NaN
+user_is_translation_enabled                                                              NaN
+user_is_translator                                                                       NaN
+user_lang                                                                                NaN
+user_listed_count                                                                        NaN
+user_location                                                                            NaN
+user_name                                                                                NaN
+user_profile_background_color                                                            NaN
+user_profile_background_image_url                                                        NaN
+user_profile_background_image_url_https                                                  NaN
+user_profile_background_tile                                                             NaN
+user_profile_banner_url                                                                  NaN
+user_profile_image_url                                                                   NaN
+user_profile_image_url_https                                                             NaN
+user_profile_link_color                                                                  NaN
+user_profile_sidebar_border_color                                                        NaN
+user_profile_sidebar_fill_color                                                          NaN
+user_profile_text_color                                                                  NaN
+user_profile_use_background_image                                                        NaN
+user_protected                                                                           NaN
+user_screen_name                                                                         NaN
+user_statuses_count                                                                      NaN
+user_time_zone                                                                           NaN
+user_url                                                                                 NaN
+user_utc_offset                                                                          NaN
+user_verified                                                                            NaN
+quoted_status_id                                                                          -1
+quoted_status_id_str                                                                      -1
+retweeted_status_quoted_status_id                                                         -1
+retweeted_status_quoted_status_id_str                                                     -1
+Name: 722208743060951040, dtype: object
 """
+
 from __future__ import division, print_function, absolute_import
 from past.builtins import basestring
 

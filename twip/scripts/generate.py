@@ -40,7 +40,7 @@ def count_words(df, num_tweets=1000000, verbosity=1):
             pbar.update(pbar_i)
         if pbar_i > num_tweets:
             break
-        text = row.text if isinstance(row.text, basestring) and row.text and not np.isnan(row.text) else ''
+        text = row.text if isinstance(row.text, basestring) and row.text else ''
         counts[twid] = pd.Series(Counter(segment_words(text)))
         stats += [[counts[twid].sum(), np.sum(np.array(counts[twid] > 0)), len(text)]]
     stats = pd.DataFrame(stats, index=df.index, columns=['text_num_words', 'text_num_unique', 'text_len'])

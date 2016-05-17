@@ -32,7 +32,7 @@ def count_words(df, num_tweets=1000000, verbosity=1):
         pbar_i = 0
         pbar = progressbar.ProgressBar(maxval=df.shape[0])
         pbar.start()
-    counts = pd.DataFrame(columns=df.index)
+    counts = pd.DataFrame()
     stats = []
     for twid, row in df.iterrows():
         if verbosity:
@@ -41,7 +41,7 @@ def count_words(df, num_tweets=1000000, verbosity=1):
         if pbar_i > num_tweets:
             break
         text = row.text if isinstance(row.text, basestring) and row.text else ''
-        counts[twid] = pd.Series(Counter(segment_words(text)))
+        counts = pd.concat([counts, pd.Series(Counter(segment_words(text)), name=twid)], axis=1)
         stats += [[counts[twid].sum(), np.sum(np.array(counts[twid] > 0)), len(text)]]
     stats = pd.DataFrame(stats, index=df.index, columns=['text_num_words', 'text_num_unique', 'text_len'])
     df = pd.concat([df, stats], axis=1)

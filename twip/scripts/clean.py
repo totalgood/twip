@@ -102,31 +102,45 @@ def clean_labels(df):
     return df
 
 
-def dropna(df, nonnull_rows=100, nonnull_cols=50, nanstr='nan', nanval=np.nan):
+def dropna(df, nonnull_rows=100, nonnull_cols=50, nanstrs=('nan', 'NaN', ''), nullstr=''):
+    """Drop columns/rows with too many NaNs and replace NaNs in columns of strings with ''
+
+    >>> df = pd.DataFrame([['nan',np.nan,'str'],[np.nan,0.1,'and'],[2.0,None,np.nan]])
+    >>> dropna(df)
+    Empty DataFrame
+    Columns: []
+    Index: []
+    >>> dropna(df, nonnull_cols=0, nonnull_rows=0)
+       0    1    2
+    0     NaN  str
+    1     0.1  and
+    2  2  NaN     
+    """
     if 0 < nonnull_rows < 1:
         nonnull_rows = int(nonnull_rows * len(df))
     if 0 < nonnull_cols < 1:
         nonnull_cols = int(nonnull_cols * len(df.columns))
     for label in df.columns:
         series = df[label].copy()
-        strmask = np.array([isinstance(v, basestring) for v in series])
-        notnanmask = strmask
-        if not sum(notnanmask):
-            continue
-        print('Checking for {} nanstrings in {} column'.format(repr(nanstr), label))
-        try:
-            notnanmask[strmask] = notnanmask[strmask] & np.array(series[strmask] != nanstr)
-        except TypeError:
-            print("Unable to compare {} == {}".format(series[strmask], nanstr))
-        notnanmask = notnanmask | ~strmask                  
-        series[~notnanmask] = nanval
-        df[label] = series
+        if series.dtype in (np.dtype('O'), np.dtype('U'), np.dtype('S')):
+            for nanstr in nanstrs:
+                series[series == nanstr] = np.nan
+            df[label] = series
     # in iPython Notebook, try dropping with lower thresholds, checking column and row count each time
     print('The raw table shape is {}'.format(df.shape))
     df = df.dropna(axis=1, thresh=nonnull_rows)
     print('After dropping columns with fewer than {} nonnull values, the table shape is {}'.format(nonnull_rows, df.shape))
     df = df.dropna(axis=0, thresh=nonnull_cols)
     print('After dropping rows with fewer than {} nonnull values, the table shape is {}'.format(nonnull_cols, df.shape))
+    for label in df.columns:
+        series = df[label].copy()
+        if series.dtype == np.dtype('O'):
+            nonnull_dtype = series.dropna(inplace=False).values.dtype
+            if nonnull_dtype == np.dtype('O'):
+                series[series.isnull()] = nullstr
+                df[label] = series
+            else:
+                df[label] = series.astype(nonnull_dtype)
     return df
 
 

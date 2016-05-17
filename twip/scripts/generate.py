@@ -27,11 +27,11 @@ np = pd.np
 segment_words = Tokenizer(ngrams=1, lower=True)
 
 
-def tf_df(df, num_tweets=1000000, verbosity=1):
+def tf_df(df, num_tweets=1000000, verbosity=1, min_freq=5, max_freq=.4):
     if verbosity > 0:
         print('Compiling a vocabulary from the tokens found in {} tweets'.format(len(df)))
         pbar_i = 0
-        pbar = progressbar.ProgressBar(maxval=df.shape[0])
+        pbar = progressbar.ProgressBar(maxval=min(df.shape[0], num_tweets) + 1)
         pbar.start()
     termfreq = Counter()
     docfreq = Counter()
@@ -51,6 +51,8 @@ def tf_df(df, num_tweets=1000000, verbosity=1):
     tfdf = pd.DataFrame()
     tfdf['tf'] = pd.Series(termfreq, name='tf')
     tfdf['df'] = pd.Series(docfreq, name='df')
+    mask = (tfdf.df >= min_freq) & (tfdf.df <= int(max_freq * len(df)))
+    tfdf = tfdf[mask]
     # FIXME: filter tfdf for extremely frequent (functional words) and infrequent words (URLs, userIDs)
     return tfdf
 
@@ -60,9 +62,9 @@ def count_words(df, tfdf=None, num_tweets=1000000, verbosity=1):
         tfdf = tf_df(df, num_tweets=num_tweets, verbosity=verbosity)
     if verbosity > 0:
         pbar_i = 0
-        pbar = progressbar.ProgressBar(maxval=df.shape[0])
+        pbar = progressbar.ProgressBar(maxval=min(df.shape[0], num_tweets) + 1)
         pbar.start()
-    counts = pd.DataFrame(index=tfdf.index.sort_values(), columns=df.index)
+    counts = pd.DataFrame(np.zeros((len(tfdf), len(tfdf.columns))), index=tfdf.index, columns=tfdf.columns)
     stats = []
     for twid, row in df.iterrows():
         if verbosity:
@@ -76,8 +78,8 @@ def count_words(df, tfdf=None, num_tweets=1000000, verbosity=1):
         stats += [[counts[twid].sum(), np.sum(np.array(counts[twid] > 0)), len(text)]]
     if verbosity > 0:
         pbar.finish()
-    stats = pd.DataFrame(stats, index=df.index, columns=['text_num_words', 'text_num_unique', 'text_len'])
-    df = pd.concat([df, stats], axis=1)
+    stats = pd.DataFrame(stats, index=df.index[:len(stats)], columns=['text_num_words', 'text_num_unique', 'text_len'])
+    df = pd.concat([df.iloc[:num_tweets], stats], axis=1)
     if verbosity:
         pbar.finish()
     return df, counts
@@ -98,3 +100,4 @@ def run(num_tweets=1000000, verbosity=1):
     counts = counts.T  # word vectors in rows instead of columns
     counts.to_csv(os.path.join(DATA_PATH, 'tweet_word_vectors.csv.gz'), compression='gzip',
                   quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
+    return df, counts

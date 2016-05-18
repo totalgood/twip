@@ -20,6 +20,7 @@ import progressbar
 # from itertools import izip
 from twip.constant import DATA_PATH
 from pug.nlp.segmentation import Tokenizer
+from pug.nlp.constant import MAX_UINT16
 
 np = pd.np
 
@@ -27,7 +28,7 @@ np = pd.np
 segment_words = Tokenizer(ngrams=1, lower=True)
 
 
-def tf_df(df, num_tweets=1000000, verbosity=1, min_freq=5, max_freq=.4):
+def tf_df(df, num_tweets=1000000, verbosity=1, min_freq=2, max_freq=.9):
     if verbosity > 0:
         print('Compiling a vocabulary from the tokens found in {} tweets'.format(len(df)))
         pbar_i = 0
@@ -64,7 +65,7 @@ def count_words(df, tfdf=None, num_tweets=1000000, verbosity=1):
         pbar_i = 0
         pbar = progressbar.ProgressBar(maxval=min(df.shape[0], num_tweets) + 1)
         pbar.start()
-    counts = pd.DataFrame(np.zeros((len(tfdf), len(tfdf.columns))), index=tfdf.index, columns=tfdf.columns)
+    counts = pd.DataFrame(np.zeros((len(tfdf), len(df))), index=tfdf.index, columns=df.index)
     stats = []
     for twid, row in df.iterrows():
         if verbosity:
@@ -91,9 +92,16 @@ def run(num_tweets=1000000, verbosity=1):
     df = pd.read_csv(os.path.join(DATA_PATH, 'cleaned_tweets.csv.gz'), index_col='id', compression='gzip',
                       quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC, low_memory=False)
     print('Found {} tweets.'.format(len(df)))
-    tfdf = tf_df(df, num_tweets=num_tweets, verbosity=verbosity)
-    tfdf.to_csv(os.path.join(DATA_PATH, 'tweet_vocab.csv.gz'), compression='gzip',
-                quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
+    print('Loading previously compiled vocab...')
+    # the round-trip to disk cleans up encoding issues so encoding option no longer needs to be specified and gzip 
+    try:
+        tfdf = pd.read_csv(os.path.join(DATA_PATH, 'tweet_vocab.csv.gz'), index_col=0, compression='gzip',
+                          quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC, low_memory=False)
+        assert(len(tfdf) > 10000)
+    except:
+        tfdf = tf_df(df, num_tweets=num_tweets, verbosity=verbosity)
+        tfdf.to_csv(os.path.join(DATA_PATH, 'tweet_vocab.csv.gz'), compression='gzip',
+                    quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     df, counts = count_words(df, tfdf=tfdf, num_tweets=num_tweets, verbosity=verbosity)
     df.to_csv(os.path.join(DATA_PATH, 'counted_tweets.csv.gz'), compression='gzip',
               quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)

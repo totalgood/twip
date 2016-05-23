@@ -20,7 +20,7 @@ import progressbar
 # from itertools import izip
 from twip.constant import DATA_PATH
 from pug.nlp.segmentation import Tokenizer
-from pug.nlp.constant import MAX_UINT16
+# from pug.nlp.constant import MAX_UINT16
 
 np = pd.np
 
@@ -65,7 +65,7 @@ def count_words(df, tfdf=None, num_tweets=1000000, verbosity=1):
         pbar_i = 0
         pbar = progressbar.ProgressBar(maxval=min(df.shape[0], num_tweets) + 1)
         pbar.start()
-    counts = pd.DataFrame(np.zeros((len(tfdf), len(df))), index=tfdf.index, columns=df.index)
+    counts = pd.DataFrame(np.zeros((len(tfdf), len(df)), dtype='uint16'), index=tfdf.index, columns=df.index)
     stats = []
     for twid, row in df.iterrows():
         if verbosity:
@@ -74,7 +74,7 @@ def count_words(df, tfdf=None, num_tweets=1000000, verbosity=1):
         if pbar_i > num_tweets:
             break
         text = row.text if isinstance(row.text, basestring) and row.text else ''
-        counts[twid] = pd.Series(Counter(segment_words(text)), name=twid)
+        counts[twid] = pd.Series(Counter(segment_words(text)), name=twid, dtype='uint16')
         # counts = pd.concat([counts, pd.Series(Counter(segment_words(text)), name=twid)], axis=1)
         stats += [[counts[twid].sum(), np.sum(np.array(counts[twid] > 0)), len(text)]]
     if verbosity > 0:
@@ -83,7 +83,7 @@ def count_words(df, tfdf=None, num_tweets=1000000, verbosity=1):
     df = pd.concat([df.iloc[:num_tweets], stats], axis=1)
     if verbosity:
         pbar.finish()
-    return df, counts
+    return df, counts.T
 
 
 def run(num_tweets=1000000, verbosity=1):

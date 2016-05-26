@@ -229,7 +229,7 @@ def run():
     verbosity = 1
     filepath = os.path.join(DATA_PATH, 'all_tweets.csv')
     # this should load 100k tweets in about a minute
-    # check the file size and estimate load time from that (see json_to_dataframe.py)
+    # check the file size and estimate load time from that (see scritps/cat_tweets.py)
     print('Loading tweets (could take a minute or so)...')
     df = pd.read_csv(filepath, encoding='utf-8', engine='python')
     if 'id' in df.columns:

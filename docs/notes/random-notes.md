@@ -1,3 +1,11 @@
+- when processing data with gensim or a long-running script like cat_tweets or the tweet scraper
+    - check intermediate products
+    - browse the data, skim the text examples/samples
+    - use tmux if connected over a network
+    - save intermediate products
+    - watch the disk
+    - use htop (or similar) to monitor memory
+
 ### [Random Notes](docs/notes/random.md)
 
 This needs to be merged/consolidated with the submitted proposal

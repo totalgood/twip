@@ -21,3 +21,16 @@ python read.py
 # to hit Twitter's API every 15 minutes, run this in screen/tmux
 python cron.py
 ```
+
+Additional scripts can be found in ../twip/scripts/ such as
+
+cat_tweets -- combine tweetget json dump files into single large CSV
+
+Install with pip -e (so you can edit source code and still have a handy CLI in your `$PATH`)
+
+```bash
+$ pip install -e /path/to/twip
+$ cat_tweets --help
+```
+
+    

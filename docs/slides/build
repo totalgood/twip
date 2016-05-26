@@ -15,14 +15,14 @@ do
   fi
 
   TITLE=${TITLE%.*} 
-  HTML="${TITLE}.html"
-  MD="${TITLE}.md"
+  HTML="$TITLE.html"
+  MD="$TITLE.md"
   echo "Processing $MD -> $HTML"
 
-  TMPLT=$(dirname "${HTML}")"/$TMPLT"
-  echo "Using template: '$TMPLT'"
+  TMPLT_PATH=$(dirname "${HTML}")"/$TMPLT"
+  echo "Using template: '$TMPLT_PATH'"
 
-  pandoc -t revealjs --mathjax --template="$TMPLT" -V theme=black -s "$MD" -o "$HTML" -V "$RJS"
+  pandoc -t revealjs --mathjax --template="$TMPLT_PATH" -V theme=black -s "$MD" -o "$HTML" -V "$RJS"
   git add "$HTML"
 
 done

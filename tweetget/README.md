@@ -24,7 +24,7 @@ python cron.py
 
 Additional scripts can be found in ../twip/scripts/ such as
 
-cat_tweets -- combine tweetget json dump files into single large CSV
+- cat_tweets -- combine tweetget json dump files into single large CSV
 
 Install with pip -e (so you can edit source code and still have a handy CLI in your `$PATH`)
 
@@ -32,5 +32,3 @@ Install with pip -e (so you can edit source code and still have a handy CLI in y
 $ pip install -e /path/to/twip
 $ cat_tweets --help
 ```
-
-    

@@ -1,22 +1,16 @@
 import os
 
+# to get your own keys:
+# 1. go to https://apps.twitter.com/
+# 2. fill out form and hit create
+# 3. go to app and click "manage keys and access tokens"
+# 4. copy into your bashrc
 
-def get_env_setting(setting):
-    """ Get the environment setting or return exception
-    """
-    rv = os.environ.get(setting, None)
-    if rv:
-        return rv
-    else:
-        error_msg = "%s env variable not found, set them in your bashrc" % setting
-        raise Exception(error_msg)
+TWITTER_API_KEY = os.environ['TWITTER_API_KEY']
+TWITTER_API_SECRET = os.environ['TWITTER_API_SECRET']
 
+RATE_LIMIT = 100  # requests every 15 minutes, max is 450 for app twitter api
+RATE_LIMIT_WINDOW = 900  # 15 minutes * 60
 
-TWITTER_API_KEY = get_env_setting('TWITTER_API_KEY')
-TWITTER_API_SECRET = get_env_setting('TWITTER_API_SECRET')
-
-MERGED_DATA_LOCATION = 'data.json'
-OLDEST_ID_PATH = 'raw/oldest_id.txt'
-
-RATE_LIMIT = 180
-RATE_LIMIT_WINDOW = 900
+DATA_DIR = './data/'
+OLDEST_ID_PATH = '{}oldest_id.txt'.format(DATA_DIR)

@@ -13,6 +13,21 @@ revealjs-url: http://lab.hakim.se/reveal-js
 
 ---
 
+# Schedule
+
+- 1:20 Introduction
+- 1:30 Lesson 1 - Get Tweets
+- 1:50 Workshop 1
+- 2:10 Lesson 2 - Get Features 
+- 2:35 Workshop 2
+- 3:00 Refuel (Coffee Break)
+- 3:20 Lesson 3 - Unsupervised Learning
+- 3:40 Workshop 3
+- 4:00 Lesson 4 - Supervised Learning
+- 4:20 Workshop 5
+- 4:40 Advanced Discussion
+
+
 # Resources
 
 - [Slides](http://totalgood.github.io/talks/2016-05-29-Making-An-Impact-with-Python-Natural-Language Processing-Tools.html)
@@ -27,15 +42,13 @@ revealjs-url: http://lab.hakim.se/reveal-js
 
 - [Data Science Toolbox](http://datasciencetoolbox.org/)
 
----
 
 # Lesson 1
 
-## Downloading and Processing Tweets
+## Get Tweets
 
 ### Dan Fellin
 
----
 
 # Workshop 1
 

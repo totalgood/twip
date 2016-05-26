@@ -39,10 +39,10 @@ docs/api/*
 docs/_build/*
 cover/*
 MANIFEST
+tags
 
 # Data (tweets, statistics, models/matrices)
-tweetget/raw/
-tweetget/data.json
+data/oldest_id.txt
 *.json
 *.csv
 *.csv.gz
@@ -56,4 +56,3 @@ settings_secret.py
 
 # other (backup and lock files)
 .~*
-

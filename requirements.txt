@@ -14,9 +14,10 @@ scikit-learn==0.17.1
 # scipy==0.16.1
 # numpy==1.10.1
 
-# for plotting, but requires binary package installation for some OSes 
+# for plotting, but requires binary package installation for some OSes
 #$ sudo apt-get install libpng12-dev libfreetype6-dev tk-dev python-tk python3-tk
 #$ sudo pip install --no-cache-dir --no-binary :all: --upgrade -r requirements.txt
+#$ nano
 matplotlib==1.5.1
 
 # and then you need to set the backend wherever it was installed (this path is wrong!)
@@ -28,7 +29,3 @@ matplotlib==1.5.1
 seaborn==0.7.0
 # comes with seaborn
 # scipy==0.17.0
-
-# # for a webapp
-# django==1.9
-# django-extensions==1.5.9

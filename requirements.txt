@@ -8,6 +8,7 @@ gensim==0.12.4
 pug-nlp==0.1.10
 future==0.15.2
 ipython[all]==4.2.0
+scikit-learn==0.17.1
 
 # pandas comes with
 # scipy==0.16.1

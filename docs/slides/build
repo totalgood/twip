@@ -19,6 +19,8 @@ do
   MD="${TITLE}.md"
   echo "Processing $MD -> $HTML"
 
+  TMPLT="$(dirname "${HTML}")/$TMPLT"
+
   pandoc -t revealjs --mathjax --template="$TMPLT" -V theme=black -s "$MD" -o "$HTML" -V "$RJS"
   git add "$HTML"
 

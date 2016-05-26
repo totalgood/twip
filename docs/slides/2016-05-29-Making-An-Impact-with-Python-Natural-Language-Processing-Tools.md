@@ -7,25 +7,28 @@ center: false
 revealjs-url: http://lab.hakim.se/reveal-js
 # fails because CDNs don't serve up /css etc
 # revealjs-url: https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.min.js
+# build with `./build`
+# serve the HTML at http://localhost:8000/ with `python -m SimpleHTTPServer`
 ---
+
 
 # Making An Impact with Python NLP
 
----
 
 # Schedule
 
-- 1:20 Introduction
-- 1:30 Lesson 1 - Get Tweets
-- 1:50 Workshop 1
-- 2:10 Lesson 2 - Get Features 
-- 2:35 Workshop 2
+- 1:20 Logistics
+- 1:30 Introduction
+- 1:40 Lesson 1 - Get Tweets
+- 2:00 Workshop 1
+- 2:20 Lesson 2 - Get Features 
+- 2:40 Workshop 2
 - 3:00 Refuel (Coffee Break)
-- 3:20 Lesson 3 - Unsupervised Learning
+- 3:20 Lesson 3 - Machine Learning
 - 3:40 Workshop 3
-- 4:00 Lesson 4 - Supervised Learning
+- 4:00 Lesson 4 - Advanced Techniques
 - 4:20 Workshop 5
-- 4:40 Advanced Discussion
+- 4:35 Wrap Up
 
 
 # Resources
@@ -82,6 +85,7 @@ revealjs-url: http://lab.hakim.se/reveal-js
     - Term frequency in each tweet
     - Document frequency (which tweets contain the term)
 
+
 # [MathJax Matrix Example](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
 
 $$A_{m,n} = 
@@ -91,6 +95,7 @@ $$A_{m,n} =
   \vdots  & \vdots  & \ddots & \vdots  \\
   a_{m,1} & a_{m,2} & \cdots & a_{m,n} 
  \end{pmatrix}$$
+
 
 # [MathJax Sum and Speaker Note](https://github.com/hakimel/reveal.js/blob/dev/README.md#slide-transitions)
 

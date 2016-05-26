@@ -49,19 +49,19 @@ u'wha'
 """
 from __future__ import division, print_function, absolute_import
 # `pip install future` for universal python2/3
-from past.builtins import basestring
+# from past.builtins import basestring
 
-import os
+# import os
 from traceback import print_exc
-import pickle
-import json
+# import pickle
+# import json
 import re
-from itertools import islice, izip, tee
+from itertools import islice, izip  #, tee
 import logging
 
 from boto.s3.connection import S3ResponseError
 
-from gensim.corpora import TextCorpus, Dictionary
+from gensim.corpora import Dictionary  #, TextCorpus
 
 # from django.db.models.query import QuerySet, ValuesQuerySet
 from clayton.util import exponential_verbosity, safe_mod
@@ -69,6 +69,7 @@ from clayton.s3_util import s3_pull, s3_push, TMP_PATH
 from clayton.regex import CRE_TOKEN, RE_NONWORD
 from clayton.util import stringify, to_ascii, gen_qs_docs_name, str_strip, str_lower
 from clayton.nlp import list_ngrams, make_named_stemmer
+import constant
 
 log = logging.getLogger('loggly')
 passthrough = passthrough  # for flake8 and so nonstemming Tokenizer that uses passthrough can be unpickled
@@ -657,8 +658,8 @@ class BOWGen(object):
                 try:
                     qs_gen = gen_qs_docs_name(self.docs, with_score=with_score, limit=self.limit, score__gte=self.score, verbose=verbose)
                     if verbose > 2:
-                        print 'Used pciapp.utility.gen_qs_docs_scores_name("{}") to retrieve "documents" (strings) from database in qs={}.'.format(
-                            self.docs, qs_gen)
+                        print('Used pciapp.utility.gen_qs_docs_scores_name("{}") to retrieve "documents" (strings) from database in qs={}.'.format(
+                            self.docs, qs_gen))
                     return qs_gen
                 except ValueError:
                     if verbose > 2:

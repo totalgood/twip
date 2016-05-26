@@ -4,7 +4,7 @@ from __future__ import division, print_function, absolute_import
 from past.builtins import basestring
 
 import re
-from itertools import chain
+# from itertools import chain
 import subprocess
 from collections import Counter
 

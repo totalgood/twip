@@ -1,8 +1,25 @@
 #/usr/bin/env bash
 TMPLT="pandoc-template-for-revealjs.html"
 TITLE="2016-05-29-Making-An-Impact-with-Python-Natural-Language-Processing-Tools"
-HTML="${TITLE}.html"
-MD="${TITLE}.md"
 # RJS="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.min.js"
 RJS=http://lab.hakim.se/reveal-js
-pandoc -t revealjs --mathjax --template="$TMPLT" -V theme=black -s "$MD" -o "$HTML" -V "$RJS"
+
+for ARG in "$@"
+do
+
+  if [ -z "$ARG" ]; then
+      TITLE="$TITLE"
+      echo "Couldn't find $ARG"
+  else
+      TITLE="$ARG"
+  fi
+
+  TITLE=${TITLE%.*} 
+  HTML="${TITLE}.html"
+  MD="${TITLE}.md"
+  echo "Processing $MD -> $HTML"
+
+  pandoc -t revealjs --mathjax --template="$TMPLT" -V theme=black -s "$MD" -o "$HTML" -V "$RJS"
+  git add "$HTML"
+
+done

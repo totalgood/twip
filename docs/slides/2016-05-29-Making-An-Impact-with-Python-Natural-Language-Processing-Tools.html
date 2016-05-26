@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/theme/black.css" id="theme">
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'http://lab.hakim.se/reveal-js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="http://lab.hakim.se/reveal-js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="making-an-impact-with-python-nlp" class="slide level1">
+<h1>Making An Impact with Python NLP</h1>
+</section>
+<section id="resources" class="slide level1">
+<h1>Resources</h1>
+<ul>
+<li><a href="http://totalgood.github.io/talks/2016-05-29-Making-An-Impact-with-Python-Natural-Language%20Processing-Tools.html">Slides</a></li>
+<li><a href="https://github.com/totalgood/twip">Twip Repo</a></li>
+<li><a href="https://github.com/talentpair/puppet-python-nlp-tools">Set up a VirtualBox</a></li>
+<li>Development Environment Alternatives
+<ul>
+<li><a href="https://github.com/totalgood/twip/install.md#install">Install Twip from Source</a></li>
+<li><code>pip install twip</code></li>
+<li><a href="https://github.com/talentpair/puppet-python-nlp-tools">Installing a VirtualBox</a></li>
+<li><a href="https://github.com/hackoregon/hack-university-machine-learning/blob/master/docs/install.md#install">IDE and Tool Recommendations for your Laptop</a></li>
+<li><a href="http://datasciencetoolbox.org/">An Alternative Data Science Toolbox</a></li>
+</ul></li>
+<li><a href="http://datasciencetoolbox.org/">Data Science Toolbox</a></li>
+</ul>
+</section>
+<section id="lesson-1" class="slide level1">
+<h1>Lesson 1</h1>
+<h2 id="downloading-and-processing-tweets">Downloading and Processing Tweets</h2>
+<h3 id="dan-fellin">Dan Fellin</h3>
+</section>
+<section id="workshop-1" class="slide level1">
+<h1>Workshop 1</h1>
+<ol type="1">
+<li>Get Twitter API key</li>
+<li>Download some tweets
+<ul>
+<li>your profile</li>
+<li>a friend's profile</li>
+<li>a search (see cron.py)</li>
+</ul></li>
+<li>Plot some statistics
+<ul>
+<li>tweets per day</li>
+<li>favorites per tweet</li>
+<li>histogram of state for each day of the week</li>
+</ul></li>
+</ol>
+</section>
+<section id="lesson-2" class="slide level1">
+<h1>Lesson 2</h1>
+<h2 id="finding-features-in-natural-language">Finding Features in Natural Language</h2>
+<h2 id="finding-features-in-tweet-dumps-json-csv">Finding Features in Tweet Dumps (json, csv)</h2>
+</section>
+<section id="workshop-2" class="slide level1">
+<h1>Workshop 2</h1>
+<ol type="1">
+<li>Tokenize Your Tweets
+<ul>
+<li>case normalization</li>
+<li>ignore URLs and punctuation</li>
+<li>transcode smilies?</li>
+</ul></li>
+<li>Compile a Vocabulary
+<ul>
+<li>Count word frequencies</li>
+<li>Plot a Zipf plot of word frequencies</li>
+<li>Plot a Zipf plot of document frequencies</li>
+</ul></li>
+<li>Compute the TFIDF
+<ul>
+<li>Term frequency in each tweet</li>
+<li>Document frequency (which tweets contain the term)</li>
+</ul></li>
+</ol>
+</section>
+<section id="mathjax-matrix-example" class="slide level1">
+<h1><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">MathJax Matrix Example</a></h1>
+<p><span class="math display">\[A_{m,n} = 
+ \begin{pmatrix}
+  a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,n} \\
+  a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,n} \\
+  \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+  a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,n} 
+ \end{pmatrix}\]</span></p>
+</section>
+<section id="mathjax-sum-and-speaker-note" class="slide level1">
+<h1><a href="https://github.com/hakimel/reveal.js/blob/dev/README.md#slide-transitions">MathJax Sum and Speaker Note</a></h1>
+<p><span class="math display">\[\sum_{\substack{
+   0&lt;i&lt;m \\
+   0&lt;j&lt;n
+  }} 
+ P(i,j)\]</span></p>
+<aside class="notes">
+<pre><code>Oh hey, these are some notes. They&#39;ll be hidden in your presentation, but you can see them if you open the speaker notes window (hit &#39;s&#39; on your keyboard).</code></pre>
+</aside>
+</section>
+<section class="slide level1">
+
+</section>
+    </div>
+  </div>
+
+
+  <script src="http://lab.hakim.se/reveal-js/lib/js/head.min.js"></script>
+  <script src="http://lab.hakim.se/reveal-js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: false,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: false,                // Display the page number of the current slide
+        theme: 'black', // available themes are in /css/theme
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'http://lab.hakim.se/reveal-js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'http://lab.hakim.se/reveal-js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'http://lab.hakim.se/reveal-js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

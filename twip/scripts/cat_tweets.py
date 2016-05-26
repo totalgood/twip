@@ -161,7 +161,7 @@ def drop_columns(df, columns=u'common_columns.json'):
 
 
 def get_geo(df, path=DATA_PATH, filename=u'geo_tweets.csv'):
-    path = path.encode()
+    # path = path.encode()
     geo = df[~df.lat.isnull() & ~df.lon.isnull()].copy()
     if isinstance(filename, base.str):
         geo.to_csv(os.path.join(path, filename), encoding='utf8',  # compression='gzip',
@@ -170,7 +170,7 @@ def get_geo(df, path=DATA_PATH, filename=u'geo_tweets.csv'):
 
 
 def save_tweets(df, path=DATA_PATH, filename=u'all_tweets.csv'):
-    path = path.encode
+    #path = path.encode
     filename = os.path.join(path, filename)
     df_size = len(df) * 2402.9691 / 1e6
 

@@ -60,7 +60,9 @@ How many people have used pandas?
 * Data series: array, row in a table or spreadsheet
 * Data frame: array of arrays, table or spreadsheet
 
-# Now let's go to code.
+Now let's go to code...
+
+# normalize_json
 
 ```python
 df = get_df_few()  # normalize_json
@@ -71,10 +73,10 @@ df.to_csv('out.csv')
 # explain why normalize_json is cool
 
 # list all columns
-df.columns.values
+df.columns
 ```
 
-# Code
+# Dataframe Magic
 
 ```python
 # all columns are tab completed
@@ -90,7 +92,7 @@ print(df.sort_values('favorite_count'))
 ```
 
 
-# Code
+# Unique Words
 
 ```python
 # get all
@@ -106,7 +108,7 @@ len(unique_words)  # should be ~20000
 ```
 
 
-# Code
+# Common Words
 
 ```python
 all_words = []
@@ -116,7 +118,7 @@ c = Counter(all_words)
 c.most_common(20)
 ```
 
-# Code
+# Important Common Words
 
 ```python
 # replace all not word and not whitespace

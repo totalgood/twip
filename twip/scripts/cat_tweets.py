@@ -105,7 +105,7 @@ def run():
     main(sys.argv[1:])
 
 
-def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweets=10000000):
+def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweets=10000000, ignore_suspicious=True):
     """Find json files that were dumped by tweetget and combine them into a single CSV
 
     Normalize some (lat/lon)"""
@@ -139,11 +139,14 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
                     latlon[i] = np.nan, np.nan
             df['lat'] = zip(*latlon)[0]
             df['lon'] = zip(*latlon)[1]
+            df_all = df_all.append(df)
         else:
             log.warn('Oddly the DataFrame in {} didnt have a geo.coordinates column.'.format(meta['path']))
             df['lat'] = np.nan * np.ones(len(df))
             df['lon'] = np.nan * np.ones(len(df))
-        df_all = df_all.append(df)
+            if not ignore_suspicious:
+                log.warn('Skipping {} tweets!!!!.'.format(len(df)))
+                df_all = df_all.append(df)
         # this would be a good time to incrementally save these rows to disc
         del df
         loaded_size += meta['size']

@@ -109,9 +109,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Data series: array, row in a table or spreadsheet</li>
 <li>Data frame: array of arrays, table or spreadsheet</li>
 </ul>
+<p>Now let's go to code...</p>
 </section>
-<section id="now-lets-go-to-code." class="slide level1">
-<h1>Now let's go to code.</h1>
+<section id="normalize_json" class="slide level1">
+<h1>normalize_json</h1>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> get_df_few()  <span class="co"># normalize_json</span>
 
 df.to_csv(<span class="st">&#39;out.csv&#39;</span>)
@@ -120,10 +121,10 @@ df.to_csv(<span class="st">&#39;out.csv&#39;</span>)
 <span class="co"># explain why normalize_json is cool</span>
 
 <span class="co"># list all columns</span>
-df.columns.values</code></pre></div>
+df.columns</code></pre></div>
 </section>
-<section id="code" class="slide level1">
-<h1>Code</h1>
+<section id="dataframe-magic" class="slide level1">
+<h1>Dataframe Magic</h1>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># all columns are tab completed</span>
 <span class="co"># df.fav&lt;TAB&gt;</span>
 
@@ -135,8 +136,8 @@ df_all <span class="op">=</span> df.append(df2)
 <span class="bu">print</span>(df.favorite_count.mean())
 <span class="bu">print</span>(df.sort_values(<span class="st">&#39;favorite_count&#39;</span>))</code></pre></div>
 </section>
-<section id="code-1" class="slide level1">
-<h1>Code</h1>
+<section id="unique-words" class="slide level1">
+<h1>Unique Words</h1>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># get all</span>
 <span class="bu">print</span>(df.groupby(<span class="st">&quot;favorite_count&quot;</span>).size())
 
@@ -148,16 +149,16 @@ unique_words <span class="op">=</span> <span class="bu">set</span>()
 df_all.text_split.<span class="bu">apply</span>(unique_words.update)
 <span class="bu">len</span>(unique_words)  <span class="co"># should be ~20000</span></code></pre></div>
 </section>
-<section id="code-2" class="slide level1">
-<h1>Code</h1>
+<section id="common-words" class="slide level1">
+<h1>Common Words</h1>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">all_words <span class="op">=</span> []
 df_all.text_split.<span class="bu">apply</span>(all_words.extend)
 <span class="bu">len</span>(all_words)  <span class="co"># should be ~140000</span>
 c <span class="op">=</span> Counter(all_words)
 c.most_common(<span class="dv">20</span>)</code></pre></div>
 </section>
-<section id="code-3" class="slide level1">
-<h1>Code</h1>
+<section id="important-common-words" class="slide level1">
+<h1>Important Common Words</h1>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># replace all not word and not whitespace</span>
 <span class="co"># ALSO LOWER</span>
 s <span class="op">=</span> df_all.text.<span class="bu">str</span>.replace(<span class="st">&#39;[^\w\s]&#39;</span>, <span class="st">&#39; &#39;</span>)

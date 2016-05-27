@@ -6,7 +6,7 @@ import re
 
 # import gensim
 
-from twip.regex import RE_TOKEN, RE_NONWORD
+from pug.nlp.regex import RE_TOKEN, RE_NONWORD
 from twip.util import str_strip, str_lower, to_ascii, stringify
 from twip.nlp import make_named_stemmer
 

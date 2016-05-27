@@ -170,10 +170,29 @@ Academic, technical term. I'll try not to use it again. But each of those words 
 <li>Set of Documents</li>
 </ul>
 </section>
+<section id="our-corpus" class="slide level1">
+<h1>Our Corpus</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> df.text
+<span class="dv">731122251278499841</span>    RT @javacodegeeks: Top Performance Metrics <span class="cf">for</span>...
+<span class="dv">724281574129180672</span>    World<span class="st">&#39;s Largest Python Discovered in Nepal: WA...</span>
+<span class="st">724281535587856384    🎷 💎 STOP! Could you be @ExpendTeam&#39;</span>s Python <span class="op">/</span> ...
+<span class="dv">724281501622345729</span>    My Little Python:Changing the world: Artist of...
+<span class="dv">724281482357837825</span>    Artist of the Day:Arder: This cute snake art c...
+<span class="dv">724280128860094469</span>    Watching Boa vs. Python — https:<span class="op">//</span>t.co<span class="op">/</span>iyNJ58EZCE
+<span class="dv">724280108807249920</span>    RT @mumbrainstats: FSL task fMRI tutorials alm...
+<span class="dv">724280070467129344</span>    <span class="co">#How to print the amount of times each word of...</span>
+<span class="dv">731128258532540416</span>    RT @randal_olson: Free video course on YouTube...
+<span class="dv">731127852318523393</span>    RT @Petzoldt: Excellent hands<span class="op">-</span>on tutorial abou...
+<span class="dv">731127380249444357</span>    RT @nixcraft: Announcing Certbot: EFF<span class="st">&#39;s Client...</span>
+<span class="st">724275650043875328    Go boa wkwk💪😄 ★ Boa vs. Python — https://t.co/...</span>
+<span class="st">724275609858392066    RT @RealPython: List of Python API Wrappers &amp;g...</span>
+<span class="st">724275578879111169    Watching Boa vs. Python — https://t.co/5THbrirfQO</span>
+<span class="st">724275568871673857    Чертова дюжина вакансий в IT и Digital /  / 1....</span></code></pre></div>
+</section>
 <section id="sequences-of-words" class="slide level1">
 <h1>Sequences of Words</h1>
+<p>Before we throw tokens into a bag...</p>
 <ul>
-<li>Before we throw tokens into a bag...</li>
 <li>Bags of words have no &quot;order&quot;</li>
 <li>python <code>set()</code> vs. <code>list()</code></li>
 </ul>
@@ -181,10 +200,22 @@ Academic, technical term. I'll try not to use it again. But each of those words 
 <section id="bags-jumble-up-meaning" class="slide level1">
 <h1>Bags Jumble up Meaning</h1>
 <blockquote>
-<p>I saw a black Ferrari and stopped at red lights. I stopped at a red Ferrari and saw black lights.</p>
+<p>I saw a black Ferrari and stopped at red lights.</p>
+</blockquote>
+<blockquote>
+<p>I stopped at a red Ferrari and saw black lights.</p>
+</blockquote>
+</section>
+<section id="real-bag-jumbling-example" class="slide level1">
+<h1>Real Bag Jumbling Example</h1>
+<blockquote>
+<p>My Little Python: Changing the world: Artist</p>
+</blockquote>
+<blockquote>
+<p>Little Python Changing the :My Artist: world</p>
 </blockquote>
 <aside class="notes">
-Another technical term for your quiver: &quot;Semantics&quot; = the meaning of a word sequence &quot;Syntax&quot; = the structure of a word sequence (grammar)
+Another technical term for your quiver: &quot;Semantics&quot; = the meaning of a word sequence &quot;Syntax&quot; = the structure of a word sequence (grammar) N-grams capture some of the meaning in word order
 </aside>
 </section>
 <section id="n-grams" class="slide level1">

@@ -153,9 +153,33 @@ Confuse PyConners if you asked what "Dictionary" they used
 - Set of Documents
 
 
+# Our Corpus
+
+
+```python
+>>> df.text
+731122251278499841    RT @javacodegeeks: Top Performance Metrics for...
+724281574129180672    World's Largest Python Discovered in Nepal: WA...
+724281535587856384    🎷 💎 STOP! Could you be @ExpendTeam's Python / ...
+724281501622345729    My Little Python:Changing the world: Artist of...
+724281482357837825    Artist of the Day:Arder: This cute snake art c...
+724280128860094469    Watching Boa vs. Python — https://t.co/iyNJ58EZCE
+724280108807249920    RT @mumbrainstats: FSL task fMRI tutorials alm...
+724280070467129344    #How to print the amount of times each word of...
+731128258532540416    RT @randal_olson: Free video course on YouTube...
+731127852318523393    RT @Petzoldt: Excellent hands-on tutorial abou...
+731127380249444357    RT @nixcraft: Announcing Certbot: EFF's Client...
+724275650043875328    Go boa wkwk💪😄 ★ Boa vs. Python — https://t.co/...
+724275609858392066    RT @RealPython: List of Python API Wrappers &g...
+724275578879111169    Watching Boa vs. Python — https://t.co/5THbrirfQO
+724275568871673857    Чертова дюжина вакансий в IT и Digital /  / 1....
+```
+
+
 # Sequences of Words
 
-- Before we throw tokens into a bag...
+Before we throw tokens into a bag...
+
 - Bags of words have no "order"
 - python `set()` vs. `list()`
 
@@ -164,13 +188,25 @@ Confuse PyConners if you asked what "Dictionary" they used
 
 
 > I saw a black Ferrari and stopped at red lights.
+
 > I stopped at a red Ferrari and saw black lights.
+
+
+# Real Bag Jumbling Example
+
+
+> My Little Python: Changing the world: Artist
+
+> Little Python Changing the :My Artist: world
+
 
 <aside class="notes">
 Another technical term for your quiver:
 "Semantics" = the meaning of a word sequence
 "Syntax" = the structure of a word sequence (grammar)
+N-grams capture some of the meaning in word order
 </aside>
+
 
 # N-Grams
 

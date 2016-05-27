@@ -105,6 +105,63 @@ Humans have fun with language Even Machine Code Can't help but intepret
 <li>Manchester United -&gt; &quot;Manchester&quot;, &quot;United&quot;</li>
 </ul>
 </section>
+<section id="speaking-of-english-words" class="slide level1">
+<h1>Speaking of English Words</h1>
+<p>Have you heard of</p>
+<blockquote>
+<p>&quot;Lexicon&quot;</p>
+</blockquote>
+<ul>
+<li>Vocabulary</li>
+<li>Dictionary</li>
+<li>Set of words</li>
+</ul>
+<aside class="notes">
+Academic, technical term. I'll try not to use it again. But each of those words has slightly different meaning They're used in different contexts Wouldn't ask for a Lexicon at Powell's Book Store? (confused looks? at Powell's they'd probably know exactly what you meant... but) Confuse PyConners if you asked what &quot;Dictionary&quot; they used (the builtin of course)
+</aside>
+</section>
+<section id="corpus" class="slide level1">
+<h1>Corpus</h1>
+<ul>
+<li>Set of Documents</li>
+</ul>
+</section>
+<section id="sentences" class="slide level1">
+<h1>Sentences</h1>
+<ul>
+<li>How would you detect sentence &quot;boundaries&quot;?</li>
+</ul>
+<blockquote>
+<p>How can twip.nlp.Tokenizer knows when periods in Mr. Chomsky's name end a sentence and when they don't? What about U.S.S.R. or :smilies: :-) or :-P?</p>
+</blockquote>
+<p>Even Parsey McParseface can't hangle this one (needs one sentence per line)</p>
+<aside class="notes">
+If you want to help... See [pug.nlp.scrape.get_ascii_emoticon_table()](https://github.com/totalgood/pug-nlp/blob/master/pug/nlp/scrape.py And [pug.nlp.scrape.get_ascii_emoticon_table()](https://github.com/totalgood/pug-nlp/blob/master/pug/nlp/words.py
+</aside>
+</section>
+<section id="sentence-segmenters" class="slide level1">
+<h1>Sentence Segmenters</h1>
+<ul>
+<li>Machine learning to the rescue</li>
+<li>Naive Bayes and Unsupervised Learning</li>
+<li><p>Neural Nets</p></li>
+<li><a href="https://github.com/cslu-nlp/DetectorMorse">Kyle Gorman's <code>DetectorMorse</code></a></li>
+<li><p><a href="http://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.punkt"><code>nltk.tokenize.punkt</code></a></p></li>
+</ul>
+<aside class="notes">
+Punkt identifies abbreviations first Statistics on words that end in periods This solves most punctuation ambiguity Detector Morse is &quot;fuzzier&quot; using NLUP
+</aside>
+</section>
+<section id="tweets" class="slide level1">
+<h1>Tweets</h1>
+<blockquote>
+<p>We don't need no stink'n sentences!</p>
+</blockquote>
+<p>Tweets are stinky enough. Can't ramble in 140 characters.</p>
+<aside class="notes">
+Only need to segement sentences if you're doing real work. Like parsing resumes
+</aside>
+</section>
 <section id="word2vect-vectors" class="slide level1">
 <h1>Word2Vect Vectors</h1>
 <p>Each word is...</p>

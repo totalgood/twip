@@ -115,6 +115,77 @@ We'll mangle common multi-word tokens:
 - Manchester United -> "Manchester", "United"
 
 
+# Speaking of English Words
+
+Have you heard of 
+
+> "Lexicon"
+
+- Vocabulary
+- Dictionary
+- Set of words
+
+<aside class="notes">
+Academic, technical term.
+I'll try not to use it again.
+But each of those words has slightly different meaning
+They're used in different contexts
+Wouldn't ask for a Lexicon at Powell's Book Store?
+(confused looks? at Powell's they'd probably know exactly what you meant... but)
+Confuse PyConners if you asked what "Dictionary" they used
+(the builtin of course)
+</aside>
+
+# Corpus
+
+- Set of Documents
+
+
+# Sentences
+
+- How would you detect sentence "boundaries"?
+
+> How can twip.nlp.Tokenizer knows when periods in Mr. Chomsky's name end
+> a sentence and when they don't? What about U.S.S.R. or :smilies: :-) or :-P?
+
+Even Parsey McParseface can't hangle this one
+(needs one sentence per line)
+
+
+<aside class="notes">
+If you want to help...
+See [pug.nlp.scrape.get_ascii_emoticon_table()](https://github.com/totalgood/pug-nlp/blob/master/pug/nlp/scrape.py
+And [pug.nlp.scrape.get_ascii_emoticon_table()](https://github.com/totalgood/pug-nlp/blob/master/pug/nlp/words.py
+</aside>
+
+# Sentence Segmenters
+
+- Machine learning to the rescue
+- Naive Bayes and Unsupervised Learning
+- Neural Nets
+
+- [Kyle Gorman's `DetectorMorse`](https://github.com/cslu-nlp/DetectorMorse)
+- [`nltk.tokenize.punkt`](http://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.punkt)
+
+<aside class="notes">
+Punkt identifies abbreviations first
+Statistics on words that end in periods
+This solves most punctuation ambiguity
+Detector Morse is "fuzzier" using NLUP
+</aside>
+
+# Tweets
+
+> We don't need no stink'n sentences!
+
+Tweets are stinky enough.
+Can't ramble in 140 characters.
+
+<aside class="notes">
+Only need to segement sentences if you're doing real work.
+Like parsing resumes
+</aside>
+
 # Word2Vect Vectors
 
 Each word is...

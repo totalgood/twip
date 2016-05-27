@@ -67,9 +67,12 @@
 <section id="depends-on-your-language" class="slide level1">
 <h1>Depends on Your Language</h1>
 <p><img src="../images/220px-RNA-codons.png"></p>
-<p>If you're RNA you tokens are</p>
+</section>
+<section id="rna-and-dna" class="slide level1">
+<h1>RNA and DNA</h1>
+<p>RNA tokens:</p>
 <p>&quot;A&quot;, &quot;G&quot;, &quot;C&quot;, &quot;U&quot;</p>
-<p>For DNA it's</p>
+<p>DNA tokens:</p>
 <p>&quot;A&quot;, &quot;G&quot;, &quot;C&quot;, &quot;T&quot;</p>
 </section>
 <section id="if-youre-a-computer" class="slide level1">
@@ -125,6 +128,31 @@ Academic, technical term. I'll try not to use it again. But each of those words 
 <ul>
 <li>Set of Documents</li>
 </ul>
+</section>
+<section id="sequences-of-words" class="slide level1">
+<h1>Sequences of Words</h1>
+<ul>
+<li>Before we throw tokens into a bag...</li>
+<li>Bags of words have no &quot;order&quot;</li>
+<li>python <code>set()</code> vs. <code>list()</code></li>
+</ul>
+</section>
+<section id="bags-jumble-up-meaning" class="slide level1">
+<h1>Bags Jumble up Meaning</h1>
+<blockquote>
+<p>I saw a black Ferrari and stopped at red lights. I stopped at a red Ferrari and saw black lights.</p>
+</blockquote>
+<aside class="notes">
+Another technical term for your quiver: &quot;Semantics&quot; = the meaning of a word sequence &quot;Syntax&quot; = the structure of a word sequence (grammar)
+</aside>
+</section>
+<section id="n-grams" class="slide level1">
+<h1>N-Grams</h1>
+<p>2-grams:</p>
+<p>[&quot;I saw&quot;, &quot;saw a&quot;, &quot;a black&quot;, &quot;black Ferrari&quot;</p>
+<aside class="notes">
+Tweeters don't usually pay much attention to word order. And the vocabulary and subject is typically less order-sensitive. (or sensitive to much of anything) So we'll just use 1-grams
+<aside>
 </section>
 <section id="sentences" class="slide level1">
 <h1>Sentences</h1>

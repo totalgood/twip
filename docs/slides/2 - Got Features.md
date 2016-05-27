@@ -51,11 +51,14 @@ Smallest meaning bit?
 
 <img src="../images/220px-RNA-codons.png">
 
-If you're RNA you tokens are 
+
+# RNA and DNA
+
+RNA tokens:
 
 "A", "G", "C", "U"
 
-For DNA it's 
+DNA tokens:
 
 "A", "G", "C", "T"
 
@@ -136,10 +139,43 @@ Confuse PyConners if you asked what "Dictionary" they used
 (the builtin of course)
 </aside>
 
+
 # Corpus
 
 - Set of Documents
 
+
+# Sequences of Words
+
+- Before we throw tokens into a bag...
+- Bags of words have no "order"
+- python `set()` vs. `list()`
+
+
+# Bags Jumble up Meaning
+
+
+> I saw a black Ferrari and stopped at red lights.
+> I stopped at a red Ferrari and saw black lights.
+
+<aside class="notes">
+Another technical term for your quiver:
+"Semantics" = the meaning of a word sequence
+"Syntax" = the structure of a word sequence (grammar)
+</aside>
+
+# N-Grams
+
+2-grams:
+
+["I saw", "saw a", "a black", "black Ferrari"
+
+<aside class="notes">
+Tweeters don't usually pay much attention to word order.
+And the vocabulary and subject is typically less order-sensitive.
+(or sensitive to much of anything)
+So we'll just use 1-grams
+<aside>
 
 # Sentences
 

@@ -94,54 +94,27 @@ $$\sum_{\substack{
 
 # Syntax Highlighting
 
-pre and code markup
-
-<pre>
-<code class="python">print('__future__ print_function')</code>
-</pre>
-
-
-# Syntax Highlighting
-
-
-<code class="python">print('__future__ print_function')</code>
-
-
-# Syntax Highlighting
-
-
-    print('__future__ print_function')
-
-
-
-# Syntax Highlighting
-
-
-```.py
+<pre><code>
+```python
     print('__future__ print_function')
 ```
-
-
-# Syntax Highlighting
-
+</code></pre>
 
 ```python
     print('__future__ print_function')
 ```
 
 
-
 # Syntax Highlighting
+
+<pre><code>
+```python
+print('__future__ print_function')
+```
+</code></pre>
 
 
 ```python
 print('__future__ print_function')
 ```
 
-
-# Syntax Highlighting
-
-
-```.py
-print('__future__ print_function')
-```

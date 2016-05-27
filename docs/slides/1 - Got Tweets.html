@@ -31,19 +31,121 @@
 
 <section id="lesson-1" class="slide level1">
 <h1>Lesson 1</h1>
-<h2 id="got-tweets">Got Tweets?</h2>
-<h3 id="dan-fellin">Dan Fellin</h3>
+</section>
+<section id="got-tweets" class="slide level1">
+<h1>Got Tweets?</h1>
+<p><strong>by Dan Fellin</strong></p>
+</section>
+<section id="twitter-api" class="slide level1">
+<h1>Twitter API</h1>
+<ul>
+<li><p>Have you used Twitter API?</p></li>
+<li><p>in the last six months?</p></li>
+</ul>
+</section>
+<section id="twitter-api-has-all-you-need-for-twip" class="slide level1">
+<h1>Twitter API has all you need for TWIP</h1>
+<p>Source data is tweets about python.</p>
+<p>Let's code!</p>
+</section>
+<section id="what-do-you-think" class="slide level1">
+<h1>What do you think?</h1>
+<p>That's all there is to it to gather the 200K tweets.</p>
+<p>That 200K was twitter's fault. 4x all the tweets for the past week</p>
+<p>Any questions?</p>
+</section>
+<section id="pandas" class="slide level1">
+<h1>Pandas</h1>
+<p>How many people have used pandas?</p>
+</section>
+<section id="pandas-is..." class="slide level1">
+<h1>Pandas is...</h1>
+<ul>
+<li>fast, flexible data structures (tables)</li>
+<li>efficient for relational (indexed) data</li>
+<li>like <code>dict</code> tuned up</li>
+</ul>
+</section>
+<section id="two-core-parts" class="slide level1">
+<h1>Two core parts:</h1>
+<ul>
+<li>Data series: array, row in a table or spreadsheet</li>
+<li>Data frame: array of arrays, table or spreadsheet</li>
+</ul>
+</section>
+<section id="now-lets-go-to-code." class="slide level1">
+<h1>Now let's go to code.</h1>
+<pre class=".py"><code>    df = get_df_few()  # normalize_json
+
+    df.to_csv(&#39;out.csv&#39;)
+    # look at csv
+    # look at json
+    # explain why normalize_json is cool
+
+    # list all columns
+    df.columns.values</code></pre>
+</section>
+<section id="code" class="slide level1">
+<h1>Code</h1>
+<pre class=".py"><code>    # all columns are tab completed
+    # df.fav&lt;TAB&gt;
+
+    # append
+    df2 = get_df_many()  # normalize_json
+    df_all = df.append(df2)
+
+    # favorites
+    print(df.favorite_count.mean())
+    print(df.sort_values(&#39;favorite_count&#39;))</code></pre>
+</section>
+<section id="code-1" class="slide level1">
+<h1>Code</h1>
+<pre class=".py"><code>    # get all
+    print(df.groupby(&quot;favorite_count&quot;).size())
+
+    df_all.created_at_ts = pd.to_datetime(df_all.created_at)
+
+    df_all.text_split = df.text.str.lower().str.split()
+
+    unique_words = set()
+    df_all.text_split.apply(unique_words.update)
+    len(unique_words)  # should be ~20000</code></pre>
+</section>
+<section id="code-2" class="slide level1">
+<h1>Code</h1>
+<p>```.py all_words = [] df_all.text_split.apply(all_words.extend) len(all_words) # should be ~140000 c = Counter(all_words) c.most_common(20)</p>
+</section>
+<section id="code-3" class="slide level1">
+<h1>Code</h1>
+<pre class=".py"><code>    # replace all not word and not whitespace
+    # ALSO LOWER
+    s = df_all.text.str.replace(&#39;[^\w\s]&#39;, &#39; &#39;)
+    s = s.str.split()
+    df_all.text_split = s
+    all_words = []
+    df_all.text_split.apply(all_words.extend)
+
+    c = Counter(all_words)
+    c.most_common(20)</code></pre>
 </section>
 <section id="workshop-1" class="slide level1">
 <h1>Workshop 1</h1>
+</section>
+<section id="now-choose-your-own-adventure" class="slide level1">
+<h1>Now, choose your own adventure:</h1>
 <ol type="1">
-<li>Get Twitter API key</li>
-<li>Download some tweets
+<li>Pandas: play with tweets (<code>all_tweets.csv</code>)</li>
+<li>Tweetget: nab a Twitter API key some tweets that interest you.
 <ul>
 <li>your profile</li>
 <li>a friend's profile</li>
 <li>a search (see cron.py)</li>
 </ul></li>
+</ol>
+</section>
+<section id="extra-credit" class="slide level1">
+<h1>Extra Credit</h1>
+<ol start="3" type="1">
 <li>Plot some statistics
 <ul>
 <li>tweets per day</li>

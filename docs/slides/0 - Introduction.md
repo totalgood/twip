@@ -85,7 +85,7 @@ revealjs-url: http://lab.hakim.se/reveal-js
 
 # [Jeremy Robin](//www.linkedin.com/in/jeremyrobin)
 
-<img src="/twip/docs/images/jeremy-robin.jpg">
+<img src="../images/jeremy-robin.jpg">
 
 <small>Jeremy Robin is an engineering executive who has spent more than 10 years building and managing operations, software development, and engineering support services for high technology companies. Before coming to Talentpair, he was the co-founder and director of engineering at Hitpost, a mobile sports network which was acquired by Yahoo. Jeremy holds a BA in Computer Science from Dartmouth and an MS from Stanford.</small>
 

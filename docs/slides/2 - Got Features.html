@@ -31,8 +31,102 @@
 
 <section id="lesson-2" class="slide level1">
 <h1>Lesson 2</h1>
-<h2 id="got-features">Got Features?</h2>
-<h2 id="finding-features-in-tweet-dumps-json-csv">Finding Features in Tweet Dumps (json, csv)</h2>
+</section>
+<section id="got-features" class="slide level1">
+<h1>Got Features?</h1>
+</section>
+<section id="features-in-tweet-dumps" class="slide level1">
+<h1>Features in Tweet Dumps</h1>
+<p><code>tweets.json</code></p>
+<ul>
+<li>favorites</li>
+<li>userid, id number</li>
+<li>city, state</li>
+<li>lat, lon</li>
+<li>user settings (geo on, protected account)</li>
+<li>tweet info (promoted, urls)</li>
+</ul>
+</section>
+<section id="tokens" class="slide level1">
+<h1>Tokens</h1>
+<p>What's a token?</p>
+</section>
+<section id="meaning" class="slide level1">
+<h1>Meaning</h1>
+<p>Smallest meaning bit?</p>
+<ul>
+<li>Statement? Paragraph?</li>
+<li>Sentence?</li>
+<li>Phrase?</li>
+<li>Noun phrase (&quot;python language&quot;)</li>
+<li>Word?</li>
+<li>Character?</li>
+<li>Punctuation</li>
+</ul>
+</section>
+<section id="depends-on-your-language" class="slide level1">
+<h1>Depends on Your Language</h1>
+<p><img src="../images/220px-RNA-codons.png"></p>
+<p>If you're RNA you tokens are</p>
+<p>&quot;A&quot;, &quot;G&quot;, &quot;C&quot;, &quot;U&quot;</p>
+<p>For DNA it's</p>
+<p>&quot;A&quot;, &quot;G&quot;, &quot;C&quot;, &quot;T&quot;</p>
+</section>
+<section id="if-youre-a-computer" class="slide level1">
+<h1>If You're a Computer</h1>
+<p>0's and 1's</p>
+<p><code> 00101010 00000100 0000010 00101010 </code></p>
+<p>Bit, Byte or Word Which is the Token?</p>
+<aside class="notes">
+Imagine you wanted to decypher this Code breakers use frequency analysis Find most frequent words/letters Known frequencies for words/letters Depends on language, context
+</aside>
+</section>
+<section id="computer-language" class="slide level1">
+<h1>Computer Language</h1>
+<p><code> OR DL,00101000b XOR DL,00000010b HCF </code></p>
+<ul>
+<li>Line, statement</li>
+<li>word, symbol</li>
+</ul>
+<aside class="notes">
+Humans have fun with language Even Machine Code Can't help but intepret
+</aside>
+</section>
+<section id="python" class="slide level1">
+<h1>Python</h1>
+<p><code>ans = [c for c in &quot;Hello&quot;]</code></p>
+<pre class=".py"><code>    ans = [c for c in &quot;Hello&quot;]</code></pre>
+</section>
+<section id="english-words" class="slide level1">
+<h1>English Words</h1>
+<p>We'll mangle common multi-word tokens:</p>
+<ul>
+<li>United States -&gt; &quot;States&quot;, &quot;United&quot;</li>
+<li>Manchester United -&gt; &quot;Manchester&quot;, &quot;United&quot;</li>
+</ul>
+</section>
+<section id="word2vect-vectors" class="slide level1">
+<h1>Word2Vect Vectors</h1>
+<p>Each word is...</p>
+<ul>
+<li>bag of words</li>
+<li>defined by its neighbors</li>
+<li>all words every used with it</li>
+</ul>
+<aside class="notes">
+What about dictionary definition?
+</aside>
+</section>
+<section id="word-vectors" class="slide level1">
+<h1>Word Vectors</h1>
+<p>Each word is...</p>
+<ul>
+<li>dictionary definition(s)?</li>
+</ul>
+</section>
+<section id="words" class="slide level1">
+<h1>Words</h1>
+<h2 id="wh">Wh</h2>
 </section>
 <section id="workshop-2" class="slide level1">
 <h1>Workshop 2</h1>

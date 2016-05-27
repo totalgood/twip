@@ -67,7 +67,7 @@ revealjs-url: http://lab.hakim.se/reveal-js
 
 # [Hobson Lane](//www.linkedin.com/in/hobsonlane)
 
-<img src="/twip/docs/images/hobson-lane.jpg">
+<img src="../images/hobson-lane.jpg">
 
 - Aerospace Robotics Engineer for 12 years
 - Python Developer for 5 years
@@ -76,7 +76,7 @@ revealjs-url: http://lab.hakim.se/reveal-js
 
 # [Dan Fellin](//www.linkedin.com/in/dan-fellin-611637b6)
 
-<img src="/twip/docs/images/dan-fellin.jpg">
+<img src="../images/dan-fellin.jpg">
 
 - Software Engineer for 4 years
 - API and Web Scraper for 3 years

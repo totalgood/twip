@@ -65,29 +65,27 @@ revealjs-url: http://lab.hakim.se/reveal-js
 - Jeremy Robin
 
 
-# [Hobson Lane](https://www.linkedin.com/in/hobsonlane)
+# [Hobson Lane](//www.linkedin.com/in/hobsonlane)
 
-<img src="/docs/images/hobson-lane.jpg">
+<img src="/twip/docs/images/hobson-lane.jpg">
 
 - Aerospace Robotics Engineer for 12 years
 - Python Developer for 5 years
 - Data Scientist for 4 years
 
 
-# [Dan Fellin](https://www.linkedin.com/in/dan-fellin-611637b6)
+# [Dan Fellin](//www.linkedin.com/in/dan-fellin-611637b6)
 
-<img src="/docs/images/dan-fellin.jpg">
+<img src="/twip/docs/images/dan-fellin.jpg">
 
 - Software Engineer for 4 years
 - API and Web Scraper for 3 years
 - Avid Gamer for life
 
 
-# [Jeremy Robin](https://www.linkedin.com/in/jeremyrobin)
+# [Jeremy Robin](//www.linkedin.com/in/jeremyrobin)
 
-<img src="/docs/images/jeremy-robin.jpg">
+<img src="/twip/docs/images/jeremy-robin.jpg">
 
 <small>Jeremy Robin is an engineering executive who has spent more than 10 years building and managing operations, software development, and engineering support services for high technology companies. Before coming to Talentpair, he was the co-founder and director of engineering at Hitpost, a mobile sports network which was acquired by Yahoo. Jeremy holds a BA in Computer Science from Dartmouth and an MS from Stanford.</small>
 
-
-https://www.linkedin.com/in/jeremyrobin

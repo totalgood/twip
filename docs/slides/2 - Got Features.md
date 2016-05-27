@@ -105,10 +105,18 @@ Can't help but intepret
 
 `ans = [c for c in "Hello"]`
 
-```.py
-    ans = [c for c in "Hello"]
+```python
+for x in "upword":
+    print(x)
 ```
 
+<aside class="notes">
+Have you ever built a compiler?
+What are the tokens?
+What are the "statements"?
+What's special about white space and python?
+(white space is actually a token)
+</aside>
 
 # English Words
 

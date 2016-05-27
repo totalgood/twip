@@ -9,6 +9,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/reveal.css"/>
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
   <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/theme/black.css" id="theme">
   <!-- If the query includes 'print-pdf', include the PDF print sheet -->
   <script>
@@ -75,68 +112,66 @@
 </section>
 <section id="now-lets-go-to-code." class="slide level1">
 <h1>Now let's go to code.</h1>
-<pre class=".py"><code>df = get_df_few()  # normalize_json
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> get_df_few()  <span class="co"># normalize_json</span>
 
-df.to_csv(&#39;out.csv&#39;)
-# look at csv
-# look at json
-# explain why normalize_json is cool
+df.to_csv(<span class="st">&#39;out.csv&#39;</span>)
+<span class="co"># look at csv</span>
+<span class="co"># look at json</span>
+<span class="co"># explain why normalize_json is cool</span>
 
-# list all columns
-df.columns.values</code></pre>
+<span class="co"># list all columns</span>
+df.columns.values</code></pre></div>
 </section>
 <section id="code" class="slide level1">
 <h1>Code</h1>
-<pre class=".py"><code># all columns are tab completed
-# df.fav&lt;TAB&gt;
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># all columns are tab completed</span>
+<span class="co"># df.fav&lt;TAB&gt;</span>
 
-# append
-df2 = get_df_many()  # normalize_json
-df_all = df.append(df2)
+<span class="co"># append</span>
+df2 <span class="op">=</span> get_df_many()  <span class="co"># normalize_json</span>
+df_all <span class="op">=</span> df.append(df2)
 
-# favorites
-print(df.favorite_count.mean())
-print(df.sort_values(&#39;favorite_count&#39;))</code></pre>
+<span class="co"># favorites</span>
+<span class="bu">print</span>(df.favorite_count.mean())
+<span class="bu">print</span>(df.sort_values(<span class="st">&#39;favorite_count&#39;</span>))</code></pre></div>
 </section>
 <section id="code-1" class="slide level1">
 <h1>Code</h1>
-<pre class=".py"><code># get all
-print(df.groupby(&quot;favorite_count&quot;).size())
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># get all</span>
+<span class="bu">print</span>(df.groupby(<span class="st">&quot;favorite_count&quot;</span>).size())
 
-df_all.created_at_ts = pd.to_datetime(df_all.created_at)
+df_all.created_at_ts <span class="op">=</span> pd.to_datetime(df_all.created_at)
 
-df_all.text_split = df.text.str.lower().str.split()
+df_all.text_split <span class="op">=</span> df.text.<span class="bu">str</span>.lower().<span class="bu">str</span>.split()
 
-unique_words = set()
-df_all.text_split.apply(unique_words.update)
-len(unique_words)  # should be ~20000</code></pre>
+unique_words <span class="op">=</span> <span class="bu">set</span>()
+df_all.text_split.<span class="bu">apply</span>(unique_words.update)
+<span class="bu">len</span>(unique_words)  <span class="co"># should be ~20000</span></code></pre></div>
 </section>
 <section id="code-2" class="slide level1">
 <h1>Code</h1>
-<pre class=".py"><code>all_words = []
-df_all.text_split.apply(all_words.extend)
-len(all_words)  # should be ~140000
-c = Counter(all_words)
-c.most_common(20)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">all_words <span class="op">=</span> []
+df_all.text_split.<span class="bu">apply</span>(all_words.extend)
+<span class="bu">len</span>(all_words)  <span class="co"># should be ~140000</span>
+c <span class="op">=</span> Counter(all_words)
+c.most_common(<span class="dv">20</span>)</code></pre></div>
 </section>
 <section id="code-3" class="slide level1">
 <h1>Code</h1>
-<pre class=".py"><code># replace all not word and not whitespace
-# ALSO LOWER
-s = df_all.text.str.replace(&#39;[^\w\s]&#39;, &#39; &#39;)
-s = s.str.split()
-df_all.text_split = s
-all_words = []
-df_all.text_split.apply(all_words.extend)
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># replace all not word and not whitespace</span>
+<span class="co"># ALSO LOWER</span>
+s <span class="op">=</span> df_all.text.<span class="bu">str</span>.replace(<span class="st">&#39;[^\w\s]&#39;</span>, <span class="st">&#39; &#39;</span>)
+s <span class="op">=</span> s.<span class="bu">str</span>.split()
+df_all.text_split <span class="op">=</span> s
+all_words <span class="op">=</span> []
+df_all.text_split.<span class="bu">apply</span>(all_words.extend)
 
-c = Counter(all_words)
-c.most_common(20)</code></pre>
+c <span class="op">=</span> Counter(all_words)
+c.most_common(<span class="dv">20</span>)</code></pre></div>
 </section>
 <section id="workshop-1" class="slide level1">
 <h1>Workshop 1</h1>
-</section>
-<section id="now-choose-your-own-adventure" class="slide level1">
-<h1>Now, choose your own adventure:</h1>
+<p>Now, choose your own adventure:</p>
 <ol type="1">
 <li>Pandas: play with tweets (<code>all_tweets.csv</code>)</li>
 <li>Tweetget: nab a Twitter API key some tweets that interest you.

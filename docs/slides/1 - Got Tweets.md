@@ -62,7 +62,7 @@ How many people have used pandas?
 
 # Now let's go to code.
 
-```.py
+```python
 df = get_df_few()  # normalize_json
 
 df.to_csv('out.csv')
@@ -76,7 +76,7 @@ df.columns.values
 
 # Code
 
-```.py
+```python
 # all columns are tab completed
 # df.fav<TAB>
 
@@ -92,7 +92,7 @@ print(df.sort_values('favorite_count'))
 
 # Code
 
-```.py
+```python
 # get all
 print(df.groupby("favorite_count").size())
 
@@ -108,7 +108,7 @@ len(unique_words)  # should be ~20000
 
 # Code
 
-```.py
+```python
 all_words = []
 df_all.text_split.apply(all_words.extend)
 len(all_words)  # should be ~140000
@@ -118,7 +118,7 @@ c.most_common(20)
 
 # Code
 
-```.py
+```python
 # replace all not word and not whitespace
 # ALSO LOWER
 s = df_all.text.str.replace('[^\w\s]', ' ')
@@ -134,8 +134,7 @@ c.most_common(20)
 
 # Workshop 1
 
-
-# Now, choose your own adventure:
+Now, choose your own adventure:
 
 1. Pandas: play with tweets (`all_tweets.csv`)
 2. Tweetget: nab a Twitter API key some tweets that interest you.

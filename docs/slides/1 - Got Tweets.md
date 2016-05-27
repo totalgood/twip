@@ -63,72 +63,72 @@ How many people have used pandas?
 # Now let's go to code.
 
 ```.py
-    df = get_df_few()  # normalize_json
+df = get_df_few()  # normalize_json
 
-    df.to_csv('out.csv')
-    # look at csv
-    # look at json
-    # explain why normalize_json is cool
+df.to_csv('out.csv')
+# look at csv
+# look at json
+# explain why normalize_json is cool
 
-    # list all columns
-    df.columns.values
+# list all columns
+df.columns.values
 ```
 
 # Code
 
 ```.py
-    # all columns are tab completed
-    # df.fav<TAB>
+# all columns are tab completed
+# df.fav<TAB>
 
-    # append
-    df2 = get_df_many()  # normalize_json
-    df_all = df.append(df2)
+# append
+df2 = get_df_many()  # normalize_json
+df_all = df.append(df2)
 
-    # favorites
-    print(df.favorite_count.mean())
-    print(df.sort_values('favorite_count'))
-```
-
-
-# Code
-
-```.py
-    # get all
-    print(df.groupby("favorite_count").size())
-
-    df_all.created_at_ts = pd.to_datetime(df_all.created_at)
-
-    df_all.text_split = df.text.str.lower().str.split()
-
-    unique_words = set()
-    df_all.text_split.apply(unique_words.update)
-    len(unique_words)  # should be ~20000
+# favorites
+print(df.favorite_count.mean())
+print(df.sort_values('favorite_count'))
 ```
 
 
 # Code
 
 ```.py
-    all_words = []
-    df_all.text_split.apply(all_words.extend)
-    len(all_words)  # should be ~140000
-    c = Counter(all_words)
-    c.most_common(20)
+# get all
+print(df.groupby("favorite_count").size())
+
+df_all.created_at_ts = pd.to_datetime(df_all.created_at)
+
+df_all.text_split = df.text.str.lower().str.split()
+
+unique_words = set()
+df_all.text_split.apply(unique_words.update)
+len(unique_words)  # should be ~20000
+```
 
 
 # Code
 
 ```.py
-    # replace all not word and not whitespace
-    # ALSO LOWER
-    s = df_all.text.str.replace('[^\w\s]', ' ')
-    s = s.str.split()
-    df_all.text_split = s
-    all_words = []
-    df_all.text_split.apply(all_words.extend)
+all_words = []
+df_all.text_split.apply(all_words.extend)
+len(all_words)  # should be ~140000
+c = Counter(all_words)
+c.most_common(20)
+```
 
-    c = Counter(all_words)
-    c.most_common(20)
+# Code
+
+```.py
+# replace all not word and not whitespace
+# ALSO LOWER
+s = df_all.text.str.replace('[^\w\s]', ' ')
+s = s.str.split()
+df_all.text_split = s
+all_words = []
+df_all.text_split.apply(all_words.extend)
+
+c = Counter(all_words)
+c.most_common(20)
 ```
 
 

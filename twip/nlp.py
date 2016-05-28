@@ -15,7 +15,8 @@ np = pd.np
 from twip.constant import FINANCIAL_WHITESPACE, PERCENT_SYMBOLS, FINANCIAL_MAPPING, DATE_TYPES
 from twip.constant import NULL_VALUES, NULL_REPR_VALUES, MAX_NULL_REPR_LEN
 from pug.nlp.regex import RE_NONWORD, CRE_TOKEN, CRE_BAD_FILENAME, CRE_WHITESPACE
-from twip.serial import PrettyDict, stringify, passthrough
+from pug.nlp.util import PrettyDict
+from pug.nlp.segmentation import stringify, passthrough
 from twip.numeric import safe_log
 
 STEMMER_DATASETS = {'snowball': 'udhr', 'wordnet': 'wordnet'}

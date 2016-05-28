@@ -203,8 +203,7 @@ def save_tweets(df, path=DATA_PATH, filename=u'all_tweets.csv'):
              len(df), filename, df_size, 2.0 * df_size / 60.))
     # consider using to_csv(compression='gzip', escapechar=None) 
     try:
-        df.to_csv(os.path.join(path, filename), encoding='utf8', quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC,
-                               compression='gzip')
+        df.to_csv(os.path.join(path, filename), encoding='utf8', compression='gzip', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     except ValueError:  # encoding + compression not yet supported in Python 2
         df.to_csv(os.path.join(path, filename), encoding='utf8', quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     T1 = time.time()

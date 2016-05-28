@@ -1,0 +1,147 @@
+Science 
+Python Level
+Intermediate 
+Audience
+Amateur and professional data scientists who want to learn about a powerful combination of python tools and techniques for natural language processing 
+Objectives
+Attendees will build a python module that can determine the best time of day to tweet on a particular subject. While building this tool, attendees will become familiar with the most powerful combination of python packages for performing state-of-the-art natural language processing. 
+Domain Level
+Novice 
+Additional Speakers
+dan@talentpair.com (Invitation Sent)
+Jeremy Robin <jeremy@talentpair.com>
+Description
+Do your tweets get lost in the shuffle? Would you like to predict a tweet's impact before you hit send? Python now has all the tools to make this possible. Several Python packages for machine learning and natural language processing have reached "critical mass" and can now be combined to perform these and other powerful natural language processing tasks. This tutorial will teach you how. 
+Abstract
+PREREQUISITES
+Students who have experience writing python scripts or modules and are familiar with the string manipulation and formatting capabilities built into python will have the necessary skill to complete this tutorial.
+
+In addition, any students who are familiar with linear algebra, and basic statistics concepts (like probability and variance) will be able to grasp the mathematics behind the tools assembled during the tutorial, but this is not required. Likewise, familiarity with scikit-learn and pandas would enable participants to incorporate more advanced features into their NLP pipeline.
+
+Also, students who are familiar with git and GitHub will be able to follow along with the logistics of the workshop sessions more quickly and spend more time developing their NLP pipeline.
+
+PYTHON DEVELOPMENT ENVIRONMENT
+Students will need iPython, Pandas, NLTK, scipy, scikit-learn, and gensim installed on their laptops in order to run the examples in this tutorial and build the tweet impact predictor tool. Students can install these requirements in one of 3 ways:
+
+For those with a Linux environment, the dependencies can be installed either natively or within a virtualenv with. pip install -r https://raw.githubusercontent.com/totalgood/pycon-2016-nlp-tutorial/master/requirements.txt
+
+Alternative install recipes using Anaconda will be provided.
+
+A Vagrant VirtualBox customized for NLP has been packaged for those who want the power of Linux and Python within their nonfree, closed-source OS.
+
+In addition, students have the option of installing a python twitter API client rather than utilizing the preprocessed collection of twitter feeds provided with the course material.
+
+OVERVIEW
+Participants will develop a tweet natural language processing pipeline in three modules. The first section of the pipeline will be a natural language feature extractor and normalizer based on python builtins collections, string, and re combined with the powerful Pandas DataFrame data structure. The second section will utilize scikit-learn and numpy to simplify the feature set to a manageable number of features. It will find optimal combinations of reduced numbers of features that provide the greatest information about the subject matter of the tweets being processed. The final section of the pipeline will compute additional features not contained in the tweet text, including time of day, day of week, number of favorites, and number of retweets. Students will use these features to compute an "impact" score and train a machine-learning model to predict the impact of proposed (not yet sent) tweets. In the fourth, final workshop, participants will assess the performance of their existing machine learning pipeline, ask questions or get clarification about the performance of the pipeline, and optionally incorporate more advanced NLP techniques. 
+
+Outline
+INTRODUCTION (15 MIN)
+Logistics (restrooms, WiFi, classroom etiquette)
+Agenda & Schedule (4 sessions, 4 workshops)
+Interesting NLP applications
+Troll-police
+News reporting (natural language generation)
+State of the art NLP
+gensim word vector math
+teaser: "king" - "man" + "woman" = "queen"
+FEATURE EXTRACTION WITH PYTHON (30 MIN)
+str.split to quickly extract words from a tweet
+collections.Counter to count word occurrences
+Explore regular expressions in a text adventure
+Text Adventure games vs. Choose Your Own Adventure books
+Python Regular Expressions vs. Memoryless Regular Expressions
+re.split to more accurately extract words (tokens)
+nltk stemmers
+nltk part-of-speech tagging
+nltk word root parsers
+nltk stop word filters
+pandas.Series and pandas.DataFrame
+analogy to builtin collections.OrderedDict
+use for storing word vectors
+np.linalg.norm and np.dot to efficiently normalize word counts and frequencies
+sklearn...TfidfVectorizer to efficiently store (sparse) normalized word frequencies
+np.linalg.norm, np.dot to compute "distances" between tweets
+sklearn.cluster to group similar tweets
+WORKSHOP: FEATURE EXTRACTION PIPELINE (20 MIN)
+Students will use the tools provided in the presentation to build a python function capable of processing 10's of thousands of tweets in a few minutes to produce meaningful clusters based on tweet content.
+
+FEATURE REDUCTION (30 MIN)
+Feature Reduction
+Calculating entropy (information value) with numpy
+sklearn..PCA Principle Component Analysis
+how it works (overview of matrix algebra)
+where it works best
+what to watch out for
+apply to tweet TFIDF to reduce vocabulary
+Plotting and Exploring
+scipy scatter matrix plots
+visulizing natural language feature vectors
+projecting/slicing
+json.dumps of TFIDF matrices for d3.js matrix visualizations
+using python to manipulate nested dicts to create json required for interactive d3.js force-directed graphs
+WORKSHOP: FEATURE REDUCTION (15 MIN)
+Attendees will use the tools provided simplify the natural language feature set extracted from their twitter feeds. They will use scikit-learn to identify more informative clusters and patterns than was possible in the previous workshop.
+
+SUPERVISED LEARNING (30 MIN)
+Extracting numerical statistics about tweets
+pandas.DataFrame .group_by and .hist
+time-of-day, day-of-week, day-of-quarter, day-of-year, month-of year
+Following the trail of retweets
+Model after Python builtin os.walk
+Favorites/Likes
+numpy.corrcoeff and numpy.cov to correlate
+numerical metrics
+tweet subject
+twitter ID
+Identify influential "likers"
+Modeling
+Use builtin random.sample to compose test and training data sets
+np.linalg.norm and np.dot to calculate tweet similarity
+sklearn.cluster.KMeans to classify tweets by topic
+numpy.linalg.norm similarity to cluster means to score tweets
+label tweets using pandas.DataFrame.get ([]) sql-like queries to threshold score
+sklearn..Lasso for efficient linear regression (p-norm, cosine-distance, supremum distance)
+Measuring Model Performance
+ConfusionMatrix
+sensitivity
+specificity
+sklearn.lda Linear Discriminant Analysis (use topic labels above)
+show why model performance is improved relative to PCA alone
+WORKSHOP: SUPERVISED LEARNING (20 MIN)
+Attendees will mine the Twitter API and data sets provided to compute the numerical statistics and assign scores to each tweet. Attendees will build a ConfusionMatrix class that inherits pandas.DataFrame and adds a from_labels method to injest scored/labeled data. Attendees will also add accuracy and specificity methods to their class and combine them to create a custom performance metric that targets their individual performance goals for their tweet predictor. They will balance the likelihood of a great tweet and the likelihood of a dud tweet. Attendees will use sklearn.lda to reduce dimensions further and generalize the model. Finally attendees will compare their model performance metric with and without the LDA pipeline element to confirm improved performance.
+
+ADVANCED NLP (30 MIN)
+Attendees will be introduced to recent advances in NLP and resources to help them explore further.
+
+Adding another dimension: word order
+Scale Space Processing as alternative to the orderless "Bag of Words" approach
+pandas.DataFrame.rolling_window to perform 1-D convolution
+matplotlib.pyplot.pcolor + pandas.DataFrame = heatmap of twitter streams
+Neural Networks
+pybrain2 convolutional neural network to classify tweets
+Word Vectors
+Explanation of skip-grams
+gensim -- Google's well-trained Word2Vec model
+Example Word Vector "algebra"
+WORKSHOP: LEVEL UP YOUR TWEET PREDICTOR (20 MIN)
+Attendees will add scale-space processing to their tweet predictor and plot a topic heatmap of their twitter stream. Students will be provided iPython notebooks to help them incorporate the other 2 advanced features into their pipeline on their own.  
+
+More info
+All material will be accompanied by iPython notebooks and provided in open-source (MIT-licensed) GitHub repositories. Tweet datasets will be prepossessed and compressed to simplify participant environment setup. A sequence of releases of the twip package on PyPI will provide an "answer key" for workshop activities to help all students move forward at the pace of the class. 
+
+Notes
+Students will be offered USB sticks containing a Vagrant .box file with all the tools required to participate in the workshop sessions. They can continue to use this stick at home to develop their NLP skills or contribute to open source projects. This will also minimize environment setup time and WiFi bandwidth contention.
+
+Hobson is a passionate advocate of Python and open source. Hobson has presented numerous talks on natural language processing with Python and has a proven track record of teaching advanced NLP techniques to novices. Hobson taught High School for 2 years, adult education courses in robotics at Northrop Grumman, served as a mentor for Georgia Tech grad students in Machine Learning and is currently mentoring SlideRule students and TotalGood grant recipients as well as teaching the Hack University Machine Learning course. Hobson's talks, like this one at the Predictive Analytics Summit are interactive. Hobson engages participants individually throughout a talk, soliciting ideas and provoking critical thinking. As the Sr. Data Scientist at Talentpair, Hobson develops Machine Intelligence tools that connect employers and job-seekers.
+
+Additional Talentpair staff and friends will be on hand to assist students with their projects during the workshop sessions. 
+
+Speaker Bio
+Hobson has two decades of teaching and engineering experience in robotics, data science, and natural language processing. Hobson uses Python to build cutting-edge autonomous systems and webapps for businesses, large and small, for-profit and nonprofit--Squishy Media, Building Energy, Sharp Labs, Hack Oregon, Pellego, Intel Labs, and Talentpair. For all of them he insists on not only exclusively using open source tools, but also contributing to open source projects. Hobson teaches these best-practices as a mentor and instructor for Hack University, Springboard, Georgia Tech, FIRST Robotics, TotalGood, and Chick Tech.  
+
+Additional Requirements
+ 
+Student Handout
+No handout attached to this proposal.
+Supporting Documents
+No supporting documents attached to this proposal.

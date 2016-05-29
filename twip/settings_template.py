@@ -7,6 +7,8 @@
 # 4. `twyth = Twython(settings_secret.TWITTER_API_KEY, settings_secret.TWITTER_API_SECRET)`
 
 # TWITTER_API_KEY and _SECRET are required to download tweets
+import os
+
 try:
     TWITTER_API_KEY = os.getenv('TWITTER_API_KEY')
     TWITTER_API_SECRET = os.getenv('TWITTER_API_SECRET')

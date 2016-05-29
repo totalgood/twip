@@ -22,8 +22,11 @@ GETTING STARTED
 Rather than installing this module from the cheese shop, fork the repository on GitHub and then clone it to your laptop (replacing `totalgood` with your account name:
 
     git clone git@github.com:totalgood/twip.git
-    cd twip
-    git checkout v0.1.0
+    # optional:
+    # mkvirtualenv twip
+    pip install -r requirements.txt
+    cd twip/docs/notebooks
+    ipython notebook
 
 If you don't already have one, sign up to get a twitter user account
 (@username): [twitter.com/signup](https://twitter.com/signup)

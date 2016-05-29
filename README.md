@@ -36,18 +36,12 @@ Once you have a user account, sign into it, then set up a twitter App to get an 
 
 Copy and paste the *Consumer API Key* and *Consumer API Secret* into the indicated places in the file called `settings_template.py` but don't save it there. Instead save the file as a new file named `settings_secret.py`. This file is `.gitignore`d during pushes. Do a `git status` to make sure you didn't accidentally save your secret KEYs in the template file or misname your `settings_secret.py` file. If you see that any tracked/added files have changes then you need to undo them before you do a commit and push to your fork of twip.
 
-To get ready for the first workshop you'll want to make sure you've checked out v0.1.0:
-
-    git checkout v0.1.0
-
-If you want to skip the first session and move directly to the second session you can checkout `v0.2.0`.  This with have all the code from the first workshop session completed for you.
-
 Credits
 -------
 
--   [Hobson Lane](http://hobsonlane.com/) -- Data Scientist for
-    [Talentpair](http://talentpair.com/)
--   [Rob Ludwick](https://www.linkedin.com/in/rludwick) -- Co-Instructor, helped craft the proposal and suggested the tweet optimization application
--   [Jeremy Robin](https://www.linkedin.com/in/jeremyrobin) -- Co-Instructor, helped develop the material
--   [PyScaffold](http://pyscaffold.readthedocs.org/) -- Python package
-    setup done right (the one obvious way)
+-   [Hobson Lane](//hobsonlane.com/) -- Data Scientist for
+-   [Dan Fellin](//www.linkedin.com/in/dan-fellin-611637b6): Co-Instructor, helped develop the material
+-   [Jeremy Robin](//www.linkedin.com/in/jeremyrobin): -- Co-Instructor, helped develop the material
+-   [Talentpair](//talentpair.com/)
+-   [Rob Ludwick](//www.linkedin.com/in/rludwick): proposal editting
+-   [PyScaffold](//pyscaffold.readthedocs.org/): Python package setup done right

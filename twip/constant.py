@@ -40,5 +40,6 @@ np = pd.np
 BASE_PATH = os.path.abspath(os.path.dirname(twip.__file__))
 DATA_PATH = os.path.abspath(os.path.join(BASE_PATH, '..', 'data'))
 DOCS_PATH = os.path.abspath(os.path.join(BASE_PATH, '..', 'docs'))
+IMAGES_PATH = os.path.abspath(os.path.join(DOCS_PATH, 'images'))
 
 mkdir_p(DATA_PATH)

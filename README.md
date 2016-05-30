@@ -30,7 +30,8 @@ Rather than installing this module from the cheese shop, clone it to your laptop
 
 That way you can edit the source code. Even better, make your own fork so you can easily issue pull requests. Obviously it needs a lot of help.
 
-# Got Tweets?
+GOT TWEETS?
+-----------
 
 To use the tweetget app, you also need a Twiter API key.
 

@@ -1,21 +1,25 @@
 # twip
 
-
 Tweet Impact Predictor
 
 ## DESCRIPTION
 
 A natural language processing pipeline for predicting the impact (reach
 and popularity) of a tweet. Built as part of the PyCon 2016 Natural
-Language Processing tutorial and workshop. For more information see the
-[tutorial repository](https://github.com/totalgood/pycon-2016-nlp-tutorial).
+Language Processing tutorial and workshop.
+
+- [cryptic slides](https://totalgood.github.io/twip/)
+- [slide source](docs/slides)
+- [ipython notebooks](docs/notebooks)
+- [virtual box instructions](//github.com/talentpair/puppet-python-nlp-tools)
+- 
 
 Don't install the latest version from PyPi if you're working through
 the tutorial yourself! Tagged version numbers will correspond to
 sections of the tutorial and handout material so you can maintain pace
 even if you miss a step along the way. Plus it'll be easier to set up your API keys if you clone the repository.
 
-GETTING STARTED
+## GETTING STARTED
 
 Rather than installing this module from the cheese shop, clone it to your laptop.
 

@@ -12,7 +12,6 @@ Language Processing tutorial and workshop.
 - [slide source](docs/slides)
 - [ipython notebooks](docs/notebooks)
 - [virtual box instructions](//github.com/talentpair/puppet-python-nlp-tools)
-- 
 
 Don't install the latest version from PyPi if you're working through
 the tutorial yourself! Tagged version numbers will correspond to
@@ -56,11 +55,10 @@ Alternatively, check out the settings_secret.py file for the environment variabl
 
 ## CREDITS
 
-- [Hobson Lane](//hobsonlane.com/) Data Scientist @ [Talentpair](talentpair.com)
-- [Dan Fellin](//www.linkedin.com/in/dan-fellin-611637b6) Engineer @ [Talentpair](talentpair.com)
-- [Jeremy Robin](//www.linkedin.com/in/jeremyrobin) CTO @ [Talentpair](talentpair.com)
-
-- [Talentpair](//talentpair.com/)
-- [Rob Ludwick](//www.linkedin.com/in/rludwick): Proposal editting
-- [PyScaffold](//pyscaffold.readthedocs.org/): Python packages done right
-- [gensim](https://radimrehurek.com/gensim/tutorial.html): **The Star of the Show**
+- [Hobson Lane](//hobsonlane.com/) Data Scientist @ [Talentpair](talentpair.com)  
+- [Dan Fellin](//www.linkedin.com/in/dan-fellin-611637b6) Engineer @ [Talentpair](talentpair.com)  
+- [Jeremy Robin](//www.linkedin.com/in/jeremyrobin) CTO @ [Talentpair](talentpair.com)  
+- [Talentpair](//talentpair.com/)  
+- [Rob Ludwick](//www.linkedin.com/in/rludwick): Proposal editting  
+- [PyScaffold](//pyscaffold.readthedocs.org/): Python packages done right  
+- [gensim](https://radimrehurek.com/gensim/tutorial.html): **The Star of the Show**  

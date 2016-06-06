@@ -12,8 +12,8 @@ before_install:
   - export PATH=/home/travis/miniconda2/bin:$PATH
   - conda update --yes conda
 install:
-  - conda create --yes -n pug-nlp-test python=$TRAVIS_PYTHON_VERSION pip atlas pyzmq numpy scipy gensim scikit-learn matplotlib
-  - source activate pug-nlp-test
+  - conda create --yes -n twip-test python=$TRAVIS_PYTHON_VERSION pip atlas pyzmq numpy scipy gensim scikit-learn matplotlib
+  - source activate twip-test
   - pip install -r requirements-test.txt
   - python setup.py install
 script: python setup.py test

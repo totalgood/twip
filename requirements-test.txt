@@ -1,4 +1,4 @@
 pyscaffold==2.5.6
 entrypoints==0.2.2
-pytest-cov
-pytest
+pytest==2.9.2
+pytest-cov==2.2.1

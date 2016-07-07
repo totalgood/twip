@@ -5,12 +5,14 @@ nltk==3.2.1
 pandas==0.18.1
 pandas-profiling==1.0.0a2
 gensim==0.12.4
+# gensim requires
+# scipy==0.17.1
 pug-nlp==0.1.7a1
 future==0.15.2
 ipython[all]==4.2.0
 
 # pandas comes with
-# scipy==0.16.1
+# scipy==0.17.1
 # numpy==1.10.1
 
 # for plotting, but requires binary package installation for some OSes 

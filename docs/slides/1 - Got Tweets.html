@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/theme/black.css" id="theme">
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'http://lab.hakim.se/reveal-js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="http://lab.hakim.se/reveal-js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="lesson-1" class="slide level1">
+<h1>Lesson 1</h1>
+</section>
+<section id="got-tweets" class="slide level1">
+<h1>Got Tweets?</h1>
+<p><strong>by Dan Fellin</strong></p>
+</section>
+<section id="twitter-api" class="slide level1">
+<h1>Twitter API</h1>
+<ul>
+<li><p>Have you used Twitter API?</p></li>
+<li><p>in the last six months?</p></li>
+</ul>
+</section>
+<section id="twitter-api-has-all-you-need-for-twip" class="slide level1">
+<h1>Twitter API has all you need for TWIP</h1>
+<p>Source data is tweets about python.</p>
+<p>Let's code!</p>
+</section>
+<section id="what-do-you-think" class="slide level1">
+<h1>What do you think?</h1>
+<p>That's all there is to it to gather the 200K tweets.</p>
+<p>That 200K was twitter's fault. 4x all the tweets for the past week</p>
+<p>Any questions?</p>
+</section>
+<section id="pandas" class="slide level1">
+<h1>Pandas</h1>
+<p>How many people have used pandas?</p>
+</section>
+<section id="pandas-is..." class="slide level1">
+<h1>Pandas is...</h1>
+<ul>
+<li>fast, flexible data structures (tables)</li>
+<li>efficient for relational (indexed) data</li>
+<li>like <code>dict</code> tuned up</li>
+</ul>
+</section>
+<section id="two-core-parts" class="slide level1">
+<h1>Two core parts:</h1>
+<ul>
+<li>Data series: array, row in a table or spreadsheet</li>
+<li>Data frame: array of arrays, table or spreadsheet</li>
+</ul>
+<p>Now let's go to code...</p>
+</section>
+<section id="normalize_json" class="slide level1">
+<h1>normalize_json</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> get_df_few()  <span class="co"># normalize_json</span>
+
+df.to_csv(<span class="st">&#39;out.csv&#39;</span>)
+<span class="co"># look at csv</span>
+<span class="co"># look at json</span>
+<span class="co"># explain why normalize_json is cool</span>
+
+<span class="co"># list all columns</span>
+df.columns</code></pre></div>
+</section>
+<section id="dataframe-magic" class="slide level1">
+<h1>Dataframe Magic</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># all columns are tab completed</span>
+<span class="co"># df.fav&lt;TAB&gt;</span>
+
+<span class="co"># append</span>
+df2 <span class="op">=</span> get_df_many()  <span class="co"># normalize_json</span>
+df_all <span class="op">=</span> df.append(df2)
+
+<span class="co"># favorites</span>
+<span class="bu">print</span>(df.favorite_count.mean())
+<span class="bu">print</span>(df.sort_values(<span class="st">&#39;favorite_count&#39;</span>))</code></pre></div>
+</section>
+<section id="unique-words" class="slide level1">
+<h1>Unique Words</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># get all</span>
+<span class="bu">print</span>(df.groupby(<span class="st">&quot;favorite_count&quot;</span>).size())
+
+df_all.created_at_ts <span class="op">=</span> pd.to_datetime(df_all.created_at)
+
+df_all.text_split <span class="op">=</span> df.text.<span class="bu">str</span>.lower().<span class="bu">str</span>.split()
+
+unique_words <span class="op">=</span> <span class="bu">set</span>()
+df_all.text_split.<span class="bu">apply</span>(unique_words.update)
+<span class="bu">len</span>(unique_words)  <span class="co"># should be ~20000</span></code></pre></div>
+</section>
+<section id="common-words" class="slide level1">
+<h1>Common Words</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">all_words <span class="op">=</span> []
+df_all.text_split.<span class="bu">apply</span>(all_words.extend)
+<span class="bu">len</span>(all_words)  <span class="co"># should be ~140000</span>
+c <span class="op">=</span> Counter(all_words)
+c.most_common(<span class="dv">20</span>)</code></pre></div>
+</section>
+<section id="important-common-words" class="slide level1">
+<h1>Important Common Words</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># replace all not word and not whitespace</span>
+<span class="co"># ALSO LOWER</span>
+s <span class="op">=</span> df_all.text.<span class="bu">str</span>.replace(<span class="st">&#39;[^\w\s]&#39;</span>, <span class="st">&#39; &#39;</span>)
+s <span class="op">=</span> s.<span class="bu">str</span>.split()
+df_all.text_split <span class="op">=</span> s
+all_words <span class="op">=</span> []
+df_all.text_split.<span class="bu">apply</span>(all_words.extend)
+
+c <span class="op">=</span> Counter(all_words)
+c.most_common(<span class="dv">20</span>)</code></pre></div>
+</section>
+<section id="workshop-1" class="slide level1">
+<h1>Workshop 1</h1>
+<p>Now, choose your own adventure:</p>
+<ol type="1">
+<li>Pandas: play with tweets (<code>all_tweets.csv</code>)</li>
+<li>Tweetget: nab a Twitter API key some tweets that interest you.
+<ul>
+<li>your profile</li>
+<li>a friend's profile</li>
+<li>a search (see cron.py)</li>
+</ul></li>
+</ol>
+</section>
+<section id="extra-credit" class="slide level1">
+<h1>Extra Credit</h1>
+<ol start="3" type="1">
+<li>Plot some statistics
+<ul>
+<li>tweets per day</li>
+<li>favorites per tweet</li>
+<li>histogram of state for each day of the week</li>
+</ul></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="http://lab.hakim.se/reveal-js/lib/js/head.min.js"></script>
+  <script src="http://lab.hakim.se/reveal-js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: false,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: false,                // Display the page number of the current slide
+        theme: 'black', // available themes are in /css/theme
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'http://lab.hakim.se/reveal-js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'http://lab.hakim.se/reveal-js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'http://lab.hakim.se/reveal-js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

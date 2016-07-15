@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/theme/black.css" id="theme">
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'http://lab.hakim.se/reveal-js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="http://lab.hakim.se/reveal-js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lesson-4" class="titleslide slide level1"><h1>Lesson 4</h1></section><section><section id="advanced-techniques" class="titleslide slide level2"><h1>Advanced Techniques</h1></section><section id="two-improvements" class="slide level3">
+<h1>Two Improvements</h1>
+<ul>
+<li>Performance
+<ul>
+<li>Accuracy</li>
+<li>Specificity</li>
+<li>MCC</li>
+</ul></li>
+<li>Scalability
+<ul>
+<li>More data</li>
+<li>Faster results</li>
+</ul></li>
+</ul>
+</section><section id="performance-improvements" class="slide level3">
+<h1>Performance Improvements</h1>
+<pre><code>- Word Order
+- Grammar
+- Semantics
+- Smarter Dimension Reduction
+- Learned Metrics
+- Generalization (Clustering)</code></pre>
+</section><section id="tools" class="slide level3">
+<h1>Tools</h1>
+<pre><code>- gensim
+    - approximate, incremental learning
+- Dirichlet Allocation
+- Word2Vec
+- NLTK POS tagging
+- Parsey McParseface
+- neural nets
+    - CNNs
+    - Skip-grams
+    - LTSTM</code></pre>
+</section><section id="generative-models" class="slide level3">
+<h1>Generative Models</h1>
+<pre><code>- Chat bots
+  - Tay, 
+- Assistants
+  - Siri, Google Now</code></pre>
+</section></section></section>
+    </div>
+  </div>
+
+
+  <script src="http://lab.hakim.se/reveal-js/lib/js/head.min.js"></script>
+  <script src="http://lab.hakim.se/reveal-js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: false,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: false,                // Display the page number of the current slide
+        theme: 'black', // available themes are in /css/theme
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'http://lab.hakim.se/reveal-js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'http://lab.hakim.se/reveal-js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'http://lab.hakim.se/reveal-js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

@@ -39,10 +39,10 @@ docs/api/*
 docs/_build/*
 cover/*
 MANIFEST
+tags
 
 # Data (tweets, statistics, models/matrices)
-tweetget/raw/
-tweetget/data.json
+data/oldest_id.txt
 *.json
 *.csv
 *.csv.gz
@@ -50,10 +50,11 @@ tweetget/data.json
 *.ods
 *.xls
 .ipynb_checkpoints/
+*.projection
+lsi*
 
 # Secrets (Passwords and Keys)
 settings_secret.py
 
 # other (backup and lock files)
 .~*
-

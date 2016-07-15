@@ -90,6 +90,8 @@ import pandas as pd
 # from itertools import izip
 from twip.constant import DATA_PATH
 from pug.nlp.util import make_name
+from pug.nlp.scrape import transcode_unicode
+
 
 np = pd.np
 
@@ -191,18 +193,21 @@ def encode(df, encoding='utf8', verbosity=1):
                     print("Unable to convert {} elements starting at position {} in column {}".format(
                           sum(strmask), [i for i, b in enumerate(strmask) if b][:1], col))
                     raise
-                except UnicodeDecodeError:
+                except (UnicodeDecodeError, UnicodeEncodeError):
                     try:
                         series[strmask] = np.array([eval(s, {}, {}) for s in series[strmask]])
-                    except (SyntaxError, UnicodeDecodeError):
+                    # FIXME: do something different for unicode and decode errors
+                    except (SyntaxError, UnicodeDecodeError, UnicodeEncodeError):
                         newseries = []
                         for s in series[strmask]:
                             try:
                                 newseries += [s.encode('utf8')]
                             except:
-                                print(u'Had trouble encoding {} so used repr to turn it into {}'.format(s, repr(s)))
-                                newseries += [repr(s)]
-                        series[strmask] = np.array(newseries).astype('U')
+                                print(u'Had trouble encoding {} so used repr to turn it into {}'.format(s, repr(transcode_unicode(s))))
+                                # strip all unicode chars are convert to ASCII str
+                                newseries += [transcode_unicode(s)]
+                        # for dtype('U'): UnicodeDecodeError: 'ascii' codec can't decode byte 0xe2 in position 207: ordinal not in r
+                        series[strmask] = np.array(newseries).astype('O')
                 df[col] = series
                 # df[col] = np.array([x.encode('utf8') if isinstance(x, unicode) else x for x in df[col]])
 
@@ -217,7 +222,7 @@ def encode(df, encoding='utf8', verbosity=1):
         pbar.finish()
     return df
 
-def run():
+def run(verbosity=1):
     """Load all_tweets.csv and run normalize, dropna, encode before dumping to cleaned_tweets.csv.gz
 
     Many columns have "mixed type" to `read_csv` should set `low_memory` to False to ensure they're loaded accurately
@@ -226,20 +231,20 @@ def run():
     DtypeWarning: Columns (74,82,84,105,114,115,116,117,118,119,120,121,122,123,125,126,127,128,129,130,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,149,150,151,152,199,200,202,203,210,211,214,215,223,231,232,238) have mixed types. Specify dtype option on import or set low_memory=False.
        interactivity=interactivity, compiler=compiler, result=result)
     """
-    verbosity = 1
     filepath = os.path.join(DATA_PATH, 'all_tweets.csv')
     # this should load 100k tweets in about a minute
-    # check the file size and estimate load time from that (see json_to_dataframe.py)
-    print('Loading tweets (could take a minute or so)...')
+    # check the file size and estimate load time from that (see scritps/cat_tweets.py)
+    print('Loading tweets from {} (could take a minute or so)...'.format(filepath))
     df = pd.read_csv(filepath, encoding='utf-8', engine='python')
     if 'id' in df.columns:
         df = df.set_index('id')
     df = normalize(df)
     df = dropna(df)
     df = encode(df, verbosity=verbosity)
+    df = clean_labels(df)
     df.to_csv(os.path.join(DATA_PATH, 'cleaned_tweets.csv.gz'), compression='gzip',
               quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
-    # the round-trip to disk cleans up encoding issues so encotding no longer needs to be specified on load
+    # the round-trip to disk cleans up encoding issues so encoding no longer needs to be specified on load
     df = pd.read_csv(os.path.join(DATA_PATH, 'cleaned_tweets.csv.gz'), index_col='id', compression='gzip',
                      quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC, low_memory=False)
     df.to_csv(os.path.join(DATA_PATH, 'cleaned_tweets.csv.gz'), compression='gzip',

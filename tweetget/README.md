@@ -3,21 +3,15 @@
 gets all the tweets matching `python -monty` from Twitter and stores
 them in a single json file
 
+## api
+
 ```bash
-cd tweetget
+# to issue a single request for 100 tweets (max allowed by twitter) and save it as json
+python -m tweetget.single
 
-# to run one iteration
-python core.py
-
-# to merge all the raw data into data.json
-python merge.py
-
-# to run reports on data.json
-python report.py
-
-# to read 10 random tweets
-python read.py
+# to request max tweets RATE_LIMIT times
+python -m tweetget.core
 
 # to hit Twitter's API every 15 minutes, run this in screen/tmux
-python cron.py
+python -m tweetget.cron
 ```

@@ -4,7 +4,7 @@ import doctest
 
 import twip.util
 
-from django.test import TestCase
+from unittest import TestCase
 
 
 class T(TestCase):

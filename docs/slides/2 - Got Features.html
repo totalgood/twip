@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/reveal.css"/>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/theme/black.css" id="theme">
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'http://lab.hakim.se/reveal-js/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+  <!--[if lt IE 9]>
+  <script src="http://lab.hakim.se/reveal-js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="lesson-2" class="slide level1">
+<h1>Lesson 2</h1>
+</section>
+<section id="got-features" class="slide level1">
+<h1>Got Features?</h1>
+</section>
+<section id="features-in-tweet-dumps" class="slide level1">
+<h1>Features in Tweet Dumps</h1>
+<p><code>tweets.json</code></p>
+<ul>
+<li>favorites</li>
+<li>userid, id number</li>
+<li>city, state</li>
+<li>lat, lon</li>
+<li>user settings (geo on, protected account)</li>
+<li>tweet info (promoted, urls)</li>
+</ul>
+</section>
+<section id="tokens" class="slide level1">
+<h1>Tokens</h1>
+<p>What's a token?</p>
+</section>
+<section id="meaning" class="slide level1">
+<h1>Meaning</h1>
+<p>Smallest meaning bit?</p>
+<ul>
+<li>Statement? Paragraph?</li>
+<li>Sentence?</li>
+<li>Phrase?</li>
+<li>Noun phrase (&quot;python language&quot;)</li>
+<li>Word?</li>
+<li>Character?</li>
+<li>Punctuation</li>
+</ul>
+</section>
+<section id="depends-on-your-language" class="slide level1">
+<h1>Depends on Your Language</h1>
+<p><img src="../images/220px-RNA-codons.png"></p>
+</section>
+<section id="rna-and-dna" class="slide level1">
+<h1>RNA and DNA</h1>
+<p>RNA tokens:</p>
+<p>&quot;A&quot;, &quot;G&quot;, &quot;C&quot;, &quot;U&quot;</p>
+<p>DNA tokens:</p>
+<p>&quot;A&quot;, &quot;G&quot;, &quot;C&quot;, &quot;T&quot;</p>
+</section>
+<section id="if-youre-a-computer" class="slide level1">
+<h1>If You're a Computer</h1>
+<p>0's and 1's</p>
+<p><code> 00101010 00000100 0000010 00101010 </code></p>
+<p>Bit, Byte or Word Which is the Token?</p>
+<aside class="notes">
+Imagine you wanted to decypher this Code breakers use frequency analysis Find most frequent words/letters Known frequencies for words/letters Depends on language, context
+</aside>
+</section>
+<section id="computer-language" class="slide level1">
+<h1>Computer Language</h1>
+<p><code> OR DL,00101000b XOR DL,00000010b HCF </code></p>
+<ul>
+<li>Line, statement</li>
+<li>word, symbol</li>
+</ul>
+<aside class="notes">
+Humans have fun with language Even Machine Code Can't help but intepret
+</aside>
+</section>
+<section id="python" class="slide level1">
+<h1>Python</h1>
+<p><code>ans = [c for c in &quot;Hello&quot;]</code></p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> x <span class="op">in</span> <span class="st">&quot;upword&quot;</span>:
+    <span class="bu">print</span>(x)</code></pre></div>
+<aside class="notes">
+Have you ever built a compiler? What are the tokens? What are the &quot;statements&quot;? What's special about white space and python? (white space is actually a token)
+</aside>
+</section>
+<section id="english-words" class="slide level1">
+<h1>English Words</h1>
+<p>We'll mangle common multi-word tokens:</p>
+<ul>
+<li>United States -&gt; &quot;States&quot;, &quot;United&quot;</li>
+<li>Manchester United -&gt; &quot;Manchester&quot;, &quot;United&quot;</li>
+</ul>
+</section>
+<section id="speaking-of-english-words" class="slide level1">
+<h1>Speaking of English Words</h1>
+<p>Have you heard of</p>
+<blockquote>
+<p>&quot;Lexicon&quot;</p>
+</blockquote>
+<ul>
+<li>Vocabulary</li>
+<li>Dictionary</li>
+<li>Set of words</li>
+</ul>
+<aside class="notes">
+Academic, technical term. I'll try not to use it again. But each of those words has slightly different meaning They're used in different contexts Wouldn't ask for a Lexicon at Powell's Book Store? (confused looks? at Powell's they'd probably know exactly what you meant... but) Confuse PyConners if you asked what &quot;Dictionary&quot; they used (the builtin of course)
+</aside>
+</section>
+<section id="corpus" class="slide level1">
+<h1>Corpus</h1>
+<ul>
+<li>Set of Documents</li>
+</ul>
+</section>
+<section id="our-corpus" class="slide level1">
+<h1>Our Corpus</h1>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&gt;&gt;&gt;</span> df.text
+<span class="dv">731122251278499841</span>    RT @javacodegeeks: Top Performance Metrics <span class="cf">for</span>...
+<span class="dv">724281574129180672</span>    World<span class="st">&#39;s Largest Python Discovered in Nepal: WA...</span>
+<span class="st">724281535587856384    🎷 💎 STOP! Could you be @ExpendTeam&#39;</span>s Python <span class="op">/</span> ...
+<span class="dv">724281501622345729</span>    My Little Python:Changing the world: Artist of...
+<span class="dv">724281482357837825</span>    Artist of the Day:Arder: This cute snake art c...
+<span class="dv">724280128860094469</span>    Watching Boa vs. Python — https:<span class="op">//</span>t.co<span class="op">/</span>iyNJ58EZCE
+<span class="dv">724280108807249920</span>    RT @mumbrainstats: FSL task fMRI tutorials alm...
+<span class="dv">724280070467129344</span>    <span class="co">#How to print the amount of times each word of...</span>
+<span class="dv">731128258532540416</span>    RT @randal_olson: Free video course on YouTube...
+<span class="dv">731127852318523393</span>    RT @Petzoldt: Excellent hands<span class="op">-</span>on tutorial abou...
+<span class="dv">731127380249444357</span>    RT @nixcraft: Announcing Certbot: EFF<span class="st">&#39;s Client...</span>
+<span class="st">724275650043875328    Go boa wkwk💪😄 ★ Boa vs. Python — https://t.co/...</span>
+<span class="st">724275609858392066    RT @RealPython: List of Python API Wrappers &amp;g...</span>
+<span class="st">724275578879111169    Watching Boa vs. Python — https://t.co/5THbrirfQO</span>
+<span class="st">724275568871673857    Чертова дюжина вакансий в IT и Digital /  / 1....</span></code></pre></div>
+</section>
+<section id="sequences-of-words" class="slide level1">
+<h1>Sequences of Words</h1>
+<p>Before we throw tokens into a bag...</p>
+<ul>
+<li>Bags of words have no &quot;order&quot;</li>
+<li>python <code>set()</code> vs. <code>list()</code></li>
+</ul>
+</section>
+<section id="bags-jumble-up-meaning" class="slide level1">
+<h1>Bags Jumble up Meaning</h1>
+<blockquote>
+<p>I saw a black Ferrari and stopped at red lights.</p>
+</blockquote>
+<blockquote>
+<p>I stopped at a red Ferrari and saw black lights.</p>
+</blockquote>
+</section>
+<section id="real-bag-jumbling-example" class="slide level1">
+<h1>Real Bag Jumbling Example</h1>
+<blockquote>
+<p>My Little Python: Changing the world: Artist</p>
+</blockquote>
+<blockquote>
+<p>Little Python Changing the :My Artist: world</p>
+</blockquote>
+<aside class="notes">
+Another technical term for your quiver: &quot;Semantics&quot; = the meaning of a word sequence &quot;Syntax&quot; = the structure of a word sequence (grammar) N-grams capture some of the meaning in word order
+</aside>
+</section>
+<section id="n-grams" class="slide level1">
+<h1>N-Grams</h1>
+<p>2-grams:</p>
+<p>[&quot;I saw&quot;, &quot;saw a&quot;, &quot;a black&quot;, &quot;black Ferrari&quot;</p>
+<aside class="notes">
+Tweeters don't usually pay much attention to word order. And the vocabulary and subject is typically less order-sensitive. (or sensitive to much of anything) So we'll just use 1-grams
+<aside>
+</section>
+<section id="sentences" class="slide level1">
+<h1>Sentences</h1>
+<ul>
+<li>How would you detect sentence &quot;boundaries&quot;?</li>
+</ul>
+<blockquote>
+<p>How can twip.nlp.Tokenizer knows when periods in Mr. Chomsky's name end a sentence and when they don't? What about U.S.S.R. or :smilies: :-) or :-P?</p>
+</blockquote>
+<p>Even Parsey McParseface can't hangle this one (needs one sentence per line)</p>
+<aside class="notes">
+If you want to help... See [pug.nlp.scrape.get_ascii_emoticon_table()](https://github.com/totalgood/pug-nlp/blob/master/pug/nlp/scrape.py And [pug.nlp.scrape.get_ascii_emoticon_table()](https://github.com/totalgood/pug-nlp/blob/master/pug/nlp/words.py
+</aside>
+</section>
+<section id="sentence-segmenters" class="slide level1">
+<h1>Sentence Segmenters</h1>
+<ul>
+<li>Machine learning to the rescue</li>
+<li>Naive Bayes and Unsupervised Learning</li>
+<li><p>Neural Nets</p></li>
+<li><a href="https://github.com/cslu-nlp/DetectorMorse">Kyle Gorman's <code>DetectorMorse</code></a></li>
+<li><p><a href="http://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.punkt"><code>nltk.tokenize.punkt</code></a></p></li>
+</ul>
+<aside class="notes">
+Punkt identifies abbreviations first Statistics on words that end in periods This solves most punctuation ambiguity Detector Morse is &quot;fuzzier&quot; using NLUP
+</aside>
+</section>
+<section id="tweets" class="slide level1">
+<h1>Tweets</h1>
+<blockquote>
+<p>We don't need no stink'n sentences!</p>
+</blockquote>
+<p>Tweets are stinky enough. Can't ramble in 140 characters.</p>
+<aside class="notes">
+Only need to segement sentences if you're doing real work. Like parsing resumes
+</aside>
+</section>
+<section id="word2vect-vectors" class="slide level1">
+<h1>Word2Vect Vectors</h1>
+<p>Each word is...</p>
+<ul>
+<li>bag of words</li>
+<li>defined by its neighbors</li>
+<li>all words every used with it</li>
+</ul>
+<aside class="notes">
+What about dictionary definition?
+</aside>
+</section>
+<section id="word-vectors" class="slide level1">
+<h1>Word Vectors</h1>
+<p>Each word is...</p>
+<ul>
+<li>dictionary definition(s)?</li>
+</ul>
+</section>
+<section id="words" class="slide level1">
+<h1>Words</h1>
+<h2 id="wh">Wh</h2>
+</section>
+<section id="workshop-2" class="slide level1">
+<h1>Workshop 2</h1>
+<ol type="1">
+<li>Tokenize Your Tweets
+<ul>
+<li>case normalization</li>
+<li>ignore URLs and punctuation</li>
+<li>transcode smilies?</li>
+</ul></li>
+<li>Compile a Vocabulary
+<ul>
+<li>Count word frequencies</li>
+<li>Plot a Zipf plot of word frequencies</li>
+<li>Plot a Zipf plot of document frequencies</li>
+</ul></li>
+<li>Compute the TFIDF
+<ul>
+<li>Term frequency in each tweet</li>
+<li>Document frequency (which tweets contain the term)</li>
+</ul></li>
+</ol>
+</section>
+<section id="got-features-1" class="slide level1">
+<h1><a href="2%20-%20Got%20Features.html">Got Features?</a></h1>
+</section>
+    </div>
+  </div>
+
+
+  <script src="http://lab.hakim.se/reveal-js/lib/js/head.min.js"></script>
+  <script src="http://lab.hakim.se/reveal-js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,         // Display controls in the bottom right corner
+        progress: true,         // Display a presentation progress bar
+        history: true,          // Push each slide change to the browser history
+        center: false,                       // Vertical centering of slides
+        maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
+        slideNumber: false,                // Display the page number of the current slide
+        theme: 'black', // available themes are in /css/theme
+        transition: 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'http://lab.hakim.se/reveal-js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'http://lab.hakim.se/reveal-js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'http://lab.hakim.se/reveal-js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'http://lab.hakim.se/reveal-js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+#/usr/bin/env bash
+TMPLT="pandoc-template-for-revealjs.html"
+TITLE="0 - Introduction"
+# RJS="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.min.js"
+RJS=http://lab.hakim.se/reveal-js
+
+for ARG in "$@"
+do
+
+  if [ -z "$ARG" ]; then
+      TITLE="$TITLE"
+      echo "Couldn't find $ARG"
+  else
+      TITLE="$ARG"
+  fi
+
+  TITLE=${TITLE%.*} 
+  HTML="$TITLE.html"
+  MD="$TITLE.md"
+  echo "Processing $MD -> $HTML"
+
+  TMPLT_PATH=$(dirname "${HTML}")"/$TMPLT"
+  echo "Using template: '$TMPLT_PATH'"
+
+  pandoc -t revealjs --mathjax --template="$TMPLT_PATH" -V theme=black -s "$MD" -o "$HTML" -V "$RJS"
+  git add "$HTML"
+
+done

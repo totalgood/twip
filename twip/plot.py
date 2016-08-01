@@ -70,6 +70,7 @@ def compose_suffix(num_docs=0, num_topics=0, suffix=None):
         suffix = '_{}X{}'.format(num_docs, num_topics)
     return suffix
 
+
 def scatmat(df, category=None, colors='rgob',
             num_plots=4, num_topics=100, num_columns=4,
             show=False, block=False, data_path=DATA_PATH, save=False, verbose=1):
@@ -137,7 +138,7 @@ def df_from_groups(groups, columns=None):
     return df
 
 
-def groups_from_scores(df, groupby='dustin', threshold=0.7):
+def groups_from_scores(df, groupby=None, threshold=0.7):
     if groupby is None:
         for col in reversed(df.columns):
             if is_quantized(df[col]):
@@ -149,7 +150,7 @@ def groups_from_scores(df, groupby='dustin', threshold=0.7):
     return df.groupby(groupby)
 
 
-def score_hist(df, columns=None, groupby='dustin', threshold=0.7, stacked=True,
+def score_hist(df, columns=None, groupby=None, threshold=0.7, stacked=True,
                bins=20, percent=True, alpha=0.33, show=True, block=False, save=False):
     """Plot multiple histograms on one plot, typically of "score" values between 0 and 1
     Typically the groupby or columns of the dataframe are the classification categories (0, .5, 1)

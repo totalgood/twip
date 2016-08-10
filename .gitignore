@@ -44,14 +44,14 @@ tags
 # Data (tweets, statistics, models/matrices)
 data/oldest_id.txt
 *.json
-*.csv
-*.csv.gz
-*.gz
+# *.csv
+# *.csv.gz
+#*.gz
 *.ods
 *.xls
 .ipynb_checkpoints/
-*.projection
-lsi*
+#*.projection
+#lsi*
 
 # Secrets (Passwords and Keys)
 settings_secret.py

@@ -15,4 +15,4 @@ import matplotlib
 from IPython.display import display, HTML
 
 
-DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'Data'))
+DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data'))

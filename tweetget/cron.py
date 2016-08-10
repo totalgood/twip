@@ -1,11 +1,15 @@
 from __future__ import absolute_import, print_function, unicode_literals
+
 import time
+import sys
 import datetime
-from .settings import RATE_LIMIT, RATE_LIMIT_WINDOW
+
+from .settings import RATE_LIMIT, RATE_LIMIT_WINDOW, QUERY
 from .core import get_tweets_count_times, get_twitter
 
 
-def cron():
+
+def cron(query=None):
     twitter = get_twitter()
 
     rounds = 0
@@ -15,7 +19,7 @@ def cron():
         now = datetime.datetime.utcnow()
         print('Round {} started: {}'.format(rounds, now))
 
-        get_tweets_count_times(twitter, RATE_LIMIT)
+        get_tweets_count_times(twitter, count=RATE_LIMIT, query=query)
 
         now = datetime.datetime.utcnow()
         print('Round {} finished: {}'.format(rounds, now))
@@ -25,4 +29,7 @@ def cron():
 
 
 if __name__ == '__main__':
-    cron()
+    query = QUERY
+    if len(sys.argv) > 1:
+        query = ' '.join(sys.argv[1:])
+    cron(query=query)

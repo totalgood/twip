@@ -1,9 +1,7 @@
 import json
 import datetime
 from twython import Twython
-from .settings import DATA_DIR, TWITTER_API_KEY, TWITTER_API_SECRET
-
-QUERY = 'python -monty'
+from .settings import DATA_DIR, TWITTER_API_KEY, TWITTER_API_SECRET, QUERY
 
 
 def get_twitter():

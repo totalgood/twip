@@ -11,7 +11,10 @@ def get_twitter():
     return Twython(TWITTER_API_KEY, access_token=twitter.obtain_access_token())
 
 
-def get_tweets(twitter, oldest_id=None):
+def get_tweets(twitter=None, oldest_id=None, query=None):
+    query = query or QUERY
+    twitter = twitter or get_twitter()
+
     params = {
         'q': QUERY,
         'lang': 'en',
@@ -27,9 +30,11 @@ def get_tweets(twitter, oldest_id=None):
     return resp['statuses']
 
 
-def save_tweets(tweets):
+def save_tweets(tweets, query=None):
+    query = query or QUERY
+    query = query.split()[0]
     now = datetime.datetime.utcnow()
-    filename = '{}{}.json'.format(DATA_DIR, now.isoformat())
+    filename = '{}{}-{}.json'.format(DATA_DIR, query, now.isoformat())
     with open(filename, 'a') as f:
         f.write(json.dumps(tweets, indent=2))
 

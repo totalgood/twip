@@ -2,23 +2,27 @@
 from __future__ import absolute_import, print_function, unicode_literals
 import os
 
-from .settings import OLDEST_ID_PATH, RATE_LIMIT, QUERY
+from .settings import RATE_LIMIT, QUERY, DATA_PATH
 from .single import get_tweets, save_tweets, get_twitter
 
 
-def _get_oldest_id(query=None):
-    query = query or QUERY
-    if not os.path.isfile(OLDEST_ID_PATH + query):
+def make_oldest_id_path(query=''):
+   return os.path.join(DATA_PATH, '--'.join([s for s in (query, 'oldest_id.txt') if s]))
+
+
+def _get_oldest_id(query=''):
+    oldest_id_path = make_oldest_id_path(query)
+    if not os.path.isfile(oldest_id_path):
         return None
 
-    with open(OLDEST_ID_PATH + query, 'r') as f:
+    with open(oldest_id_path) as f:
         oldest_id = int(f.read())
 
     return oldest_id
 
 
-def _set_oldest_id(oldest_id, query=None):
-    with open(OLDEST_ID_PATH + (query or QUERY), 'w') as f:
+def _set_oldest_id(oldest_id, query=''):
+    with open(make_oldest_id_path(query or ''), 'w') as f:
         f.write(str(oldest_id))
 
 
@@ -50,6 +54,8 @@ def get_tweets_count_times(twitter, count, query=None):
     # set id to start from for next time
     _set_oldest_id(oldest_id, query=query)
 
+    if len(all_tweets) == 0:
+        os.remove(make_oldest_id_path(query))
 
 if __name__ == '__main__':
     twitter = get_twitter()

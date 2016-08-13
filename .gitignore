@@ -43,6 +43,7 @@ tags
 
 # Data (tweets, statistics, models/matrices)
 data/oldest_id.txt
+data/
 *.json
 # *.csv
 # *.csv.gz

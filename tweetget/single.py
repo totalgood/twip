@@ -1,7 +1,9 @@
 import json
 import datetime
+import os
+
 from twython import Twython
-from .settings import DATA_DIR, TWITTER_API_KEY, TWITTER_API_SECRET, QUERY
+from .settings import DATA_PATH, TWITTER_API_KEY, TWITTER_API_SECRET, QUERY
 
 
 def get_twitter():
@@ -32,11 +34,11 @@ def save_tweets(tweets, query=None):
     query = query or QUERY
     query = query.split()[0]
     now = datetime.datetime.utcnow()
-    filename = '{}{}-{}.json'.format(DATA_DIR, query, now.isoformat())
+    filename = os.path.join(DATA_PATH, '{}-{}.json'.format(query, now.isoformat()).replace(':', '_'))
     with open(filename, 'a') as f:
         f.write(json.dumps(tweets, indent=2))
 
-    print('tweets written to {}'.format(filename))
+    print('{} tweets written to {}'.format(len(tweets), filename))
 
 
 if __name__ == '__main__':

@@ -9,11 +9,11 @@ import os
 TWITTER_API_KEY = os.environ['TWITTER_API_KEY']
 TWITTER_API_SECRET = os.environ['TWITTER_API_SECRET']
 
-# Twitter allows 160 queries per 15 minute window
-RATE_LIMIT = 20  # requests every 15 minutes, max is 450 for app twitter api
-RATE_LIMIT_WINDOW = 900  # 15 minutes * 60
+# Twitter Docs: "Search is rate limited at 180 queries per 15 minute window."
+# Twitter enforces rate limits for each window of 15 minutes
+RATE_LIMIT_WINDOW = 900  # 15 min * 60 sec / min 
+TWEETS_PER_REQUEST = 100
 
-DATA_DIR = './data/'
-OLDEST_ID_PATH = '{}oldest_id.txt'.format(DATA_DIR)
+DATA_PATH = './data'
 
-QUERY = 'python -monty'
+QUERIES = ['python -monty', '#sarcasm', '#happy', '#sad']

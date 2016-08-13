@@ -42,7 +42,8 @@ MANIFEST
 tags
 
 # Data (tweets, statistics, models/matrices)
-data/oldest_id.txt
+data/*oldest_id.txt
+data/oldest_id.txt*
 *.json
 # *.csv
 # *.csv.gz

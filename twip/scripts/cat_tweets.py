@@ -118,7 +118,7 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json', save_tmp
     meta_files = [meta for meta in meta_files
                   if re.match(r'^[-#@a-z ]*201[5-6]-[0-9]{2}-[0-9]{2}\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json(.gz)?$', meta['name'])]
     log.info('Found {} files that look like tweetget dumps.'.format(len(meta_files)))
-    print(meta_files)
+    print([mf['path'] for mf in meta_files])
     total_size = sum([meta['size'] for meta in meta_files])
     if verbosity > 0:
         pbar = progressbar.ProgressBar(maxval=(total_size + 1.) / 1e6)

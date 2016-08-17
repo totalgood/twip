@@ -8,7 +8,10 @@
 - Combine each DataFrame into a single Pandas DataFrame
 - Save utf-8 encoded csv file of the normalized/combined DataFrame
 """
-from __future__ import division, print_function, absolute_import
+from __future__ import division, print_function, absolute_import, unicode_literals
+from future.utils import viewitems  # noqa
+from builtins import str  # noqa
+
 
 # pip install future
 import builtins as base
@@ -113,7 +116,7 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
     log.info('Finding json files...')
     meta_files = find_files(path=path, ext='.json')
     meta_files = [meta for meta in meta_files
-                  if re.match(r'^201[5-6]-[0-9]{2}-[0-9]{2}\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json$', meta['name'])]
+                  if re.match(r'^[#@a-z ]*201[5-6]-[0-9]{2}-[0-9]{2}\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json(.gz)?$', meta['name'])]
     log.info('Found {} files that look like tweetget dumps.'.format(len(meta_files)))
 
     total_size = sum([meta['size'] for meta in meta_files])
@@ -144,8 +147,9 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
             log.warn('Oddly the DataFrame in {} didnt have a geo.coordinates column.'.format(meta['path']))
             df['lat'] = np.nan * np.ones(len(df))
             df['lon'] = np.nan * np.ones(len(df))
-            if not ignore_suspicious:
-                log.warn('Skipping {} tweets!!!!.'.format(len(df)))
+            if ignore_suspicious:
+                log.warn('Skipping {} suspicious tweets.'.format(len(df)))
+            else:
                 df_all = df_all.append(df)
         # this would be a good time to incrementally save these rows to disc
         del df
@@ -155,6 +159,7 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
             break
         if pbar:
             pbar.update(loaded_size / 1e6)
+    df_all.sort_values(columns='updated_at', inplace=True)
     if pbar:
         pbar.finish()
     log.info('Loaded {} unique tweets.'.format(len(df_all)))

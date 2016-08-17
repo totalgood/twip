@@ -109,12 +109,10 @@ def run():
     main(sys.argv[1:])
 
 
-def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json', verbosity=1, numtweets=10000000, ignore_suspicious=True):
+def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json', save_tmp=False, verbosity=1, numtweets=10000000, ignore_suspicious=True):
     """Find json files that were dumped by tweetget and combine them into a single CSV
 
     Normalize some (lat/lon)"""
-
-
     log.info('Finding {} files in {}...'.format(ext, path))
     meta_files = find_files(path=path, ext=ext)
     meta_files = [meta for meta in meta_files
@@ -160,7 +158,8 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json', verbosit
         if len(df_all) >= numtweets:
             # FIXME use average rate of 400 tweets/MB to calculate better progressbar size at start
             break
-        save_tweets(df_all, path=path, filename='tmp.csv')
+        if save_tmp:
+            save_tweets(df_all, path=path, filename='tmp.csv')
         if pbar:
             pbar.update(loaded_size / 1e6)
     print(len(df_all))

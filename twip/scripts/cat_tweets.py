@@ -110,7 +110,7 @@ def run():
     main(sys.argv[1:])
 
 
-def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json.gz', save_tmp=False, verbosity=1, numtweets=10000000, ignore_suspicious=True):
+def cat_tweets(filename='all_tweets.json.gz', path=DATA_PATH, ext='.json.gz', save_tmp=False, verbosity=1, numtweets=10000000, ignore_suspicious=True):
     """Find json files that were dumped by tweetget and combine them into a single CSV
 
     Normalize some (lat/lon)"""
@@ -208,7 +208,7 @@ def get_geo(df, path=DATA_PATH, filename=u'geo_tweets.csv'):
     return geo
 
 
-def save_tweets(df, path=DATA_PATH, filename='all_tweets.csv'):
+def save_tweets(df, path=DATA_PATH, filename='all_tweets.csv.gz'):
     path, filename = path.encode(), filename.encode()
     filename = os.path.join(path, filename)
     # your first "model": predict the size of a file based on the number of rows of tweet data (average rate = linear regression)

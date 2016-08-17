@@ -8,8 +8,7 @@ import os
 
 import pandas as pd
 
-from pug.nlp.util import mkdir_p
-import twip
+from twip.futil import mkdir_p
 
 from matplotlib import get_backend
 from matplotlib import use as set_backend
@@ -37,7 +36,7 @@ except:  # AttributeError:
 
 np = pd.np
 
-BASE_PATH = os.path.abspath(os.path.dirname(twip.__file__))
+BASE_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 DATA_PATH = os.path.abspath(os.path.join(BASE_PATH, '..', 'data'))
 DOCS_PATH = os.path.abspath(os.path.join(BASE_PATH, '..', 'docs'))
 IMAGES_PATH = os.path.abspath(os.path.join(DOCS_PATH, 'images'))

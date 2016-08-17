@@ -11,7 +11,10 @@
 from __future__ import division, print_function, absolute_import, unicode_literals
 from future.utils import viewitems  # noqa
 from builtins import str  # noqa
-
+try:
+    from itertools import izip as zip
+except ImportError:
+    pass
 
 # pip install future
 import builtins as base
@@ -25,7 +28,7 @@ import time
 import pandas as pd
 import progressbar
 
-from pug.nlp.util import find_files
+from twip.futil import find_files
 from twip.constant import DATA_PATH
 
 import argparse
@@ -108,17 +111,18 @@ def run():
     main(sys.argv[1:])
 
 
-def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweets=10000000, ignore_suspicious=True):
+def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json', verbosity=1, numtweets=10000000, ignore_suspicious=True):
     """Find json files that were dumped by tweetget and combine them into a single CSV
 
     Normalize some (lat/lon)"""
 
-    log.info('Finding json files...')
-    meta_files = find_files(path=path, ext='.json')
-    meta_files = [meta for meta in meta_files
-                  if re.match(r'^[#@a-z ]*201[5-6]-[0-9]{2}-[0-9]{2}\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json(.gz)?$', meta['name'])]
-    log.info('Found {} files that look like tweetget dumps.'.format(len(meta_files)))
 
+    log.info('Finding {} files in {}...'.format(ext, path))
+    meta_files = find_files(path=path, ext=ext)
+    meta_files = [meta for meta in meta_files
+                  if re.match(r'^[-#@a-z ]*201[5-6]-[0-9]{2}-[0-9]{2}\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json(.gz)?$', meta['name'])]
+    log.info('Found {} files that look like tweetget dumps.'.format(len(meta_files)))
+    print(meta_files)
     total_size = sum([meta['size'] for meta in meta_files])
     if verbosity > 0:
         pbar = progressbar.ProgressBar(maxval=(total_size + 1.) / 1e6)
@@ -140,8 +144,9 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
                     latlon[i] = float(ll[0]), float(ll[1])
                 except ValueError:
                     latlon[i] = np.nan, np.nan
-            df['lat'] = zip(*latlon)[0]
-            df['lon'] = zip(*latlon)[1]
+            ll = list(zip(*latlon))
+            df['lat'] = ll[0]
+            df['lon'] = ll[1]
             df_all = df_all.append(df)
         else:
             log.warn('Oddly the DataFrame in {} didnt have a geo.coordinates column.'.format(meta['path']))
@@ -159,10 +164,13 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
             break
         if pbar:
             pbar.update(loaded_size / 1e6)
+    print(len(df_all))
     bigger_better_cols = [c for c in df_all.columns if c.endswith('_at') or '_count' in c]
-    df_all.sort_values(columns=bigger_better_cols, inplace=True)
+    print(bigger_better_cols)
+    print(all(c in df_all.columns for c in bigger_better_cols))
+    df_all = df_all.sort_values(by=bigger_better_cols, inplace=False)
     hashable_cols = [c for c in df_all.columns if df_all[c].dtype not in (list,)]
-    df_all.drop_duplicates(subset=hashable_cols, inplace=True)
+    df_all = df_all.drop_duplicates(subset=hashable_cols, inplace=False)
     if pbar:
         pbar.finish()
     log.info('Loaded {} unique tweets.'.format(len(df_all)))

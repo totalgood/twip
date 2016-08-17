@@ -159,7 +159,10 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
             break
         if pbar:
             pbar.update(loaded_size / 1e6)
-    df_all.sort_values(columns='updated_at', inplace=True)
+    bigger_better_cols = [c for c in df_all.columns if c.endswith('_at') or '_count' in c]
+    df_all.sort_values(columns=bigger_better_cols, inplace=True)
+    hashable_cols = [c for c in df_all.columns if df_all[c].dtype not in (list,)]
+    df_all.drop_duplicates(subset=hashable_cols, inplace=True)
     if pbar:
         pbar.finish()
     log.info('Loaded {} unique tweets.'.format(len(df_all)))
@@ -206,7 +209,7 @@ def save_tweets(df, path=DATA_PATH, filename=u'all_tweets.csv'):
     T0 = time.time()
     log.info('Saving {} tweets in {} which should take around {:.1f} MB and {:.1f} min (utf-8 encoding in Pandas .to_csv is VERY slow)...'.format(
              len(df), filename, df_size, 2.0 * df_size / 60.))
-    # consider using to_csv(compression='gzip', escapechar=None) 
+    # consider using to_csv(compression='gzip', escapechar=None)
     try:
         df.to_csv(os.path.join(path, filename), encoding='utf8', compression='gzip', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     except ValueError:  # encoding + compression not yet supported in Python 2

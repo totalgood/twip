@@ -117,7 +117,8 @@ def cat_tweets(filename='all_tweets.json.gz', path=DATA_PATH, ext='.json', save_
     log.info('Finding {} files in {}...'.format(ext, path))
     meta_files = find_files(path=path, ext=ext)
     meta_files = [meta for meta in meta_files
-                  if re.match(r'^[-#@a-z ]*201[5-6]-[0-9]{2}-[0-9]{2}\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json(.gz)?$', meta['name'])]
+                  if re.match(r'^[-#@a-z ]*201[5-6]-[0-9]{2}-[0-9]{2}.*')]
+    #  '\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json(.gz)?$', meta['name'])]
     log.info('Found {} files that look like tweetget dumps.'.format(len(meta_files)))
     print([mf['name'] for mf in meta_files])
     total_size = sum([meta['size'] for meta in meta_files])

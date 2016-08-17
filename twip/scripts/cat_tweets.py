@@ -22,6 +22,7 @@ import re
 import json
 import logging
 import time
+import gzip
 
 import pandas as pd
 import progressbar
@@ -109,7 +110,7 @@ def run():
     main(sys.argv[1:])
 
 
-def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json', save_tmp=False, verbosity=1, numtweets=10000000, ignore_suspicious=True):
+def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json.gz', save_tmp=False, verbosity=1, numtweets=10000000, ignore_suspicious=True):
     """Find json files that were dumped by tweetget and combine them into a single CSV
 
     Normalize some (lat/lon)"""
@@ -129,7 +130,8 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json', save_tmp
     loaded_size = 0
     df_all = pd.DataFrame()
     for meta in meta_files:
-        df = pd.io.json.json_normalize(pd.json.load(open(meta['path'])))
+        with (gzip.open(meta['path']) if ext.endswith('.gz') else open(meta['path'])) as fin:
+            df = pd.io.json.json_normalize(pd.json.load(fin))
         # json entries were dumped in reverse time order (most recent first)
         df.drop_duplicates(['id'], keep='first', inplace=True)
         df.set_index('id', drop=True, inplace=True)

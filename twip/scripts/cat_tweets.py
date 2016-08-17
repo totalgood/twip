@@ -110,7 +110,7 @@ def run():
     main(sys.argv[1:])
 
 
-def cat_tweets(filename='all_tweets.json.gz', path=DATA_PATH, ext='.json.gz', save_tmp=False, verbosity=1, numtweets=10000000, ignore_suspicious=True):
+def cat_tweets(filename='all_tweets.json.gz', path=DATA_PATH, ext='.json', save_tmp=False, verbosity=1, numtweets=10000000, ignore_suspicious=True):
     """Find json files that were dumped by tweetget and combine them into a single CSV
 
     Normalize some (lat/lon)"""

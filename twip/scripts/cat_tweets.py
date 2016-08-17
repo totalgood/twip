@@ -11,13 +11,11 @@
 from __future__ import division, print_function, absolute_import, unicode_literals
 from future.utils import viewitems  # noqa
 from builtins import str  # noqa
+from past.builtins import basestring  # noqa
 try:
     from itertools import izip as zip
 except ImportError:
     pass
-
-# pip install future
-import builtins as base
 
 import os
 import re
@@ -162,6 +160,7 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, ext='.json', verbosit
         if len(df_all) >= numtweets:
             # FIXME use average rate of 400 tweets/MB to calculate better progressbar size at start
             break
+        save_tweets(df_all, path=path, filename='tmp.csv')
         if pbar:
             pbar.update(loaded_size / 1e6)
     print(len(df_all))
@@ -190,7 +189,7 @@ def drop_nan_columns(df, thresh=325):
 def drop_columns(df, columns=u'common_columns.json'):
     # df_all = drop_columns(df_all)
     # common_columns = json.dump(list(df_all.columns), open(os.path.join(DATA_PATH, 'common_columns.json'), 'w'), indent=0)
-    if isinstance(columns, base.str):
+    if isinstance(columns, str):
         columns = json.load(open(os.path.join(DATA_PATH, columns), 'r'))
     df = df[columns].copy()
     df.dropna(how='all', inplace=True)
@@ -202,14 +201,14 @@ def get_geo(df, path=DATA_PATH, filename=u'geo_tweets.csv'):
         geo = df[~df.lat.isnull() & ~df.lon.isnull()].copy()
     except AttributeError:
         geo = pd.DataFrame(columns=df.columns)
-    if isinstance(filename, base.str):
+    if isinstance(filename, str):
         geo.to_csv(os.path.join(path, filename), encoding='utf8',
                    escapechar=None, quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     return geo
 
 
-def save_tweets(df, path=DATA_PATH, filename=u'all_tweets.csv'):
-    path = path.encode()
+def save_tweets(df, path=DATA_PATH, filename='all_tweets.csv'):
+    path, filename = path.encode(), filename.encode()
     filename = os.path.join(path, filename)
     # your first "model": predict the size of a file based on the number of rows of tweet data (average rate = linear regression)
     df_size = len(df) * 2403 / 1e6

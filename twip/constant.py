@@ -2,7 +2,14 @@
 # -*- coding: utf-8 -*-
 """Constants and discovered values like the path to the current installation folder for the twip package
 """
-from __future__ import division, print_function, absolute_import
+from __future__ import division, print_function, absolute_import, unicode_literals
+from future.utils import viewitems  # noqa
+from builtins import str  # noqa
+from past.builtins import basestring  # noqa
+try:
+    from itertools import izip as zip
+except ImportError:
+    pass
 
 import os
 

@@ -132,7 +132,9 @@ def cat_tweets(filename='all_tweets.json.gz', path=DATA_PATH, ext='.json', save_
     df_all = pd.DataFrame()
     for meta in meta_files:
         with (gzip.open(meta['path']) if ext.endswith('.gz') else open(meta['path'])) as fin:
-            df = pd.io.json.json_normalize(pd.json.load(fin))
+            js = pd.json.load(fin)
+        if len(js):
+            df = pd.io.json.json_normalize(js)
         # json entries were dumped in reverse time order (most recent first)
         df.drop_duplicates(['id'], keep='first', inplace=True)
         df.set_index('id', drop=True, inplace=True)

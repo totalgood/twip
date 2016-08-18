@@ -95,7 +95,7 @@ def main(args):
     logging.basicConfig(format=LOG_FORMAT,
                         level=logging.DEBUG if args.verbose else logging.INFO,
                         stream=sys.stdout)
-    df = cat_tweets(path=args.path, verbosity=args.verbose + 1, numtweets=args.numtweets)
+    df = cat_tweets(path=args.path, verbosity=args.verbose + 1, numtweets=args.numtweets, ignore_suspicious=False)
     log.info('Combined {} tweets'.format(len(df)))
     df = drop_nan_columns(df)
     save_tweets(df, path=args.path, filename=args.tweetfile)
@@ -133,8 +133,9 @@ def cat_tweets(filename='all_tweets.json.gz', path=DATA_PATH, ext='.json', save_
     for meta in meta_files:
         with (gzip.open(meta['path']) if ext.endswith('.gz') else open(meta['path'])) as fin:
             js = pd.json.load(fin)
-        if len(js):
-            df = pd.io.json.json_normalize(js)
+        if not len(js):
+            continue
+        df = pd.io.json.json_normalize(js)
         # json entries were dumped in reverse time order (most recent first)
         df.drop_duplicates(['id'], keep='first', inplace=True)
         df.set_index('id', drop=True, inplace=True)

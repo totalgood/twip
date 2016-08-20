@@ -151,11 +151,11 @@ def cat_tweets(filename='all_tweets.json.gz', path=DATA_PATH, ext='.json', save_
             df['lon'] = ll[1]
             df_all = df_all.append(df)
         else:
-            log.warn('Oddly the DataFrame in {} didnt have a geo.coordinates column.'.format(meta['path']))
             df['lat'] = np.nan * np.ones(len(df))
             df['lon'] = np.nan * np.ones(len(df))
             if ignore_suspicious:
-                log.warn('Skipping {} suspicious tweets.'.format(len(df)))
+                log.info('\nOddly the DataFrame in {} didnt have a geo.coordinates column.'.format(meta['path']))
+                log.warn('\nSkipping {} suspicious tweets.'.format(len(df)))
             else:
                 df_all = df_all.append(df)
         # this would be a good time to incrementally save these rows to disc

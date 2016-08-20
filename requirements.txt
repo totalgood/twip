@@ -18,23 +18,13 @@ scikit-learn==0.17.1
 nltk==3.2.1
 
 pandas==0.18.1
-pandas-profiling==1.0.0a2
-<<<<<<< HEAD
-gensim==0.12.4
-# gensim requires
-# scipy==0.17.1
-pug-nlp==0.1.7a1
-=======
-# editdistance==0.3.1
-
-pug-nlp>=0.1.14
->>>>>>> 8d276f30362f5f78d1761bc7249f621e6f86c994
-future==0.15.2
-ipython[all]==4.2.0
-
+# pandas-profiling==1.0.0a2
 # pandas comes with
 # scipy==0.17.1
 # numpy==1.10.1
+
+future==0.15.2
+ipython[all]==4.2.0
 
 # for plotting, but requires binary package installation for some OSes
 #$ sudo apt-get install libpng12-dev libfreetype6-dev tk-dev python-tk python3-tk

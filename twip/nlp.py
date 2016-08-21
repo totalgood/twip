@@ -10,7 +10,6 @@ from collections import Counter
 
 import nltk
 import pandas as pd
-np = pd.np
 
 from twip.constant import FINANCIAL_WHITESPACE, PERCENT_SYMBOLS, FINANCIAL_MAPPING, DATE_TYPES
 from twip.constant import NULL_VALUES, NULL_REPR_VALUES, MAX_NULL_REPR_LEN
@@ -18,6 +17,8 @@ from pug.nlp.regex import RE_NONWORD, CRE_TOKEN, CRE_BAD_FILENAME, CRE_WHITESPAC
 from pug.nlp.util import PrettyDict
 from pug.nlp.segmentation import stringify, passthrough
 from twip.numeric import safe_log
+
+np = pd.np
 
 STEMMER_DATASETS = {'snowball': 'udhr', 'wordnet': 'wordnet'}
 STEMMER_TYPES = {
@@ -154,11 +155,11 @@ def nonnull_fields(obj, pretty=True):
       '0.0000'
     """
     return PrettyDict((k, v) for k, v in [(f.attname, getattr(obj, f.attname, None))
-                for f in obj._meta.fields] if (
-                    v and
-                    v not in NULL_VALUES and
-                    stringify(v).strip().lower()[:MAX_NULL_REPR_LEN] not in NULL_REPR_VALUES and
-                    not is_invalid_date(v)))
+                      for f in obj._meta.fields] if (
+                            v and
+                            v not in NULL_VALUES and
+                            stringify(v).strip().lower()[:MAX_NULL_REPR_LEN] not in NULL_REPR_VALUES and
+                            not is_invalid_date(v)))
 
 
 def nltk_download(name, ignore_errors=True):
@@ -341,7 +342,7 @@ def vocab_freq(docs, limit=1e6, verbose=1, tokenizer=generate_tokens):
     return total
 
 
-### BROKEN
+# ## BROKEN
 # from itertools import izip
 
 

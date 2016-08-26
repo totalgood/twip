@@ -3,13 +3,14 @@
 """Constants and discovered values like the path to the current installation folder for the twip package
 """
 from __future__ import division, print_function, absolute_import, unicode_literals
-from future.utils import viewitems  # noqa
-from builtins import str  # noqa
-from past.builtins import basestring  # noqa
-try:
-    from itertools import izip as zip
-except ImportError:
-    pass
+# from future.utils import viewitems  # noqa
+# from builtins import str  # noqa
+# from past.builtins import basestring  # noqa
+
+# try:
+#     from itertools import izip as zip
+# except ImportError:
+#     pass
 
 import os
 
@@ -39,7 +40,6 @@ try:
     plt.style.use('ggplot')
 except:  # AttributeError:
     print('Matplotlib needs to be upgraded to >= 1.4.1 to enable CSS styling and prettier plots.')
-
 
 np = pd.np
 

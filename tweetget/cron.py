@@ -19,10 +19,13 @@ def cron(query=None):
         now = datetime.datetime.utcnow()
         print('Round {} started: {}'.format(rounds, now))
 
-        get_tweets_count_times(twitter, count=RATE_LIMIT, query=query)
+        get_tweets_count_times(twitter=twitter, count=RATE_LIMIT, query=query)
+	rate_limit_remaining = twitter.get_lastfunction_header('x-rate-limit-remaining')
+	rate_limit_reset = twitter.get_lastfunction_header('x-rate-limit-reset')
 
         now = datetime.datetime.utcnow()
         print('Round {} finished: {}'.format(rounds, now))
+        print('rate limit remaining: {}\nrate limit reset: {}'.format(rate_limit_remaining, rate_limit_reset))
         print()
 
         time.sleep(RATE_LIMIT_WINDOW + 60)

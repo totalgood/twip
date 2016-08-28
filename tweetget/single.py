@@ -25,7 +25,11 @@ def get_tweets(twitter=None, oldest_id=None, query=None):
     if oldest_id:
         params['max_id'] = oldest_id
 
-    resp = twitter.search(**params)
+    try:
+	resp = twitter.search(**params)
+    except:
+	print(twitter._last_call)
+        raise
 
     return resp['statuses']
 

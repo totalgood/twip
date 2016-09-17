@@ -73,7 +73,7 @@ def get_tweets_count_times(twitter, count, query=None):
             tweet_ids.add(oldest_id)
         oldest_id, newest_id = min(tweet_ids), max(tweet_ids)
         if rate_limit_remaining == 1:
-            time.sleep(rate_limit_reset)
+            time.sleep(rate_limit_reset - time.time())
 
     save_tweets(all_tweets, query=query)
 

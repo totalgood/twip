@@ -10,7 +10,7 @@ from .single import get_tweets, save_tweets, get_twitter
 
 
 def make_oldest_id_path(query=''):
-   return os.path.join(DATA_PATH, '--'.join([s for s in (query, 'oldest_id.txt') if s]))
+    return os.path.join(DATA_PATH, '--'.join([s for s in (query, 'oldest_id.txt') if s]))
 
 
 def _get_oldest_id(query=''):
@@ -33,9 +33,9 @@ def _set_oldest_id(oldest_id, newest_id, query=''):
     newest_id = max(newest_id, prev_newest_id or newest_id)
     with open(make_oldest_id_path(query), 'w') as f:
         if oldest_id < newest_id:
-            f.write('{}\n{}\n',format(oldest_id, newest_id))
+            f.write('{}\n{}\n', format(oldest_id, newest_id))
         else:
-            f.write('{}\n{}\n',format(oldest_id, prev_newest_id))
+            f.write('{}\n{}\n', format(oldest_id, prev_newest_id))
 
 
 def get_tweets_count_times(twitter, count, query=None):
@@ -53,9 +53,16 @@ def get_tweets_count_times(twitter, count, query=None):
             tweets = get_tweets(query=query, max_id=oldest_id - 1, count=TWEETS_PER_SEARCH, twitter=twitter)
         else:
             tweets = get_tweets(query=query, max_id=oldest_id - 1, since_id=newest_id, count=TWEETS_PER_SEARCH, twitter=twitter)
+        rate_limit_remaining = twitter.get_lastfunction_header('x-rate-limit-remaining')
+        rate_limit_reset = twitter.get_lastfunction_header('x-rate-limit-reset')
 
         if not len(tweets):
+            # not rate limitted, just no tweets returned by query
             oldest_id = oldest_id + ((newest_id or oldest_id) - oldest_id + 1) * 10000
+            break
+        elif isinstance(tweets, dict):
+            # rate limit hit, or other twython response error
+            print(tweets)
             break
 
         all_tweets.extend(tweets)
@@ -65,7 +72,8 @@ def get_tweets_count_times(twitter, count, query=None):
         if oldest_id:
             tweet_ids.add(oldest_id)
         oldest_id, newest_id = min(tweet_ids), max(tweet_ids)
-
+        if rate_limit_remaining == 1:
+            time.sleep(rate_limit_reset)
 
     save_tweets(all_tweets, query=query)
 
@@ -83,9 +91,9 @@ def process_argv(argv):
     if len(argv) > 1:
         if '--verbose' in argv[1:]:
             argv = [a for a in argv if a != '--verbose']
-            verbosity = 1 
+            verbosity = 1
         queries = argv[1:]
-    return queries, verbosity 
+    return queries, verbosity
 
 
 if __name__ == '__main__':

@@ -27,6 +27,7 @@ progressbar2
 # pandas comes with
 # scipy==0.17.1
 # numpy==1.10.1
+# pandas-profiling==1.0.0a2
 
 # for plotting, but requires binary package installation for some OSes
 #$ sudo apt-get install libpng12-dev libfreetype6-dev tk-dev python-tk python3-tk

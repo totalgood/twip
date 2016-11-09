@@ -12,8 +12,9 @@ import collections
 import pandas as pd
 
 np = pd.np
-BASE_PATH = os.path.dirname(__file__)
-DATA_PATH = os.path.join(BASE_PATH, '..', 'Data')
+NOTEBOOKS_PATH = os.path.dirname(__file__)
+REPO_PATH = os.path.join(NOTEBOOKS_PATH, '..', '..')
+DATA_PATH = os.path.join(REPO_PATH, 'data')
 
 tld_iana = pd.read_csv(os.path.join(DATA_PATH, 'tlds-from-iana.csv'))
 tld_iana = collections.OrderedDict(sorted(zip((tld.strip().lstrip('.') for tld in tld_iana.domain),
@@ -57,7 +58,7 @@ uri_schemes_popular = ['chrome-extension', 'example', 'content', 'bitcoin',
 # these may not all be the sames isinstance types, depending on the env
 FLOAT_TYPES = (float, np.float16, np.float32, np.float64, np.float128)
 FLOAT_DTYPES = tuple(set(np.dtype(typ) for typ in FLOAT_TYPES))
-INT_TYPES = (int, long, np.int0, np.int8, np.int16, np.int32, np.int64)
+INT_TYPES = (int, np.int0, np.int8, np.int16, np.int32, np.int64)
 INT_DTYPES = tuple(set(np.dtype(typ) for typ in INT_TYPES))
 NUMERIC_TYPES = tuple(set(list(FLOAT_TYPES) + list(INT_TYPES)))
 NUMERIC_DTYPES = tuple(set(np.dtype(typ) for typ in NUMERIC_TYPES))

@@ -14,5 +14,6 @@ import matplotlib
 # for ipython notebooks
 from IPython.display import display, HTML
 
+from constants import *
 
 DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data'))

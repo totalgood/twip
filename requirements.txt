@@ -18,36 +18,18 @@ scikit-learn==0.17.1
 nltk==3.2.1
 
 pandas==0.18.1
-pandas-profiling==1.0.0a2
-<<<<<<< HEAD
-gensim==0.12.4
 # gensim requires
 # scipy==0.17.1
-pug-nlp==0.1.7a1
-=======
-# editdistance==0.3.1
-
-pug-nlp>=0.1.14
->>>>>>> 8d276f30362f5f78d1761bc7249f621e6f86c994
 future==0.15.2
-ipython[all]==4.2.0
-
+ipython[all]>=5.1.0
+matplotlib
+progressbar2
 # pandas comes with
 # scipy==0.17.1
 # numpy==1.10.1
+# pandas-profiling==1.0.0a2
 
 # for plotting, but requires binary package installation for some OSes
 #$ sudo apt-get install libpng12-dev libfreetype6-dev tk-dev python-tk python3-tk
 #$ sudo pip install --no-cache-dir --no-binary :all: --upgrade -r requirements.txt
 #$ nano
-matplotlib==1.5.1
-
-# and then you need to set the backend wherever it was installed (this path is wrong!)
-#$ sed s/\:\ agg/tkagg/g '/home/hobs/.virtualenvs/twip/lib/python2.7/site-packages/matplotlib/mpl-data/matplotlibrc'
-# these come with matplotlib
-# pytz==2016.4
-# python-dateutil==2.5.3
-
-seaborn==0.7.0
-# comes with seaborn
-# scipy==0.17.0

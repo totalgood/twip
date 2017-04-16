@@ -8,21 +8,26 @@
 - Combine each DataFrame into a single Pandas DataFrame
 - Save utf-8 encoded csv file of the normalized/combined DataFrame
 """
-from __future__ import division, print_function, absolute_import
-
-# pip install future
-import builtins as base
+from __future__ import division, print_function, absolute_import, unicode_literals
+from future.utils import viewitems  # noqa
+from builtins import str  # noqa
+from past.builtins import basestring  # noqa
+try:
+    from itertools import izip as zip
+except ImportError:
+    pass
 
 import os
 import re
 import json
 import logging
 import time
+import gzip
 
 import pandas as pd
 import progressbar
 
-from pug.nlp.util import find_files
+from twip.futil import find_files
 from twip.constant import DATA_PATH
 
 import argparse
@@ -90,7 +95,7 @@ def main(args):
     logging.basicConfig(format=LOG_FORMAT,
                         level=logging.DEBUG if args.verbose else logging.INFO,
                         stream=sys.stdout)
-    df = cat_tweets(path=args.path, verbosity=args.verbose + 1, numtweets=args.numtweets)
+    df = cat_tweets(path=args.path, verbosity=args.verbose + 1, numtweets=args.numtweets, ignore_suspicious=False)
     log.info('Combined {} tweets'.format(len(df)))
     df = drop_nan_columns(df)
     save_tweets(df, path=args.path, filename=args.tweetfile)
@@ -105,17 +110,17 @@ def run():
     main(sys.argv[1:])
 
 
-def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweets=10000000, ignore_suspicious=True):
+def cat_tweets(filename='all_tweets.json.gz', path=DATA_PATH, ext='.json', save_tmp=False, verbosity=1, numtweets=10000000, ignore_suspicious=True):
     """Find json files that were dumped by tweetget and combine them into a single CSV
 
     Normalize some (lat/lon)"""
-
-    log.info('Finding json files...')
-    meta_files = find_files(path=path, ext='.json')
+    log.info('Finding {} files in {}...'.format(ext, path))
+    meta_files = find_files(path=path, ext=ext)
     meta_files = [meta for meta in meta_files
-                  if re.match(r'^201[5-6]-[0-9]{2}-[0-9]{2}\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json$', meta['name'])]
+                  if re.match(r'^[-#@a-z ]*201[5-6]-[0-9]{2}-[0-9]{2}.*', meta['name'])]
+    #  '\s[0-9]{2}[:][0-9]{2}[:][0-9]{2}[.][0-9]+[.]json(.gz)?$', meta['name'])]
     log.info('Found {} files that look like tweetget dumps.'.format(len(meta_files)))
-
+    print([mf['name'] for mf in meta_files])
     total_size = sum([meta['size'] for meta in meta_files])
     if verbosity > 0:
         pbar = progressbar.ProgressBar(maxval=(total_size + 1.) / 1e6)
@@ -126,7 +131,11 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
     loaded_size = 0
     df_all = pd.DataFrame()
     for meta in meta_files:
-        df = pd.io.json.json_normalize(pd.json.load(open(meta['path'])))
+        with (gzip.open(meta['path']) if ext.endswith('.gz') else open(meta['path'])) as fin:
+            js = pd.json.load(fin)
+        if not len(js):
+            continue
+        df = pd.io.json.json_normalize(js)
         # json entries were dumped in reverse time order (most recent first)
         df.drop_duplicates(['id'], keep='first', inplace=True)
         df.set_index('id', drop=True, inplace=True)
@@ -137,15 +146,17 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
                     latlon[i] = float(ll[0]), float(ll[1])
                 except ValueError:
                     latlon[i] = np.nan, np.nan
-            df['lat'] = zip(*latlon)[0]
-            df['lon'] = zip(*latlon)[1]
+            ll = list(zip(*latlon))
+            df['lat'] = ll[0]
+            df['lon'] = ll[1]
             df_all = df_all.append(df)
         else:
-            log.warn('Oddly the DataFrame in {} didnt have a geo.coordinates column.'.format(meta['path']))
             df['lat'] = np.nan * np.ones(len(df))
             df['lon'] = np.nan * np.ones(len(df))
-            if not ignore_suspicious:
-                log.warn('Skipping {} tweets!!!!.'.format(len(df)))
+            if ignore_suspicious:
+                log.info('\nOddly the DataFrame in {} didnt have a geo.coordinates column.'.format(meta['path']))
+                log.warn('\nSkipping {} suspicious tweets.'.format(len(df)))
+            else:
                 df_all = df_all.append(df)
         # this would be a good time to incrementally save these rows to disc
         del df
@@ -153,8 +164,17 @@ def cat_tweets(filename='all_tweets.json', path=DATA_PATH, verbosity=1, numtweet
         if len(df_all) >= numtweets:
             # FIXME use average rate of 400 tweets/MB to calculate better progressbar size at start
             break
+        if save_tmp:
+            save_tweets(df_all, path=path, filename='tmp.csv')
         if pbar:
             pbar.update(loaded_size / 1e6)
+    print(len(df_all))
+    bigger_better_cols = [c for c in df_all.columns if c.endswith('_at') or '_count' in c]
+    print(bigger_better_cols)
+    print(all(c in df_all.columns for c in bigger_better_cols))
+    df_all = df_all.sort_values(by=bigger_better_cols, inplace=False)
+    hashable_cols = [c for c in df_all.columns if df_all[c].dtype not in (list,)]
+    df_all = df_all.drop_duplicates(subset=hashable_cols, inplace=False)
     if pbar:
         pbar.finish()
     log.info('Loaded {} unique tweets.'.format(len(df_all)))
@@ -174,7 +194,7 @@ def drop_nan_columns(df, thresh=325):
 def drop_columns(df, columns=u'common_columns.json'):
     # df_all = drop_columns(df_all)
     # common_columns = json.dump(list(df_all.columns), open(os.path.join(DATA_PATH, 'common_columns.json'), 'w'), indent=0)
-    if isinstance(columns, base.str):
+    if isinstance(columns, str):
         columns = json.load(open(os.path.join(DATA_PATH, columns), 'r'))
     df = df[columns].copy()
     df.dropna(how='all', inplace=True)
@@ -186,14 +206,14 @@ def get_geo(df, path=DATA_PATH, filename=u'geo_tweets.csv'):
         geo = df[~df.lat.isnull() & ~df.lon.isnull()].copy()
     except AttributeError:
         geo = pd.DataFrame(columns=df.columns)
-    if isinstance(filename, base.str):
+    if isinstance(filename, str):
         geo.to_csv(os.path.join(path, filename), encoding='utf8',
                    escapechar=None, quotechar='"', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     return geo
 
 
-def save_tweets(df, path=DATA_PATH, filename=u'all_tweets.csv'):
-    path = path.encode()
+def save_tweets(df, path=DATA_PATH, filename='all_tweets.csv.gz'):
+    path, filename = path.encode(), filename.encode()
     filename = os.path.join(path, filename)
     # your first "model": predict the size of a file based on the number of rows of tweet data (average rate = linear regression)
     df_size = len(df) * 2403 / 1e6
@@ -201,7 +221,7 @@ def save_tweets(df, path=DATA_PATH, filename=u'all_tweets.csv'):
     T0 = time.time()
     log.info('Saving {} tweets in {} which should take around {:.1f} MB and {:.1f} min (utf-8 encoding in Pandas .to_csv is VERY slow)...'.format(
              len(df), filename, df_size, 2.0 * df_size / 60.))
-    # consider using to_csv(compression='gzip', escapechar=None) 
+    # consider using to_csv(compression='gzip', escapechar=None)
     try:
         df.to_csv(os.path.join(path, filename), encoding='utf8', compression='gzip', quoting=pd.io.common.csv.QUOTE_NONNUMERIC)
     except ValueError:  # encoding + compression not yet supported in Python 2

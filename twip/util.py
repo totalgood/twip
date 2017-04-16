@@ -47,15 +47,20 @@ u'this'
 u'wha'
 
 """
-from __future__ import division, print_function, absolute_import
-# `pip install future` for universal python2/3
-# from past.builtins import basestring
+from __future__ import division, print_function, absolute_import, unicode_literals
+from builtins import str  # noqa
+from past.builtins import basestring  # noqa
+try:
+    from itertools import izip as zip
+except ImportError:
+    pass
 
 import re
-from itertools import islice, izip  #, tee
+from itertools import islice  # , tee
 import logging
 
-from gensim.corpora import Dictionary  #, TextCorpus
+
+from gensim.corpora import Dictionary  # , TextCorpus
 
 # from django.db.models.query import QuerySet, ValuesQuerySet
 # from clayton.util import exponential_verbosity, safe_mod
@@ -216,7 +221,7 @@ class Tokenizer(object):
         if ngrams > 1:
             for i in range(ngrams):
                 igrams = [islice(self.__iter__(ngrams=1), j, None) for j in range(i + 1)]
-                for tok_tuple in izip(*igrams):
+                for tok_tuple in zip(*igrams):
                     yield self.ngram_delim.join(tok_tuple)
         else:
             for w in self.regex.finditer(self.doc):
@@ -383,7 +388,7 @@ class FileBOWGen(object):
 
 
 def interleave_skip(iterables, limit=None):
-    """Like `chain.from_iterable(izip(*iterables))` but doesn't stop at the end of shortest iterable
+    """Like `chain.from_iterable(zip(*iterables))` but doesn't stop at the end of shortest iterable
 
     TODO: equivalent to chain.from_iterable(izip_longest(*iterables)) if obj is not None)
 
@@ -679,3 +684,5 @@ def interleave_skip(iterables, limit=None):
 #             self.last = self.vectorize(doc)
 #         self.last_tfidf = self.tfidf[doc]
 #         return self.lsi[self.last_tfidf]
+
+

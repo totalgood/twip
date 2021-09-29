@@ -21,7 +21,7 @@ pug-nlp==0.1.0
 # core requirements
 twython==3.4.0
 editdistance==0.3.1
-nltk==3.2.1
+nltk==3.6.3
 pandas==0.18.0
 pandas-profiling==1.0.0a2
 
